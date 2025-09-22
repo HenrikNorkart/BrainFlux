@@ -3,6 +3,20 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+
+
+# Custom 
+*.npy
+*.png
+*.csv
+*.json
+*test.py
+
+*.gz
+*.zip
+*.tar
+
+
 # C extensions
 *.so
 
