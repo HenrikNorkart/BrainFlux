@@ -4,12 +4,14 @@ from typing import Iterator
 
 import pandas as pd
 
-from brainflux.dataclasses.eeg import EEGData
+from brainflux.dataclasses import EEGData, DataMeta
 
 
 class BaseLoader(ABC):
 
-    def __init__(self, label_file: str | Path | None = None, *, dev_mode: bool = False):
+    def __init__(
+        self, label_file: str | Path | DataMeta | None = None, *, dev_mode: bool = False
+    ):
         self._label_file = label_file
         self._dev_mode = dev_mode
 
@@ -22,6 +24,9 @@ class BaseLoader(ABC):
 
         if isinstance(self._label_file, str):
             self._label_file = Path(self._label_file)
+
+        elif isinstance(self._label_file, DataMeta):
+            self._label_file = self._label_file.data_path
 
         assert (
             self._label_file.exists()
