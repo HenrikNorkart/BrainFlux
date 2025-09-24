@@ -12,7 +12,10 @@ from brainflux.filters.base_filter import BaseFilter
 
 
 load_dotenv()
-BASE_CACHE_DIR = Path(os.getenv("CACHE_DIR", ".")).resolve()
+
+BASE_CACHE_DIR = Path(__file__).resolve().parent.parent.parent / os.getenv(
+    "CACHE_DIR", ".cache"
+)
 USE_CACHED_DATA = os.getenv("USE_CACHED_DATA", "True").lower() in ("true", "1", "yes")
 
 
