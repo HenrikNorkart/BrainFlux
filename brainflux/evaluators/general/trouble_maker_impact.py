@@ -114,7 +114,7 @@ class TroubleMakerImpactEvaluator(EvaluatorBase):
         fig, axs = self._subplot_init(
             data,
             xlabel="Filter Score",
-            ylabel="Count",
+            ylabel="Metric Score",
         )
 
         for i in range(data.distribution.shape[1]):
