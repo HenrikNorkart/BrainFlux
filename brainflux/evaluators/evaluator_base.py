@@ -116,10 +116,12 @@ class EvaluatorBase(ABC):
         self._data_validation(data)
         self._data_formatting(data)
 
-        self._evaluate(data)
+        res = self._evaluate(data)
 
         if self._save:
             plt.savefig(SAVE_DIR / f"{self._plot_title}.png", dpi=300)
 
         if self._show:
             plt.show(block=self._block)
+
+        return res
