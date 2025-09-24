@@ -10,6 +10,7 @@ def get_trouble_makers_indices(
     labels: np.ndarray,
     keep_percentile: float = 95,
     true_positive_label: int = 1,
+    descending_sort: bool = True,
 ) -> np.ndarray:
     """Get the indices of trouble makers in the data.
 
@@ -52,7 +53,9 @@ def get_trouble_makers_indices(
             non_target_scores_and_indices = list(
                 zip(channel_scores, non_target_indices)
             )
-            non_target_scores_and_indices.sort(reverse=True, key=lambda x: x[0])
+            non_target_scores_and_indices.sort(
+                reverse=descending_sort, key=lambda x: x[0]
+            )
             sorted_non_target_scores, sorted_non_target_indices = zip(
                 *non_target_scores_and_indices
             )
@@ -79,20 +82,20 @@ def get_trouble_makers_indices(
 def get_trouble_makers_patient_ids(
     data: np.ndarray,
     labels: np.ndarray,
-    channel: int | Iterable[int],
     patient_ids: list[str],
+    channel: int | Iterable[int] | None = None,
     keep_percentile: int = 95,
     true_positive_label: int = 1,
-) -> list[str]:
+) -> tuple[list[str], list[int]]:
 
     indices = get_trouble_makers_indices(
-        data[:, channel],
+        data if channel is None else data[:, channel],
         labels,
         keep_percentile=keep_percentile,
         true_positive_label=true_positive_label,
     )
 
-    return [patient_ids[i] for i in indices.reshape(-1)]
+    return [patient_ids[i] for i in indices.reshape(-1)], indices.reshape(-1).tolist()
 
 
 def filter_out_trouble_makers(
