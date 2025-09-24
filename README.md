@@ -1,5 +1,12 @@
 # BrainFlux
 
+<div class="image-container">
+    <img src="cover.png" alt="The BrainFlux logo" />
+</div>
+
+
+## Description
+
 This is the repository for the BrainFlux toolbox for analysis of clinical EEG data.
 
 

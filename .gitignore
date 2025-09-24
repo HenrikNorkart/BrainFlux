@@ -8,6 +8,7 @@ __pycache__/
 # Custom 
 *.npy
 *.png
+!cover.png
 *.csv
 *.json
 *test.py
