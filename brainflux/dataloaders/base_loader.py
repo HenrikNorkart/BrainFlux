@@ -40,6 +40,10 @@ class BaseLoader(ABC):
         self._all_labels_to_find = None
 
     @property
+    def is_in_dev_mode(self) -> bool:
+        return self._dev_mode
+
+    @property
     def has_labels(self) -> bool:
         return self._has_labels
 

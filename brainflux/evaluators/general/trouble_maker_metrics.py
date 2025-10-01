@@ -239,13 +239,19 @@ class TroubleMakerTracker(EvaluatorBase):
                 [data_local[:, i, j].reshape(-1, 1) for (i, j) in tms.channels], axis=-1
             ).reshape(-1, tms.appearances)
 
-            detector_lof.fit(selected_channels)
+            try:
+                detector_lof.fit(selected_channels)
+                tms.lof_score = detector_lof.negative_outlier_factor_[new_index] * -1
+            except ValueError:
+                tms.lof_score = None
 
-            detector_mahalanobis.fit(selected_channels)
-            tms.lof_score = detector_lof.negative_outlier_factor_[new_index] * -1
-            tms.mahalanobis_score = detector_mahalanobis.mahalanobis(
-                selected_channels.reshape(-1, tms.appearances)
-            )[new_index]
+            try:
+                detector_mahalanobis.fit(selected_channels)
+                tms.mahalanobis_score = detector_mahalanobis.mahalanobis(
+                    selected_channels.reshape(-1, tms.appearances)
+                )[new_index]
+            except ValueError:
+                tms.mahalanobis_score = None
 
         return troublemakers_set
 

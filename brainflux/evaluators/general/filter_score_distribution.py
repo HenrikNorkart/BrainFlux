@@ -1,10 +1,10 @@
-import random
-
+# %%
+import imp
 import matplotlib.pyplot as plt
 
-from brainflux.filters import RangeFilter
 from brainflux.aggregators import AggregatedFilterResult
 from brainflux.evaluators.evaluator_base import EvaluatorBase
+import pandas as pd
 
 
 class FilterScoreDistributionsEvaluator(EvaluatorBase):
@@ -40,6 +40,7 @@ class FilterScoreDistributionsEvaluator(EvaluatorBase):
                             density=False,
                             label=f"{v['name']} (n={count})",
                         )
+
                         mean_value = data_to_plot.mean()
                         ax.axvline(
                             mean_value,
@@ -66,7 +67,28 @@ class FilterScoreDistributionsEvaluator(EvaluatorBase):
         for k, v in labels.items():
             ledgers.extend([f"{v['name']}", f"{v['name']} mean"])
 
-        print(ledgers)
         fig.legend(ledgers, loc="upper right")
 
         plt.tight_layout()
+
+
+if __name__ == "__main__":
+    from brainflux.dataloaders import NumpyLoader
+    from brainflux.filters import RangeFilter
+    from brainflux.aggregators import FilterAggregator
+    from brainflux.dataclasses import suppression_ratio
+
+    data_loader = NumpyLoader(label_file="/workspaces/BrainFlux/test_data/train.csv")
+
+    data_filter = RangeFilter(
+        data_source=suppression_ratio, num_ranges=4, num_time_divisions=4
+    )
+
+    res = FilterAggregator(loader=data_loader, data_filter=data_filter).aggregate()
+
+    fsde = FilterScoreDistributionsEvaluator(
+        show=False,
+        save=True,
+        block=False,
+    )
+    fsde.evaluate(res)

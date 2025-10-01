@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 import random
+from typing import Any
 
 import matplotlib.pyplot as plt
-from dotenv import load_dotenv
 import os
 from pathlib import Path
 
 from brainflux.aggregators import AggregatedFilterResult
-from brainflux.filters.base_filter import BaseFilter
+from brainflux.utils import load_dotenv
 
 load_dotenv()
 
@@ -31,6 +31,10 @@ class EvaluatorBase(ABC):
         self._save = save
         self._show = show
         self._plot_title = plot_title
+        self._plot_subtitle: str | None = None
+
+    def set_plot_subtitle(self, text: str) -> None:
+        self._plot_subtitle = f"{text}"
 
     @property
     def plot_title(self) -> str:
@@ -111,7 +115,7 @@ class EvaluatorBase(ABC):
     def _evaluate(self, data: AggregatedFilterResult) -> None:
         pass
 
-    def evaluate(self, data: AggregatedFilterResult) -> None:
+    def evaluate(self, data: AggregatedFilterResult) -> Any:
 
         self._data_validation(data)
         self._data_formatting(data)
@@ -119,7 +123,9 @@ class EvaluatorBase(ABC):
         res = self._evaluate(data)
 
         if self._save:
-            plt.savefig(SAVE_DIR / f"{self._plot_title}.png", dpi=300)
+            plt.savefig(
+                SAVE_DIR / f"{self._plot_title}_{data.data_filter}.png", dpi=300
+            )
 
         if self._show:
             plt.show(block=self._block)

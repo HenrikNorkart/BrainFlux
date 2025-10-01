@@ -1,15 +1,17 @@
+from __future__ import annotations
+
+from functools import wraps
 from pathlib import Path
-from dataclasses import dataclass, field
 import pickle
 import os
 
 import numpy as np
 from tqdm import tqdm
-from dotenv import load_dotenv
 
 from brainflux.dataloaders.base_loader import BaseLoader
 from brainflux.filters.base_filter import BaseFilter
-
+from brainflux.dataclasses import AggregatedFilterResult
+from brainflux.utils import load_dotenv
 
 load_dotenv()
 
@@ -17,87 +19,6 @@ BASE_CACHE_DIR = Path(__file__).resolve().parent.parent.parent / os.getenv(
     "CACHE_DIR", ".cache"
 )
 USE_CACHED_DATA = os.getenv("USE_CACHED_DATA", "True").lower() in ("true", "1", "yes")
-
-
-@dataclass
-class AggregatedFilterResult:
-    distribution: np.ndarray
-    labels: np.ndarray
-    patient_ids: list[str] = field(default_factory=list)
-    data_filter: BaseFilter | list[BaseFilter] | None = None
-
-    def __or__(self, value):
-        if not isinstance(value, AggregatedFilterResult):
-            return NotImplemented
-
-        # Find common patient IDs between self and value
-        common_patient_ids = list(set(self.patient_ids) & set(value.patient_ids))
-        if not common_patient_ids:
-            raise ValueError("No common patient IDs found between the two results")
-
-        # Get indices for common patient IDs in both results
-        self_indices = [
-            i for i, pid in enumerate(self.patient_ids) if pid in common_patient_ids
-        ]
-        value_indices = [
-            i for i, pid in enumerate(value.patient_ids) if pid in common_patient_ids
-        ]
-
-        num_indices = len(self_indices)
-
-        # Filter distributions and labels to only include common patients
-        self_filtered_distribution = self.distribution[self_indices].reshape(
-            num_indices, -1
-        )
-        self_filtered_labels = self.labels[self_indices]
-        value_filtered_distribution = value.distribution[value_indices].reshape(
-            num_indices, -1
-        )
-        value_filtered_labels = value.labels[value_indices]
-
-        for l1, l2 in zip(self_filtered_labels, value_filtered_labels):
-            assert l1 != l2, "Labels do not match for common patient IDs"
-
-        # Ensure both arrays have the same number of samples (rows)
-        assert (
-            self_filtered_distribution.shape[0] == value_filtered_distribution.shape[0]
-        ), "Both distributions must have the same number of samples"
-
-        combined_distribution = np.concatenate(
-            (self_filtered_distribution, value_filtered_distribution), axis=1
-        )
-
-        assert combined_distribution.shape[0] == len(
-            self.labels
-        ), "Number of samples and labels must match"
-        assert combined_distribution.ndim == 2, "Combined distribution must be 2D"
-        assert len(self.patient_ids) == len(
-            self.labels
-        ), "Number of patient IDs and labels must match"
-
-        if isinstance(self.data_filter, BaseFilter) and isinstance(
-            value.data_filter, BaseFilter
-        ):
-            data_filter = [self.data_filter, value.data_filter]
-        elif isinstance(self.data_filter, list) and isinstance(value.data_filter, list):
-            data_filter = self.data_filter + value.data_filter
-        elif isinstance(self.data_filter, BaseFilter) and isinstance(
-            value.data_filter, list
-        ):
-            data_filter = [self.data_filter] + value.data_filter
-        elif isinstance(self.data_filter, list) and isinstance(
-            value.data_filter, BaseFilter
-        ):
-            data_filter = self.data_filter + [value.data_filter]
-        else:
-            data_filter = None
-
-        return AggregatedFilterResult(
-            distribution=combined_distribution,
-            labels=self.labels,
-            patient_ids=self.patient_ids,
-            data_filter=data_filter,
-        )
 
 
 class FilterAggregator:
@@ -109,7 +30,7 @@ class FilterAggregator:
         # assert loader.has_labels, "Loader must have labels to use Aggregator."
 
         self._loader = loader
-        self._filter = data_filter
+        self._filter: BaseFilter = data_filter
         self._data_path = data_filter.data_source.data_path
 
     @property
@@ -119,10 +40,26 @@ class FilterAggregator:
             / f"{Path(self._data_path).name}_{str(self._filter)}_{self._loader.labels_file_name}"
         ).with_suffix(".pkl")
 
+    def call_post_process(func):
+        @wraps(func)
+        def wrapper(self: FilterAggregator, *args, **kwds):
+            results: AggregatedFilterResult = func(self, *args, **kwds)
+            results.distribution = self._filter.post_process_distribution(
+                results.distribution,
+                results.labels,
+            )
+            return results
+
+        return wrapper
+
+    @call_post_process
     def aggregate(self, *, use_cache: bool | None = None) -> AggregatedFilterResult:
 
         if use_cache is None:
             use_cache = USE_CACHED_DATA
+
+        if self._loader.is_in_dev_mode:
+            use_cache = False
 
         # Try to load from cache
         if use_cache:
@@ -130,9 +67,9 @@ class FilterAggregator:
                 print(f"Using cached data from: {self.cache_file}")
                 try:
                     with open(self.cache_file, "rb") as f:
-                        res = pickle.load(f)
-                    if res is not None:
-                        return res
+                        results = pickle.load(f)
+                    if results is not None:
+                        return results
                     else:
                         print(f"Cached file is None, re-aggregating.")
                         self.cache_file.unlink()
