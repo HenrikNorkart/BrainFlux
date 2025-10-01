@@ -23,6 +23,10 @@ class BaseFilter(ABC):
         self._max_value = data_source.data_max_value
         self._data_source = data_source
 
+    @abstractmethod
+    def __repr__(self) -> str:
+        return super().__repr__()
+
     @property
     def data_source(self) -> DataMeta:
         return self._data_source
@@ -41,3 +45,9 @@ class BaseFilter(ABC):
     @abstractmethod
     def _apply(self, eeg_data: EEGData) -> BaseFilterResult:
         pass
+
+    def post_process_distribution(
+        self, aggregated_distribution: np.ndarray, labels: np.ndarray
+    ) -> np.ndarray:
+        print("No post-processing applied to aggregated results.")
+        return aggregated_distribution
