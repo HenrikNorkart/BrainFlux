@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from brainflux.utils.config import (
     LLMConfig,
     RougeOneConfig,
@@ -32,3 +33,9 @@ __all__ = [
     "console_cfg",
     "wandb_cfg",
 ]
+=======
+from brainflux.utils.dotenv import load_dotenv
+
+
+__all__ = ["load_dotenv"]
+>>>>>>> 0c9822f2a3419ecbf5c85730fdf54d77df591db3
