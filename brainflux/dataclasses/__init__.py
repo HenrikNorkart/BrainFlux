@@ -4,10 +4,8 @@ import os
 from brainflux.dataclasses.data_meta import DataMeta
 from brainflux.dataclasses.eeg import EEGData
 from brainflux.dataclasses.aggregation_results import AggregatedFilterResult
+from brainflux.dataclasses.attributes import AttributeExplanation
 
-from brainflux.utils import load_dotenv
-
-load_dotenv()
 
 BASE_DATA_PATH = Path(os.getenv("BASE_DATA_PATH", ".")).resolve()
 
@@ -47,4 +45,5 @@ __all__ = [
     "aEEG",
     "suppression_ratio",
     "spike_detection_10_sec",
+    "AttributeExplanation",
 ]

@@ -8,10 +8,16 @@ __pycache__/
 # Custom 
 *.npy
 *.png
+*.pdf
+*.yml
+tasks/
+wandb/
+*.bin
 !cover.png
 *.csv
 *.json
 *test.py
+.secret.env
 
 *.gz
 *.zip

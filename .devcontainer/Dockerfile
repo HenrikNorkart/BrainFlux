@@ -1,4 +1,5 @@
-FROM nvcr.io/nvidia/pytorch:24.06-py3 
+# FROM nvcr.io/nvidia/pytorch:25.03-py3
+FROM vllm/vllm-openai:latest
 
 
 # Set an argument for the frontend, making it clear this is for build-time
@@ -8,7 +9,5 @@ ENV TZ=Etc/UTC
 
 
 # In your Dockerfile
-RUN apt-get update &&apt-get install -y python3-tk
-
-
+RUN apt-get update && apt-get install -y python3-tk
 
