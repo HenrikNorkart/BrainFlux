@@ -9,8 +9,8 @@ from rich.syntax import Syntax
 import rich.box
 
 
-from brainflux.utils import console_cfg
-from brainflux.utils.singelton import Singleton
+from rogueone.utils import console_cfg
+from rogueone.utils.singelton import Singleton
 import re
 
 

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from dotenv import load_dotenv
 from openai.types.shared.reasoning import Reasoning
 
-from brainflux.utils.singelton import Singleton
+from rogueone.utils.singelton import Singleton
 
 p = Path(__file__).resolve().parent.parent.parent
 load_dotenv(p / ".env")
@@ -124,7 +124,7 @@ class ConsoleConfig(metaclass=Singleton):
         self.disable: bool = os.getenv("CONSOLE_DISABLE", "0") in ["1", "true", "True"]
 
 
-class RougeOneConfig(metaclass=Singleton):
+class rogueoneConfig(metaclass=Singleton):
     def __init__(self):
         self.num_iterations: int = int(os.getenv("ROGUE_ONE_NUM_ITERATIONS", 3))
         self.train_size: float = float(os.getenv("ROGUE_ONE_TRAIN_SIZE", 0.8))

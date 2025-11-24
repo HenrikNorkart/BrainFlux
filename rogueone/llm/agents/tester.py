@@ -42,13 +42,13 @@ import scipy as spy
 import xgboost as xgb
 import optuna
 
-from brainflux.utils import llm_cfg, rouge_one_cfg, test_agent_cfg
-from brainflux.utils.console import ConsoleManager
-from brainflux.utils.config import ExperimentConfig
-from brainflux.utils.wandb_utils import wandb_logging_wrapper
-from brainflux.llm.prompts.agent_roles import AgentRoles
-from brainflux.llm.agents.knowledge import KnowledgeAgent
-from brainflux.llm.agents.web_search import WebSearchAgent
+from rogueone.utils import llm_cfg, rouge_one_cfg, test_agent_cfg
+from rogueone.utils.console import ConsoleManager
+from rogueone.utils.config import ExperimentConfig
+from rogueone.utils.wandb_utils import wandb_logging_wrapper
+from rogueone.llm.prompts.agent_roles import AgentRoles
+from rogueone.llm.agents.knowledge import KnowledgeAgent
+from rogueone.llm.agents.web_search import WebSearchAgent
 
 # set_tracing_disabled(True)
 
@@ -1267,8 +1267,8 @@ class TesterAgent:
 
 if __name__ == "__main__":
 
-    from brainflux.utils.wandb_utils import init_wandb_run
-    from brainflux.utils.config import ExperimentConfig
+    from rogueone.utils.wandb_utils import init_wandb_run
+    from rogueone.utils.config import ExperimentConfig
 
     cfg = ExperimentConfig.from_yaml(
         "/workspaces/BrainFlux/tasks/suppression_rato/config.yml"
@@ -1281,7 +1281,7 @@ if __name__ == "__main__":
 
     df_patients = pd.read_csv("/workspaces/BrainFlux/tmp/df_patients.csv")
 
-    from brainflux.utils.train_test_splitter import TrainTestSplitter
+    from rogueone.utils.train_test_splitter import TrainTestSplitter
     from pathlib import Path
 
     splitter = TrainTestSplitter(

@@ -2,8 +2,8 @@
 from pathlib import Path
 import pandas as pd
 
-from brainflux.utils.console import ConsoleManager
-from brainflux.utils.config import ExperimentConfig
+from rogueone.utils.console import ConsoleManager
+from rogueone.utils.config import ExperimentConfig
 
 
 class TrainTestSplitter:

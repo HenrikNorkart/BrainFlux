@@ -23,17 +23,17 @@ from agents.memory.sqlite_session import SQLiteSession
 from langchain_chroma import Chroma
 from langchain_openai.embeddings import OpenAIEmbeddings
 
-from brainflux.utils import (
+from rogueone.utils import (
     llm_cfg,
     scientist_agent_cfg,
 )
-from brainflux.utils.config import ExperimentConfig
-from brainflux.llm.agents.knowledge import KnowledgeAgent
-from brainflux.llm.agents.web_search import WebSearchAgent
-from brainflux.utils.console import ConsoleManager
-from brainflux.dataclasses import AttributeExplanation
-from brainflux.utils.wandb_utils import wandb_logging_wrapper
-from brainflux.llm.prompts.agent_roles import AgentRoles
+from rogueone.utils.config import ExperimentConfig
+from rogueone.llm.agents.knowledge import KnowledgeAgent
+from rogueone.llm.agents.web_search import WebSearchAgent
+from rogueone.utils.console import ConsoleManager
+from rogueone.dataclasses import AttributeExplanation
+from rogueone.utils.wandb_utils import wandb_logging_wrapper
+from rogueone.llm.prompts.agent_roles import AgentRoles
 
 
 # set_tracing_disabled(True)
@@ -469,7 +469,7 @@ if __name__ == "__main__":
 
     import json
     from pathlib import Path
-    from brainflux.utils.config import ExperimentConfig
+    from rogueone.utils.config import ExperimentConfig
 
     cfg = ExperimentConfig.from_yaml(
         "/workspaces/BrainFlux/tasks/suppression_rato/config.yml"

@@ -2,9 +2,9 @@
 
 import wandb
 
-from brainflux.utils import wandb_cfg, rouge_one_cfg
-from brainflux.utils.config import ExperimentConfig
-from brainflux.utils.console import ConsoleManager
+from rogueone.utils import wandb_cfg, rouge_one_cfg
+from rogueone.utils.config import ExperimentConfig
+from rogueone.utils.console import ConsoleManager
 
 
 # atexit.register(wandb.finish if rouge_one_cfg.do_logging else lambda: None)

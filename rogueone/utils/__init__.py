@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-from brainflux.utils.config import (
+from rogueone.utils.config import (
     LLMConfig,
-    RougeOneConfig,
+    rogueoneConfig,
     EmbeddingConfig,
     ExtractorAgentConfig,
     MedicalKnowledgeAgentConfig,
@@ -13,7 +12,7 @@ from brainflux.utils.config import (
 
 
 llm_cfg = LLMConfig()
-rouge_one_cfg = RougeOneConfig()
+rouge_one_cfg = rogueoneConfig()
 embedding_cfg = EmbeddingConfig()
 extractor_agent_cfg = ExtractorAgentConfig()
 knowledge_agent_cfg = MedicalKnowledgeAgentConfig()
@@ -33,9 +32,3 @@ __all__ = [
     "console_cfg",
     "wandb_cfg",
 ]
-=======
-from brainflux.utils.dotenv import load_dotenv
-
-
-__all__ = ["load_dotenv"]
->>>>>>> 0c9822f2a3419ecbf5c85730fdf54d77df591db3

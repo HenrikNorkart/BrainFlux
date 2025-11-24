@@ -22,14 +22,14 @@ import scipy.signal as signal
 import tsfresh
 from agents.memory.sqlite_session import SQLiteSession
 
-from brainflux.dataclasses.attributes import AttributeExplanation
-from brainflux.utils.console import ConsoleManager
-from brainflux.utils import llm_cfg, extractor_agent_cfg
-from brainflux.utils.config import ExperimentConfig
-from brainflux.utils.wandb_utils import wandb_logging_wrapper
-from brainflux.llm.prompts.agent_roles import AgentRoles
-from brainflux.llm.agents.knowledge import KnowledgeAgent
-from brainflux.llm.agents.web_search import WebSearchAgent
+from rogueone.dataclasses.attributes import AttributeExplanation
+from rogueone.utils.console import ConsoleManager
+from rogueone.utils import llm_cfg, extractor_agent_cfg
+from rogueone.utils.config import ExperimentConfig
+from rogueone.utils.wandb_utils import wandb_logging_wrapper
+from rogueone.llm.prompts.agent_roles import AgentRoles
+from rogueone.llm.agents.knowledge import KnowledgeAgent
+from rogueone.llm.agents.web_search import WebSearchAgent
 
 
 # set_tracing_disabled(True)

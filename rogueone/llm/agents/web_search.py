@@ -31,9 +31,9 @@ from langchain_openai.embeddings import OpenAIEmbeddings
 from langchain_core.documents import Document
 from langchain_community.utilities import GoogleSerperAPIWrapper
 
-from brainflux.utils import embedding_cfg, llm_cfg, knowledge_agent_cfg
-from brainflux.utils.console import ConsoleManager
-from brainflux.utils.config import ExperimentConfig
+from rogueone.utils import embedding_cfg, llm_cfg, knowledge_agent_cfg
+from rogueone.utils.console import ConsoleManager
+from rogueone.utils.config import ExperimentConfig
 
 
 # set_tracing_disabled(True)
