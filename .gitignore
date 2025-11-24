@@ -18,6 +18,7 @@ wandb/
 *.json
 *test.py
 .secret.env
+*sqlite3
 
 *.gz
 *.zip

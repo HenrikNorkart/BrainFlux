@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="BrainFlux",
+    name="RogueOne",
     version="0.1.0",
-    description="A package for BrainFlux project.",
+    description="A package for RogueOne project.",
     author="Your Name",
     author_email="your.email@example.com",
     packages=find_packages(),

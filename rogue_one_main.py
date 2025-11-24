@@ -14,18 +14,18 @@ set_tracing_disabled(True)
 
 # set_trace_processors([WeaveTracingProcessor()])
 
-from brainflux.utils import rouge_one_cfg
-from brainflux.utils.config import ExperimentConfig
-from brainflux.utils.train_test_splitter import TrainTestSplitter
-from brainflux.utils.console import ConsoleManager
-from brainflux.llm.agents import (
+from rogueone.utils import rouge_one_cfg
+from rogueone.utils.config import ExperimentConfig
+from rogueone.utils.train_test_splitter import TrainTestSplitter
+from rogueone.utils.console import ConsoleManager
+from rogueone.llm.agents import (
     ExtractorAgent,
     ScientistAgent,
     TesterAgent,
 )
-from brainflux.dataclasses import AttributeExplanation
-from brainflux.utils.wandb_utils import init_wandb_run, wandb_logging_wrapper
-from brainflux.utils.run_vllm import start_vllm_servers
+from rogueone.dataclasses import AttributeExplanation
+from rogueone.utils.wandb_utils import init_wandb_run, wandb_logging_wrapper
+from rogueone.utils.run_vllm import start_vllm_servers
 
 
 @dataclass
