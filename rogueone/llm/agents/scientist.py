@@ -49,7 +49,7 @@ class ScientistAgent:
 
         self._note_book = ""
 
-    def determine_focus(
+    async def determine_focus(
         self,
         df_raw_data: pd.DataFrame,
         df_test_results: pd.DataFrame | None,
@@ -434,7 +434,7 @@ class ScientistAgent:
                     continue
             return "Unable to determine focus."
 
-        focus = asyncio.run(main())
+        focus = await main()
 
         @wandb_logging_wrapper
         def log_focus_to_wandb():

@@ -1,3 +1,4 @@
+import asyncio
 from dataclasses import dataclass
 
 import pandas as pd
@@ -40,7 +41,6 @@ class TestResult:
 class RogueOneAgentNetwork:
 
     def __init__(self, cfg: ExperimentConfig):
-        start_vllm_servers()
 
         self.cfg = cfg
 
@@ -61,7 +61,7 @@ class RogueOneAgentNetwork:
 
         self.extractor_agent = ExtractorAgent(self.cfg)
         self.scientist_agent = ScientistAgent(self.cfg)
-        self.tester_agent = TesterAgent(self.cfg)
+        self.tester_agent = TesterAgent(self.cfg, include_report=True)
 
         self.splitter = TrainTestSplitter(
             cfg=self.cfg,
@@ -76,7 +76,7 @@ class RogueOneAgentNetwork:
         # self.attributes_explanations: dict[str, AttributeExplanation] = {}
         self.focus_history = []
 
-    def update_attribute_pool(self, attribute_explanations: pd.DataFrame):
+    async def update_attribute_pool(self, attribute_explanations: pd.DataFrame):
         for _, attr in attribute_explanations.iterrows():
             mask = self.df_attributes_explanations["Attribute"] == attr["Attribute"]
             if mask.any():
@@ -106,10 +106,10 @@ class RogueOneAgentNetwork:
             self.df_test_pool.copy() if self.df_test_pool is not None else None
         )
 
-    def forward_pass(self, index: int):
+    async def forward_pass(self, index: int):
         ######### Setting Focus of Investigation #########
         ConsoleManager.console_rule("Setting Focus of Investigation")
-        focus = self.scientist_agent.determine_focus(
+        focus = await self.scientist_agent.determine_focus(
             self.df,
             self.df_test_pool,
             self.df_attributes_explanations,
@@ -125,7 +125,7 @@ class RogueOneAgentNetwork:
         ConsoleManager.console_rule("Extracting Attributes")
         ConsoleManager.progress_bar_update(description="Extracting attributes")
         self.df_entities_attributes, _attribute_explanations = (
-            self.extractor_agent.generate_patient_attributes(
+            await self.extractor_agent.generate_patient_attributes(
                 self.df, self.df_entities_attributes, focus, step=index
             )
         )
@@ -146,7 +146,7 @@ class RogueOneAgentNetwork:
             )
             return
 
-        self.update_attribute_pool(_attribute_explanations)
+        await self.update_attribute_pool(_attribute_explanations)
 
         ConsoleManager.console_print(f"Extracted {num_new_attributes} attributes.\n")
 
@@ -156,11 +156,11 @@ class RogueOneAgentNetwork:
 
         match self.cfg.modality:
             case "tabular":
-                df_entities_folds = self.splitter.k_fold_split(
+                df_entities_folds = await self.splitter.k_fold_split(
                     self.df_entities_attributes, k=rouge_one_cfg.k_folds
                 )
             case "time_series":
-                df_entities_folds = self.splitter.test_train_split(
+                df_entities_folds = await self.splitter.test_train_split(
                     self.df_entities_attributes
                 )
             case _:
@@ -169,14 +169,14 @@ class RogueOneAgentNetwork:
         ######### Generating and Testing Hypotheses #########
         ConsoleManager.console_rule("Generating and Testing Hypotheses")
         ConsoleManager.progress_bar_update(description="Testing hypotheses")
-        test_results, _attribute_explanations = self.tester_agent.test_hypotheses(
+        test_results, _attribute_explanations = await self.tester_agent.test_hypotheses(
             df_entities_folds,
             self.df_attributes_explanations,
             step=index,
         )
-        self.update_attribute_pool(_attribute_explanations)
+        await self.update_attribute_pool(_attribute_explanations)
         test_results = test_results.as_dict.copy()
-        test_results["id"] = "Trial " + str(index + 1)
+        test_results["id"] = "Trial " + str(index)
 
         if self.df_test_pool is None:
             self.df_test_pool = pd.DataFrame([test_results])
@@ -188,32 +188,32 @@ class RogueOneAgentNetwork:
 
         report = test_results.pop("report")
 
-        self.dump_data(index)
-        self.save_report(report, index)
+        await self.dump_data(index)
+        await self.save_report(report, index)
         ConsoleManager.print_dict_as_table(test_results)
         ConsoleManager.console_print(report)
 
-    def dump_data(self, step: int):
+    async def dump_data(self, step: int):
         dst_dir = self.cfg.output_dir / "intermediate_steps"
         if not dst_dir.exists():
             dst_dir.mkdir(parents=True)
 
         self.df_entities_attributes.to_csv(
-            dst_dir / f"df_entities_attributes_trail_{step+1}.csv",
+            dst_dir / f"df_entities_attributes_trail_{step}.csv",
             index=False,
         )
 
-    def save_report(self, report: str | None, index: int):
+    async def save_report(self, report: str | None, index: int):
         if report is None:
             return
         dir = self.cfg.output_dir / "tester_reports"
         if not dir.exists():
             dir.mkdir(parents=True)
-        dst_path = dir / f"tester_report_iteration_{index+1}.md"
+        dst_path = dir / f"tester_report_iteration_{index}.md"
         with open(dst_path, "w") as f:
             f.write(report)
 
-    def save_data(self):
+    async def save_data(self):
         dst_path = self.cfg.output_dir
 
         df_test_pool_path = dst_path / "df_test_pool_final.csv"
@@ -244,7 +244,7 @@ class RogueOneAgentNetwork:
 
         log_wandb_metrics()
 
-    def main(self):
+    async def main(self):
         ConsoleManager.reset_progress_bar()
         with Live(
             ConsoleManager().progress_bar,
@@ -259,11 +259,11 @@ class RogueOneAgentNetwork:
 
             for i in range(rouge_one_cfg.num_iterations):
                 ConsoleManager.progress_bar_update(completed=i)
-                self.forward_pass(i)
+                await self.forward_pass(i)
 
                 # break  # For now, only one iteration
             ConsoleManager.console_rule("Final Results")
-            self.save_data()
+            await self.save_data()
             ConsoleManager.print_dataframe_as_table(
                 self.df_test_pool.iloc[:, :5], title="Final Test Pool (First 5 Columns)"
             )
@@ -279,7 +279,7 @@ class RogueOneAgentNetwork:
 
 if __name__ == "__main__":
 
-    for p in [
+    paths = [
         ### Custom tasks
         # Path("/workspace/tasks/aphasia/config.yml"),
         # Path("/workspace/tasks/suppression_rato/config.yml"),
@@ -300,7 +300,7 @@ if __name__ == "__main__":
         Path("/workspace/tasks/classification/myocardial/config.yml"),
         Path("/workspace/tasks/classification/tic-tac-toe/config.yml"),
         Path("/workspace/tasks/classification/junglechess/config.yml"),
-        Path("/workspace/tasks/classification/communities/config.yml"),
+        Path("/workspace/tasks/classification/communities/config.yml"),  # Skipped?
         Path("/workspace/tasks/classification/eucalyptus/config.yml"),
         Path("/workspace/tasks/classification/blood/config.yml"),
         Path("/workspace/tasks/classification/car/config.yml"),
@@ -313,9 +313,9 @@ if __name__ == "__main__":
         Path("/workspace/tasks/classification/heart/config.yml"),
         Path("/workspace/tasks/classification/vehicle/config.yml"),
         Path("/workspace/tasks/classification/credit-g/config.yml"),
-        #
-        #
-        ### Tabular Regression
+        # #
+        # #
+        # ### Tabular Regression
         Path("/workspace/tasks/regression/forest-fires/config.yml"),
         Path("/workspace/tasks/regression/airfoil_self_noice/config.yml"),
         Path("/workspace/tasks/regression/wine/config.yml"),
@@ -325,7 +325,17 @@ if __name__ == "__main__":
         Path("/workspace/tasks/regression/crab/config.yml"),
         Path("/workspace/tasks/regression/diamonds/config.yml"),
         Path("/workspace/tasks/regression/bike/config.yml"),
-    ]:
-        cfg = ExperimentConfig.from_yaml(p)
+    ]
 
-        RogueOneAgentNetwork(cfg).main()
+    async def run_experiments():
+        for p in paths:
+            try:
+                cfg = ExperimentConfig.from_yaml(p)
+                await RogueOneAgentNetwork(cfg).main()
+            except Exception as e:
+                ConsoleManager.console_error_print(
+                    f"Error running experiment for config {p}: {e}"
+                )
+
+    start_vllm_servers()
+    asyncio.run(run_experiments())

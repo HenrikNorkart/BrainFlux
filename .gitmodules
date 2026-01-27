@@ -1,0 +1,3 @@
+[submodule "brainflux"]
+	path = brainflux
+	url = https://github.com/BrainFlux-Lab/filter-repository-python.git

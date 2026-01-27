@@ -34,7 +34,7 @@ def sign_in_wandb():
         ConsoleManager.console_error_print(f"Failed to login with WANDB_API_KEY: {e}")
 
 
-def init_wandb_run(cfg: ExperimentConfig):
+def init_wandb_run(cfg: ExperimentConfig, **kwargs):
 
     sign_in_wandb()
 
@@ -48,11 +48,15 @@ def init_wandb_run(cfg: ExperimentConfig):
     ConsoleManager.console_print(
         f"Initializing Weights & Biases run for {cfg.experiment_name}", style="cyan"
     )
+
+    conf = cfg.to_dict()
+    conf.update(kwargs)
+
     run = wandb.init(
         project=wandb_cfg.project_name,
         entity=wandb_cfg.entity,
         name=cfg.experiment_name,
-        config=cfg.to_dict(),
+        config=conf,
     )
     ConsoleManager.console_print(
         f"Weights & Biases run initialized: {run.name} ({run.id})", style="green"

@@ -2,7 +2,6 @@ import asyncio
 import contextlib
 from dataclasses import dataclass
 import multiprocessing
-import queue
 from textwrap import dedent
 import io
 from collections import defaultdict
@@ -53,7 +52,7 @@ from rogueone.llm.agents.web_search import WebSearchAgent
 # set_tracing_disabled(True)
 
 GPUS = [
-    # "cuda:3",
+    "cuda:3",
     "cuda:4",
     "cuda:5",
     "cuda:6",
@@ -247,8 +246,9 @@ class CodeInput(BaseModel):
 
 class TesterAgent:
 
-    def __init__(self, cfg: ExperimentConfig):
+    def __init__(self, cfg: ExperimentConfig, *, include_report: bool = True):
         self.cfg_experiment = cfg
+        self.include_report = include_report
         self.knowledge_agent = WebSearchAgent(
             cfg=self.cfg_experiment  # , collection_name="tester_knowledge_collection"
         )
@@ -265,7 +265,7 @@ class TesterAgent:
 
         return df_pruned
 
-    def test_hypotheses(
+    async def test_hypotheses(
         self,
         df_attributes_folds: list[pd.DataFrame],
         df_attribute_explanations: pd.DataFrame,
@@ -624,7 +624,7 @@ class TesterAgent:
                     - When using the 'generic_python_executor_tool' tool, ensure that your code is well-documented and easy to understand.
                     - DO NOT provide recommendations for feature engineering or data preprocessing. Focus solely on evaluating the features as they are provided.
                     - Prune features that do not contribute meaningfully to the prediction task using the 'attribute_pruning_tool'. The overall number of features should be kept manageable.
-                    - When using XGBoost, always pass device="cuda:5" and tree_method="hist" in the model parameters to run on the appropriate GPU (much faster).
+                    - When using XGBoost, always pass device="cpu" and tree_method="hist" in the model parameters to run on CPU.
                 
                     """,
                 model=OpenAIResponsesModel(
@@ -1117,7 +1117,7 @@ class TesterAgent:
                 aurocs=[aurec],
             )
 
-        report = asyncio.run(generate_report())
+        report = await generate_report()
 
         df_attributes = self.prune_attributes_in_df(
             df_attributes, df_attribute_explanations
@@ -1139,7 +1139,10 @@ class TesterAgent:
             case _:
                 raise ValueError(f"Unknown task type: {self.cfg_experiment.task_type}")
 
-        results.report = report
+        if self.include_report:
+            results.report = report
+        else:
+            results.report = ""
 
         @wandb_logging_wrapper
         def log_results_to_wandb():
@@ -1196,7 +1199,7 @@ class TesterAgent:
                 tmp.close()
 
                 artifact = wandb.Artifact(
-                    name=f"Test_assessment_report_Trail_{step+1}", type="report"
+                    name=f"Test_assessment_report_Trail_{step}", type="report"
                 )
                 artifact.add_file(tmp_path)
                 wandb.log_artifact(artifact)

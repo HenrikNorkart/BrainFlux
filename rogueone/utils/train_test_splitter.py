@@ -24,7 +24,9 @@ class TrainTestSplitter:
 
         self.labels = pd.read_csv(labels_file_path)
 
-    def test_train_split(self, df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    async def test_train_split(
+        self, df: pd.DataFrame
+    ) -> tuple[pd.DataFrame, pd.DataFrame]:
         """Split the DataFrame into train and test sets.
 
         Args:
@@ -102,7 +104,7 @@ class TrainTestSplitter:
 
         return df_train, df_test
 
-    def k_fold_split(self, df: pd.DataFrame, k: int) -> list[pd.DataFrame]:
+    async def k_fold_split(self, df: pd.DataFrame, k: int) -> list[pd.DataFrame]:
         """Perform k-fold cross-validation split.
 
         Args:

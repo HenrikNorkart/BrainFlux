@@ -73,7 +73,7 @@ class ExtractorAgent:
             cfg=self.cfg_experiment  # , collection_name="feature_extraction_literature"
         )
 
-    def generate_patient_attributes(
+    async def generate_patient_attributes(
         self,
         _df: pd.DataFrame,
         _df_patients: pd.DataFrame,
@@ -415,7 +415,7 @@ class ExtractorAgent:
                         argumentation=args.argumentation,
                         command=args.command,
                         status="Active",
-                        added=f"Trail {step+1}" if step is not None else "N/A",
+                        added=f"Trail {step}" if step is not None else "N/A",
                     )
                 )
                 know_attributes.add(args.name)
@@ -556,7 +556,7 @@ class ExtractorAgent:
                 except Exception:
                     continue
 
-        asyncio.run(main())
+        await main()
 
         @wandb_logging_wrapper
         def log_extractor_tool_calls():
