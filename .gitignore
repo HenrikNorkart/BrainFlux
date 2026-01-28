@@ -10,7 +10,6 @@ __pycache__/
 *.png
 *.pdf
 *.yml
-# tasks/
 wandb/
 *.bin
 !cover.png
@@ -19,6 +18,8 @@ wandb/
 *test.py
 .secret.env
 *sqlite3
+!tasks/
+
 
 *.gz
 *.zip

@@ -1,0 +1,276 @@
+context_and_goal: "\n            This is a classification task where the goal is to predict the presence of arrhythmia based on various ECG features. \n            Here are some details about the features found in the dataset:\n            {\n   \
+  \ \"age\": \"Age in years\",\n    \"sex\": \"Sex (0 = male; 1 = female)\",\n   \
+  \ \"height\": \"Height in centimeters\",\n    \"weight\": \"Weight in kilograms\"\
+  ,\n    \"QRSduration\": \"Average of QRS duration in msec.\",\n    \"PRinterval\"\
+  : \"Average duration between onset of P and Q waves in msec.\",\n    \"Q-Tinterval\"\
+  : \"Average duration between onset of Q and offset of T waves in msec.\",\n    \"\
+  Tinterval\": \"Average duration of T wave in msec.\",\n    \"Pinterval\": \"Average\
+  \ duration of P wave in msec.\",\n    \"QRS\": \"Vector angles in degrees on front\
+  \ plane of: QRS\",\n    \"T\": \"Vector angles in degrees on front plane of: T\"\
+  ,\n    \"P\": \"Vector angles in degrees on front plane of: P\",\n    \"QRST\":\
+  \ \"Vector angles in degrees on front plane of: QRST\",\n    \"J\": \"Vector angles\
+  \ in degrees on front plane of: J\",\n    \"heartrate\": \"Number of heart beats\
+  \ per minute\",\n    \"chDI_Qwave\": \"Average width of DI, in msec., of: Q wave\"\
+  ,\n    \"chDI_Rwave\": \"Average width of DI, in msec., of: R wave\",\n    \"chDI_Swave\"\
+  : \"Average width of DI, in msec., of: S wave\",\n    \"chDI_RPwave\": \"Average\
+  \ width of DI, in msec., of: R' wave, small peak just after R\",\n    \"chDI_SPwave\"\
+  : \"Average width of DI, in msec., of: S' wave\",\n    \"chDI_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of DI\",\n    \"chDI_RRwaveExists\": \"Existence\
+  \ of ragged R wave of DI\",\n    \"chDI_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of DI\",\n    \"chDI_RPwaveExists\": \"Existence of ragged\
+  \ P wave of DI\",\n    \"chDI_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of DI\",\n    \"chDI_RTwaveExists\": \"Existence of ragged T wave of\
+  \ DI\",\n    \"chDI_DD_RTwaveExists\": \"Existence of diphasic derivation of T wave\
+  \ of DI\",\n    \"chDII_Qwave\": \"Average width of DII, in msec., of: Q wave\"\
+  ,\n    \"chDII_Rwave\": \"Average width of DII, in msec., of: R wave\",\n    \"\
+  chDII_Swave\": \"Average width of DII, in msec., of: S wave\",\n    \"chDII_RPwave\"\
+  : \"Average width of DII, in msec., of: R' wave, small peak just after R\",\n  \
+  \  \"chDII_SPwave\": \"Average width of DII, in msec., of: S' wave\",\n    \"chDII_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of DII\",\n    \"chDII_RRwaveExists\": \"Existence\
+  \ of ragged R wave of DII\",\n    \"chDII_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of DII\",\n    \"chDII_RPwaveExists\": \"Existence of ragged\
+  \ P wave of DII\",\n    \"chDII_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of DII\",\n    \"chDII_RTwaveExists\": \"Existence of ragged T wave\
+  \ of DII\",\n    \"chDII_DD_RTwaveExists\": \"Existence of diphasic derivation of\
+  \ T wave of DII\",\n    \"chDIII_Qwave\": \"Average width of DIII, in msec., of:\
+  \ Q wave\",\n    \"chDIII_Rwave\": \"Average width of DIII, in msec., of: R wave\"\
+  ,\n    \"chDIII_Swave\": \"Average width of DIII, in msec., of: S wave\",\n    \"\
+  chDIII_RPwave\": \"Average width of DIII, in msec., of: R' wave, small peak just\
+  \ after R\",\n    \"chDIII_SPwave\": \"Average width of DIII, in msec., of: S' wave\"\
+  ,\n    \"chDIII_intrinsicReflecttions\": \"Number of intrinsic deflections of DIII\"\
+  ,\n    \"chDIII_RRwaveExists\": \"Existence of ragged R wave of DIII\",\n    \"\
+  chDIII_DD_RRwaveExists\": \"Existence of diphasic derivation of R wave of DIII\"\
+  ,\n    \"chDIII_RPwaveExists\": \"Existence of ragged P wave of DIII\",\n    \"\
+  chDIII_DD_RPwaveExists\": \"Existence of diphasic derivation of P wave of DIII\"\
+  ,\n    \"chDIII_RTwaveExists\": \"Existence of ragged T wave of DIII\",\n    \"\
+  chDIII_DD_RTwaveExists\": \"Existence of diphasic derivation of T wave of DIII\"\
+  ,\n    \"chAVR_Qwave\": \"Average width of AVR, in msec., of: Q wave\",\n    \"\
+  chAVR_Rwave\": \"Average width of AVR, in msec., of: R wave\",\n    \"chAVR_Swave\"\
+  : \"Average width of AVR, in msec., of: S wave\",\n    \"chAVR_RPwave\": \"Average\
+  \ width of AVR, in msec., of: R' wave, small peak just after R\",\n    \"chAVR_SPwave\"\
+  : \"Average width of AVR, in msec., of: S' wave\",\n    \"chAVR_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of AVR\",\n    \"chAVR_RRwaveExists\": \"Existence\
+  \ of ragged R wave of AVR\",\n    \"chAVR_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of AVR\",\n    \"chAVR_RPwaveExists\": \"Existence of ragged\
+  \ P wave of AVR\",\n    \"chAVR_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of AVR\",\n    \"chAVR_RTwaveExists\": \"Existence of ragged T wave\
+  \ of AVR\",\n    \"chAVR_DD_RTwaveExists\": \"Existence of diphasic derivation of\
+  \ T wave of AVR\",\n    \"chAVL_Qwave\": \"Average width of AVL, in msec., of: Q\
+  \ wave\",\n    \"chAVL_Rwave\": \"Average width of AVL, in msec., of: R wave\",\n\
+  \    \"chAVL_Swave\": \"Average width of AVL, in msec., of: S wave\",\n    \"chAVL_RPwave\"\
+  : \"Average width of AVL, in msec., of: R' wave, small peak just after R\",\n  \
+  \  \"chAVL_SPwave\": \"Average width of AVL, in msec., of: S' wave\",\n    \"chAVL_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of AVL\",\n    \"chAVL_RRwaveExists\": \"Existence\
+  \ of ragged R wave of AVL\",\n    \"chAVL_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of AVL\",\n    \"chAVL_RPwaveExists\": \"Existence of ragged\
+  \ P wave of AVL\",\n    \"chAVL_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of AVL\",\n    \"chAVL_RTwaveExists\": \"Existence of ragged T wave\
+  \ of AVL\",\n    \"chAVL_DD_RTwaveExists\": \"Existence of diphasic derivation of\
+  \ T wave of AVL\",\n    \"chAVF_Qwave\": \"Average width of AVF, in msec., of: Q\
+  \ wave\",\n    \"chAVF_Rwave\": \"Average width of AVF, in msec., of: R wave\",\n\
+  \    \"chAVF_Swave\": \"Average width of AVF, in msec., of: S wave\",\n    \"chAVF_RPwave\"\
+  : \"Average width of AVF, in msec., of: R' wave, small peak just after R\",\n  \
+  \  \"chAVF_SPwave\": \"Average width of AVF, in msec., of: S' wave\",\n    \"chAVF_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of AVF\",\n    \"chAVF_RRwaveExists\": \"Existence\
+  \ of ragged R wave of AVF\",\n    \"chAVF_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of AVF\",\n    \"chAVF_RPwaveExists\": \"Existence of ragged\
+  \ P wave of AVF\",\n    \"chAVF_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of AVF\",\n    \"chAVF_RTwaveExists\": \"Existence of ragged T wave\
+  \ of AVF\",\n    \"chAVF_DD_RTwaveExists\": \"Existence of diphasic derivation of\
+  \ T wave of AVF\",\n    \"chV1_Qwave\": \"Average width of V1, in msec., of: Q wave\"\
+  ,\n    \"chV1_Rwave\": \"Average width of V1, in msec., of: R wave\",\n    \"chV1_Swave\"\
+  : \"Average width of V1, in msec., of: S wave\",\n    \"chV1_RPwave\": \"Average\
+  \ width of V1, in msec., of: R' wave, small peak just after R\",\n    \"chV1_SPwave\"\
+  : \"Average width of V1, in msec., of: S' wave\",\n    \"chV1_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of V1\",\n    \"chV1_RRwaveExists\": \"Existence\
+  \ of ragged R wave of V1\",\n    \"chV1_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of V1\",\n    \"chV1_RPwaveExists\": \"Existence of ragged\
+  \ P wave of V1\",\n    \"chV1_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of V1\",\n    \"chV1_RTwaveExists\": \"Existence of ragged T wave of\
+  \ V1\",\n    \"chV1_DD_RTwaveExists\": \"Existence of diphasic derivation of T wave\
+  \ of V1\",\n    \"chV2_Qwave\": \"Average width of V2, in msec., of: Q wave\",\n\
+  \    \"chV2_Rwave\": \"Average width of V2, in msec., of: R wave\",\n    \"chV2_Swave\"\
+  : \"Average width of V2, in msec., of: S wave\",\n    \"chV2_RPwave\": \"Average\
+  \ width of V2, in msec., of: R' wave, small peak just after R\",\n    \"chV2_SPwave\"\
+  : \"Average width of V2, in msec., of: S' wave\",\n    \"chV2_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of V2\",\n    \"chV2_RRwaveExists\": \"Existence\
+  \ of ragged R wave of V2\",\n    \"chV2_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of V2\",\n    \"chV2_RPwaveExists\": \"Existence of ragged\
+  \ P wave of V2\",\n    \"chV2_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of V2\",\n    \"chV2_RTwaveExists\": \"Existence of ragged T wave of\
+  \ V2\",\n    \"chV2_DD_RTwaveExists\": \"Existence of diphasic derivation of T wave\
+  \ of V2\",\n    \"chV3_Qwave\": \"Average width of V3, in msec., of: Q wave\",\n\
+  \    \"chV3_Rwave\": \"Average width of V3, in msec., of: R wave\",\n    \"chV3_Swave\"\
+  : \"Average width of V3, in msec., of: S wave\",\n    \"chV3_RPwave\": \"Average\
+  \ width of V3, in msec., of: R' wave, small peak just after R\",\n    \"chV3_SPwave\"\
+  : \"Average width of V3, in msec., of: S' wave\",\n    \"chV3_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of V3\",\n    \"chV3_RRwaveExists\": \"Existence\
+  \ of ragged R wave of V3\",\n    \"chV3_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of V3\",\n    \"chV3_RPwaveExists\": \"Existence of ragged\
+  \ P wave of V3\",\n    \"chV3_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of V3\",\n    \"chV3_RTwaveExists\": \"Existence of ragged T wave of\
+  \ V3\",\n    \"chV3_DD_RTwaveExists\": \"Existence of diphasic derivation of T wave\
+  \ of V3\",\n    \"chV4_Qwave\": \"Average width of V4, in msec., of: Q wave\",\n\
+  \    \"chV4_Rwave\": \"Average width of V4, in msec., of: R wave\",\n    \"chV4_Swave\"\
+  : \"Average width of V4, in msec., of: S wave\",\n    \"chV4_RPwave\": \"Average\
+  \ width of V4, in msec., of: R' wave, small peak just after R\",\n    \"chV4_SPwave\"\
+  : \"Average width of V4, in msec., of: S' wave\",\n    \"chV4_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of V4\",\n    \"chV4_RRwaveExists\": \"Existence\
+  \ of ragged R wave of V4\",\n    \"chV4_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of V4\",\n    \"chV4_RPwaveExists\": \"Existence of ragged\
+  \ P wave of V4\",\n    \"chV4_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of V4\",\n    \"chV4_RTwaveExists\": \"Existence of ragged T wave of\
+  \ V4\",\n    \"chV4_DD_RTwaveExists\": \"Existence of diphasic derivation of T wave\
+  \ of V4\",\n    \"chV5_Qwave\": \"Average width of V5, in msec., of: Q wave\",\n\
+  \    \"chV5_Rwave\": \"Average width of V5, in msec., of: R wave\",\n    \"chV5_Swave\"\
+  : \"Average width of V5, in msec., of: S wave\",\n    \"chV5_RPwave\": \"Average\
+  \ width of V5, in msec., of: R' wave, small peak just after R\",\n    \"chV5_SPwave\"\
+  : \"Average width of V5, in msec., of: S' wave\",\n    \"chV5_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of V5\",\n    \"chV5_RRwaveExists\": \"Existence\
+  \ of ragged R wave of V5\",\n    \"chV5_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of V5\",\n    \"chV5_RPwaveExists\": \"Existence of ragged\
+  \ P wave of V5\",\n    \"chV5_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of V5\",\n    \"chV5_RTwaveExists\": \"Existence of ragged T wave of\
+  \ V5\",\n    \"chV5_DD_RTwaveExists\": \"Existence of diphasic derivation of T wave\
+  \ of V5\",\n    \"chV6_Qwave\": \"Average width of V6, in msec., of: Q wave\",\n\
+  \    \"chV6_Rwave\": \"Average width of V6, in msec., of: R wave\",\n    \"chV6_Swave\"\
+  : \"Average width of V6, in msec., of: S wave\",\n    \"chV6_RPwave\": \"Average\
+  \ width of V6, in msec., of: R' wave, small peak just after R\",\n    \"chV6_SPwave\"\
+  : \"Average width of V6, in msec., of: S' wave\",\n    \"chV6_intrinsicReflecttions\"\
+  : \"Number of intrinsic deflections of V6\",\n    \"chV6_RRwaveExists\": \"Existence\
+  \ of ragged R wave of V6\",\n    \"chV6_DD_RRwaveExists\": \"Existence of diphasic\
+  \ derivation of R wave of V6\",\n    \"chV6_RPwaveExists\": \"Existence of ragged\
+  \ P wave of V6\",\n    \"chV6_DD_RPwaveExists\": \"Existence of diphasic derivation\
+  \ of P wave of V6\",\n    \"chV6_RTwaveExists\": \"Existence of ragged T wave of\
+  \ V6\",\n    \"chV6_DD_RTwaveExists\": \"Existence of diphasic derivation of T wave\
+  \ of V6\",\n    \"chDI_JJwaveAmp\": \"Amplitude DI, * 0.1 milivolt, of JJ wave\"\
+  ,\n    \"chDI_QwaveAmp\": \"Amplitude DI, * 0.1 milivolt, of Q wave\",\n    \"chDI_RwaveAmp\"\
+  : \"Amplitude DI, * 0.1 milivolt, of R wave\",\n    \"chDI_SwaveAmp\": \"Amplitude\
+  \ DI, * 0.1 milivolt, of S wave\",\n    \"chDI_RPwaveAmp\": \"Amplitude DI, * 0.1\
+  \ milivolt, of R' wave\",\n    \"chDI_SPwaveAmp\": \"Amplitude DI, * 0.1 milivolt,\
+  \ of S' wave\",\n    \"chDI_PwaveAmp\": \"Amplitude DI, * 0.1 milivolt, of P wave\"\
+  ,\n    \"chDI_TwaveAmp\": \"Amplitude DI, * 0.1 milivolt, of T wave\",\n    \"chDI_QRSA\"\
+  : \"Sum of areas of all segments of DI divided by 10, ( Area= width * height / 2\
+  \ )\",\n    \"chDI_QRSTA\": \"QRSTA of DI = QRSA + 0.5 * width of T wave * 0.1 *\
+  \ height of T wave. (If T is diphasic then the bigger segment is considered)\",\n\
+  \    \"chDII_JJwaveAmp\": \"Amplitude DII, * 0.1 milivolt, of JJ wave\",\n    \"\
+  chDII_QwaveAmp\": \"Amplitude DII, * 0.1 milivolt, of Q wave\",\n    \"chDII_RwaveAmp\"\
+  : \"Amplitude DII, * 0.1 milivolt, of R wave\",\n    \"chDII_SwaveAmp\": \"Amplitude\
+  \ DII, * 0.1 milivolt, of S wave\",\n    \"chDII_RPwaveAmp\": \"Amplitude DII, *\
+  \ 0.1 milivolt, of R' wave\",\n    \"chDII_SPwaveAmp\": \"Amplitude DII, * 0.1 milivolt,\
+  \ of S' wave\",\n    \"chDII_PwaveAmp\": \"Amplitude DII, * 0.1 milivolt, of P wave\"\
+  ,\n    \"chDII_TwaveAmp\": \"Amplitude DII, * 0.1 milivolt, of T wave\",\n    \"\
+  chDII_QRSA\": \"Sum of areas of all segments of DII divided by 10, ( Area= width\
+  \ * height / 2 )\",\n    \"chDII_QRSTA\": \"QRSTA of DII = QRSA + 0.5 * width of\
+  \ T wave * 0.1 * height of T wave. (If T is diphasic then the bigger segment is\
+  \ considered)\",\n    \"chDIII_JJwaveAmp\": \"Amplitude DIII, * 0.1 milivolt, of\
+  \ JJ wave\",\n    \"chDIII_QwaveAmp\": \"Amplitude DIII, * 0.1 milivolt, of Q wave\"\
+  ,\n    \"chDIII_RwaveAmp\": \"Amplitude DIII, * 0.1 milivolt, of R wave\",\n   \
+  \ \"chDIII_SwaveAmp\": \"Amplitude DIII, * 0.1 milivolt, of S wave\",\n    \"chDIII_RPwaveAmp\"\
+  : \"Amplitude DIII, * 0.1 milivolt, of R' wave\",\n    \"chDIII_SPwaveAmp\": \"\
+  Amplitude DIII, * 0.1 milivolt, of S' wave\",\n    \"chDIII_PwaveAmp\": \"Amplitude\
+  \ DIII, * 0.1 milivolt, of P wave\",\n    \"chDIII_TwaveAmp\": \"Amplitude DIII,\
+  \ * 0.1 milivolt, of T wave\",\n    \"chDIII_QRSA\": \"Sum of areas of all segments\
+  \ of DIII divided by 10, ( Area= width * height / 2 )\",\n    \"chDIII_QRSTA\":\
+  \ \"QRSTA of DIII = QRSA + 0.5 * width of T wave * 0.1 * height of T wave. (If T\
+  \ is diphasic then the bigger segment is considered)\",\n    \"chAVR_JJwaveAmp\"\
+  : \"Amplitude AVR, * 0.1 milivolt, of JJ wave\",\n    \"chAVR_QwaveAmp\": \"Amplitude\
+  \ AVR, * 0.1 milivolt, of Q wave\",\n    \"chAVR_RwaveAmp\": \"Amplitude AVR, *\
+  \ 0.1 milivolt, of R wave\",\n    \"chAVR_SwaveAmp\": \"Amplitude AVR, * 0.1 milivolt,\
+  \ of S wave\",\n    \"chAVR_RPwaveAmp\": \"Amplitude AVR, * 0.1 milivolt, of R'\
+  \ wave\",\n    \"chAVR_SPwaveAmp\": \"Amplitude AVR, * 0.1 milivolt, of S' wave\"\
+  ,\n    \"chAVR_PwaveAmp\": \"Amplitude AVR, * 0.1 milivolt, of P wave\",\n    \"\
+  chAVR_TwaveAmp\": \"Amplitude AVR, * 0.1 milivolt, of T wave\",\n    \"chAVR_QRSA\"\
+  : \"Sum of areas of all segments of AVR divided by 10, ( Area= width * height /\
+  \ 2 )\",\n    \"chAVR_QRSTA\": \"QRSTA of AVR = QRSA + 0.5 * width of T wave * 0.1\
+  \ * height of T wave. (If T is diphasic then the bigger segment is considered)\"\
+  ,\n    \"chAVL_JJwaveAmp\": \"Amplitude AVL, * 0.1 milivolt, of JJ wave\",\n   \
+  \ \"chAVL_QwaveAmp\": \"Amplitude AVL, * 0.1 milivolt, of Q wave\",\n    \"chAVL_RwaveAmp\"\
+  : \"Amplitude AVL, * 0.1 milivolt, of R wave\",\n    \"chAVL_SwaveAmp\": \"Amplitude\
+  \ AVL, * 0.1 milivolt, of S wave\",\n    \"chAVL_RPwaveAmp\": \"Amplitude AVL, *\
+  \ 0.1 milivolt, of R' wave\",\n    \"chAVL_SPwaveAmp\": \"Amplitude AVL, * 0.1 milivolt,\
+  \ of S' wave\",\n    \"chAVL_PwaveAmp\": \"Amplitude AVL, * 0.1 milivolt, of P wave\"\
+  ,\n    \"chAVL_TwaveAmp\": \"Amplitude AVL, * 0.1 milivolt, of T wave\",\n    \"\
+  chAVL_QRSA\": \"Sum of areas of all segments of AVL divided by 10, ( Area= width\
+  \ * height / 2 )\",\n    \"chAVL_QRSTA\": \"QRSTA of AVL = QRSA + 0.5 * width of\
+  \ T wave * 0.1 * height of T wave. (If T is diphasic then the bigger segment is\
+  \ considered)\",\n    \"chAVF_JJwaveAmp\": \"Amplitude AVF, * 0.1 milivolt, of JJ\
+  \ wave\",\n    \"chAVF_QwaveAmp\": \"Amplitude AVF, * 0.1 milivolt, of Q wave\"\
+  ,\n    \"chAVF_RwaveAmp\": \"Amplitude AVF, * 0.1 milivolt, of R wave\",\n    \"\
+  chAVF_SwaveAmp\": \"Amplitude AVF, * 0.1 milivolt, of S wave\",\n    \"chAVF_RPwaveAmp\"\
+  : \"Amplitude AVF, * 0.1 milivolt, of R' wave\",\n    \"chAVF_SPwaveAmp\": \"Amplitude\
+  \ AVF, * 0.1 milivolt, of S' wave\",\n    \"chAVF_PwaveAmp\": \"Amplitude AVF, *\
+  \ 0.1 milivolt, of P wave\",\n    \"chAVF_TwaveAmp\": \"Amplitude AVF, * 0.1 milivolt,\
+  \ of T wave\",\n    \"chAVF_QRSA\": \"Sum of areas of all segments of AVF divided\
+  \ by 10, ( Area= width * height / 2 )\",\n    \"chAVF_QRSTA\": \"QRSTA of AVF =\
+  \ QRSA + 0.5 * width of T wave * 0.1 * height of T wave. (If T is diphasic then\
+  \ the bigger segment is considered)\",\n    \"chV1_JJwaveAmp\": \"Amplitude V1,\
+  \ * 0.1 milivolt, of JJ wave\",\n    \"chV1_QwaveAmp\": \"Amplitude V1, * 0.1 milivolt,\
+  \ of Q wave\",\n    \"chV1_RwaveAmp\": \"Amplitude V1, * 0.1 milivolt, of R wave\"\
+  ,\n    \"chV1_SwaveAmp\": \"Amplitude V1, * 0.1 milivolt, of S wave\",\n    \"chV1_RPwaveAmp\"\
+  : \"Amplitude V1, * 0.1 milivolt, of R' wave\",\n    \"chV1_SPwaveAmp\": \"Amplitude\
+  \ V1, * 0.1 milivolt, of S' wave\",\n    \"chV1_PwaveAmp\": \"Amplitude V1, * 0.1\
+  \ milivolt, of P wave\",\n    \"chV1_TwaveAmp\": \"Amplitude V1, * 0.1 milivolt,\
+  \ of T wave\",\n    \"chV1_QRSA\": \"Sum of areas of all segments of V1 divided\
+  \ by 10, ( Area= width * height / 2 )\",\n    \"chV1_QRSTA\": \"QRSTA of V1 = QRSA\
+  \ + 0.5 * width of T wave * 0.1 * height of T wave. (If T is diphasic then the bigger\
+  \ segment is considered)\",\n    \"chV2_JJwaveAmp\": \"Amplitude V2, * 0.1 milivolt,\
+  \ of JJ wave\",\n    \"chV2_QwaveAmp\": \"Amplitude V2, * 0.1 milivolt, of Q wave\"\
+  ,\n    \"chV2_RwaveAmp\": \"Amplitude V2, * 0.1 milivolt, of R wave\",\n    \"chV2_SwaveAmp\"\
+  : \"Amplitude V2, * 0.1 milivolt, of S wave\",\n    \"chV2_RPwaveAmp\": \"Amplitude\
+  \ V2, * 0.1 milivolt, of R' wave\",\n    \"chV2_SPwaveAmp\": \"Amplitude V2, * 0.1\
+  \ milivolt, of S' wave\",\n    \"chV2_PwaveAmp\": \"Amplitude V2, * 0.1 milivolt,\
+  \ of P wave\",\n    \"chV2_TwaveAmp\": \"Amplitude V2, * 0.1 milivolt, of T wave\"\
+  ,\n    \"chV2_QRSA\": \"Sum of areas of all segments of V2 divided by 10, ( Area=\
+  \ width * height / 2 )\",\n    \"chV2_QRSTA\": \"QRSTA of V2 = QRSA + 0.5 * width\
+  \ of T wave * 0.1 * height of T wave. (If T is diphasic then the bigger segment\
+  \ is considered)\",\n    \"chV3_JJwaveAmp\": \"Amplitude V3, * 0.1 milivolt, of\
+  \ JJ wave\",\n    \"chV3_QwaveAmp\": \"Amplitude V3, * 0.1 milivolt, of Q wave\"\
+  ,\n    \"chV3_RwaveAmp\": \"Amplitude V3, * 0.1 milivolt, of R wave\",\n    \"chV3_SwaveAmp\"\
+  : \"Amplitude V3, * 0.1 milivolt, of S wave\",\n    \"chV3_RPwaveAmp\": \"Amplitude\
+  \ V3, * 0.1 milivolt, of R' wave\",\n    \"chV3_SPwaveAmp\": \"Amplitude V3, * 0.1\
+  \ milivolt, of S' wave\",\n    \"chV3_PwaveAmp\": \"Amplitude V3, * 0.1 milivolt,\
+  \ of P wave\",\n    \"chV3_TwaveAmp\": \"Amplitude V3, * 0.1 milivolt, of T wave\"\
+  ,\n    \"chV3_QRSA\": \"Sum of areas of all segments of V3 divided by 10, ( Area=\
+  \ width * height / 2 )\",\n    \"chV3_QRSTA\": \"QRSTA of V3 = QRSA + 0.5 * width\
+  \ of T wave * 0.1 * height of T wave. (If T is diphasic then the bigger segment\
+  \ is considered)\",\n    \"chV4_JJwaveAmp\": \"Amplitude V4, * 0.1 milivolt, of\
+  \ JJ wave\",\n    \"chV4_QwaveAmp\": \"Amplitude V4, * 0.1 milivolt, of Q wave\"\
+  ,\n    \"chV4_RwaveAmp\": \"Amplitude V4, * 0.1 milivolt, of R wave\",\n    \"chV4_SwaveAmp\"\
+  : \"Amplitude V4, * 0.1 milivolt, of S wave\",\n    \"chV4_RPwaveAmp\": \"Amplitude\
+  \ V4, * 0.1 milivolt, of R' wave\",\n    \"chV4_SPwaveAmp\": \"Amplitude V4, * 0.1\
+  \ milivolt, of S' wave\",\n    \"chV4_PwaveAmp\": \"Amplitude V4, * 0.1 milivolt,\
+  \ of P wave\",\n    \"chV4_TwaveAmp\": \"Amplitude V4, * 0.1 milivolt, of T wave\"\
+  ,\n    \"chV4_QRSA\": \"Sum of areas of all segments of V4 divided by 10, ( Area=\
+  \ width * height / 2 )\",\n    \"chV4_QRSTA\": \"QRSTA of V4 = QRSA + 0.5 * width\
+  \ of T wave * 0.1 * height of T wave. (If T is diphasic then the bigger segment\
+  \ is considered)\",\n    \"chV5_JJwaveAmp\": \"Amplitude V5, * 0.1 milivolt, of\
+  \ JJ wave\",\n    \"chV5_QwaveAmp\": \"Amplitude V5, * 0.1 milivolt, of Q wave\"\
+  ,\n    \"chV5_RwaveAmp\": \"Amplitude V5, * 0.1 milivolt, of R wave\",\n    \"chV5_SwaveAmp\"\
+  : \"Amplitude V5, * 0.1 milivolt, of S wave\",\n    \"chV5_RPwaveAmp\": \"Amplitude\
+  \ V5, * 0.1 milivolt, of R' wave\",\n    \"chV5_SPwaveAmp\": \"Amplitude V5, * 0.1\
+  \ milivolt, of S' wave\",\n    \"chV5_PwaveAmp\": \"Amplitude V5, * 0.1 milivolt,\
+  \ of P wave\",\n    \"chV5_TwaveAmp\": \"Amplitude V5, * 0.1 milivolt, of T wave\"\
+  ,\n    \"chV5_QRSA\": \"Sum of areas of all segments of V5 divided by 10, ( Area=\
+  \ width * height / 2 )\",\n    \"chV5_QRSTA\": \"QRSTA of V5 = QRSA + 0.5 * width\
+  \ of T wave * 0.1 * height of T wave. (If T is diphasic then the bigger segment\
+  \ is considered)\",\n    \"chV6_JJwaveAmp\": \"Amplitude V6, * 0.1 milivolt, of\
+  \ JJ wave\",\n    \"chV6_QwaveAmp\": \"Amplitude V6, * 0.1 milivolt, of Q wave\"\
+  ,\n    \"chV6_RwaveAmp\": \"Amplitude V6, * 0.1 milivolt, of R wave\",\n    \"chV6_SwaveAmp\"\
+  : \"Amplitude V6, * 0.1 milivolt, of S wave\",\n    \"chV6_RPwaveAmp\": \"Amplitude\
+  \ V6, * 0.1 milivolt, of R' wave\",\n    \"chV6_SPwaveAmp\": \"Amplitude V6, * 0.1\
+  \ milivolt, of S' wave\",\n    \"chV6_PwaveAmp\": \"Amplitude V6, * 0.1 milivolt,\
+  \ of P wave\",\n    \"chV6_TwaveAmp\": \"Amplitude V6, * 0.1 milivolt, of T wave\"\
+  ,\n    \"chV6_QRSA\": \"Sum of areas of all segments of V6 divided by 10, ( Area=\
+  \ width * height / 2 )\",\n    \"chV6_QRSTA\": \"QRSTA of V6 = QRSA + 0.5 * width\
+  \ of T wave * 0.1 * height of T wave. (If T is diphasic then the bigger segment\
+  \ is considered)\"\n}\n        "
+experiment_description: Feature assessment for the arrhythmia dataset.
+experiment_name: arrhythmia
+feature_file_path: /workspace/tasks/classification/arrhythmia/data.csv
+knowledge_db_collection_name: arrhythmia
+knowledge_db_path: /workspace/chroma_db/arrhythmia_knowledge_db
+label_file_path: /workspace/tasks/classification/arrhythmia/labels.csv
+output_dir: /workspace/tasks/classification/arrhythmia/output
+modality: tabular
+task_type: classification

@@ -1,0 +1,18 @@
+context_and_goal: |
+  This is a classification task for a regression dataset on airfoil self noise.
+  The goal is to estimate the sound pressure level (dB) based on various features.
+  Here are some details about the features found in the dataset:
+  - frequency - in Hertzs
+  - angle_of_attack - in degrees
+  - chord_length - in meters
+  - free_stream_velocity - in meters per second
+  - displacement_thickness - in meters
+experiment_description: Feature assessment for the airfoil_self_noice dataset.
+experiment_name: airfoil_self_noice
+feature_file_path: /workspace/tasks/regression/airfoil_self_noice/data.csv
+knowledge_db_collection_name: airfoil_self_noice
+knowledge_db_path: /workspace/chroma_db/airfoil_self_noice_knowledge_db
+label_file_path: /workspace/tasks/regression/airfoil_self_noice/labels.csv
+modality: tabular
+task_type: regression
+output_dir: /workspace/tasks/regression/airfoil_self_noice/output

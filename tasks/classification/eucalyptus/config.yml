@@ -1,0 +1,35 @@
+context_and_goal: |
+  This is a classification task for the eucalyptus dataset.
+  The goal is to predict utility ratings of eucalyptus trees based on various environmental and physical features.
+  Here are some details about the features found in the dataset:
+  {
+    "Abbrev": "site abbreviation",
+    "Rep": "site rep",
+    "Locality": "site locality in the North Island",
+    "Map_Ref": "map location in the North Island",
+    "Latitude": "latitude approximation",
+    "Altitude": "altitude approximation",
+    "Rainfall": "rainfall (mm pa)",
+    "Frosts": "frosts (deg. c)",
+    "Year": "year of planting",
+    "Sp": "species code",
+    "PMCno": "seedlot number",
+    "DBH": "best diameter base height (cm)",
+    "Ht": "height (m)",
+    "Surv": "survival",
+    "Vig": "vigour",
+    "Ins_res": "insect resistance",
+    "Stem_Fm": "stem form",
+    "Crown_Fm": "crown form",
+    "Brnch_Fm": "branch form",
+    "Utility": "utility rating"
+  }      "
+experiment_description: Feature assessment for the eucalyptus dataset.
+experiment_name: eucalyptus
+feature_file_path: /workspace/tasks/classification/eucalyptus/data.csv
+knowledge_db_collection_name: eucalyptus
+knowledge_db_path: /workspace/chroma_db/eucalyptus_knowledge_db
+label_file_path: /workspace/tasks/classification/eucalyptus/labels.csv
+output_dir: /workspace/tasks/classification/eucalyptus/output
+modality: tabular
+task_type: classification

@@ -1,0 +1,21 @@
+context_and_goal: | 
+  This is a regression task on the insurance dataset.
+  The goal is to predict the insurance charges based on various features. 
+  Here are some details about the features found in the dataset:
+  {
+    "age": "age of primary beneficiary",
+    "sex": "insurance contractor gender, female, male",
+    "bmi": "Body mass index",
+    "children": "Number of children covered by health insurance / Number of dependents",
+    "smoker": "Smoking",
+    "region": "the beneficiary's residential area in the US, northeast, southeast, southwest, northwest."
+  }
+experiment_description: Feature assessment for the insurance dataset.
+experiment_name: insurance
+feature_file_path: /workspace/tasks/regression/insurance/data.csv
+knowledge_db_collection_name: insurance
+knowledge_db_path: /workspace/chroma_db/insurance_knowledge_db
+label_file_path: /workspace/tasks/regression/insurance/labels.csv
+modality: tabular
+output_dir: /workspace/tasks/regression/insurance/output
+task_type: regression

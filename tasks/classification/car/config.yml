@@ -1,0 +1,21 @@
+context_and_goal: | 
+  This is a classification task for a car dataset.
+  The goal is to predict the acceptability of a car based on various features.             
+  Here are some details about the features found in the dataset:
+  {
+    "buying": "buying price",
+    "maint": "price of the maintenance",
+    "doors": "number of doors",
+    "persons": "capacity in terms of persons to carry",
+    "lug_boot": "the size of luggage boot",
+    "safety": "estimated safety of the car"
+  }
+experiment_description: Feature assessment for the car dataset.
+experiment_name: car
+feature_file_path: /workspace/tasks/classification/car/data.csv
+knowledge_db_collection_name: car
+knowledge_db_path: /workspace/chroma_db/car_knowledge_db
+label_file_path: /workspace/tasks/classification/car/labels.csv
+output_dir: /workspace/tasks/classification/car/output
+modality: tabular
+task_type: classification
