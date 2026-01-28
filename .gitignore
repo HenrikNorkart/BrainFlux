@@ -10,7 +10,7 @@ __pycache__/
 *.png
 *.pdf
 *.yml
-tasks/
+# tasks/
 wandb/
 *.bin
 !cover.png

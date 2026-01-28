@@ -540,16 +540,6 @@ class TesterAgent:
                     "Status",
                 ] = "Pruned"
 
-                # remove rows where Attribute is in attribute_names_list
-                # df_attribute_explanations.drop(
-                #     df_attribute_explanations[
-                #         df_attribute_explanations["Attribute"].isin(
-                #             attribute_names_list
-                #         )
-                #     ].index,
-                #     inplace=True,
-                # )
-
                 ConsoleManager.console_agent_logging(
                     "TesterAgent",
                     "attribute_pruning_tool",
