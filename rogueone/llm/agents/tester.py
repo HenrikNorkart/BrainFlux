@@ -7,7 +7,7 @@ import io
 from collections import defaultdict
 
 import pandas as pd
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 import sklearn
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (
@@ -30,11 +30,13 @@ from openai import AsyncOpenAI
 from agents import (
     Agent,
     Runner,
+    RunConfig,
     OpenAIResponsesModel,
     ModelSettings,
     function_tool,
 )
 from agents.memory.sqlite_session import SQLiteSession
+from agents.run import ModelInputData, CallModelData
 import shap
 import statsmodels as sm
 import scipy as spy
@@ -52,11 +54,12 @@ from rogueone.llm.agents.web_search import WebSearchAgent
 # set_tracing_disabled(True)
 
 GPUS = [
-    "cuda:3",
-    "cuda:4",
-    "cuda:5",
-    "cuda:6",
-    "cuda:7",
+    "cuda:1"
+    # "cuda:3",
+    # "cuda:4",
+    # "cuda:5",
+    # "cuda:6",
+    # "cuda:7",
 ]
 
 
@@ -239,9 +242,17 @@ class TestResultClassification:
 class CodeInput(BaseModel):
     code: str = Field(..., description="The python code to execute.")
     reasoning: str = Field(
-        ...,
+        "",
         description="The reasoning behind the code execution. Explain why this code is being executed and what it aims to achieve.",
     )
+
+    @model_validator(mode="before")
+    @classmethod
+    def _coerce_string(cls, v: object) -> object:
+        """Allow the model to pass code_input as a plain string instead of a CodeInput dict."""
+        if isinstance(v, str):
+            return {"code": v, "reasoning": ""}
+        return v
 
 
 class TesterAgent:
@@ -641,6 +652,19 @@ class TesterAgent:
                 ],
             )
 
+            def _strip_reasoning_items(data: CallModelData) -> ModelInputData:
+                """Filter out 'reasoning' items from input to avoid vLLM 400 errors."""
+                filtered = [
+                    item
+                    for item in data.model_data.input
+                    if not (isinstance(item, dict) and item.get("type") == "reasoning")
+                ]
+                return ModelInputData(
+                    input=filtered, instructions=data.model_data.instructions
+                )
+
+            _run_config = RunConfig(call_model_input_filter=_strip_reasoning_items)
+
             session = SQLiteSession(f"tester_agent_session_step_{step or 0}")
 
             for _ in range(20):
@@ -651,6 +675,7 @@ class TesterAgent:
                         "",
                         max_turns=test_agent_cfg.max_iterations,
                         session=session,
+                        run_config=_run_config,
                     )
                     if len(out.final_output) > 0:
                         return out.final_output
@@ -735,7 +760,7 @@ class TesterAgent:
                     objective="reg:squarederror",
                     eval_metric="rmse",
                     random_state=42,
-                    device="cuda:5",
+                    device="cuda:1",
                     tree_method="hist",
                 )
 
@@ -836,7 +861,7 @@ class TesterAgent:
                     objective="binary:logistic",
                     eval_metric="logloss",
                     random_state=42,
-                    device="cuda:5",
+                    device="cuda:1",
                     tree_method="hist",
                     # use_label_encoder=False,
                 )
@@ -1069,7 +1094,7 @@ class TesterAgent:
                 objective="binary:logistic",
                 eval_metric="logloss",
                 random_state=42,
-                device="cuda:5",
+                device="cuda:1",
                 tree_method="hist",
                 # use_label_encoder=False,
             )

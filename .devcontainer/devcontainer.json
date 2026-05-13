@@ -25,7 +25,7 @@
                 "ms-toolsai.jupyter",
                 "alexcvzz.vscode-sqlite",
                 "donjayamanne.python-environment-manager",
-                "VisualStudioExptTeam.vscodeintellicode",
+                // "VisualStudioExptTeam.vscodeintellicode",
                 "njqdev.vscode-python-typehint",
                 "mgesbert.python-path",
                 "littlefoxteam.vscode-python-test-adapter",

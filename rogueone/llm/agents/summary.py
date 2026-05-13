@@ -7,12 +7,14 @@ from openai import AsyncOpenAI
 from agents import (
     Agent,
     Runner,
+    RunConfig,
     OpenAIResponsesModel,
     ModelSettings,
     function_tool,
 )
 
 from agents.memory.sqlite_session import SQLiteSession
+from agents.run import ModelInputData, CallModelData
 
 from rogueone.utils import (
     llm_cfg,
@@ -191,6 +193,19 @@ class ScientistAgent:
             prompt = f"Trails: {df_test_results.to_dict(orient="records")}"
             # prompt = f"Please summarize the test results across all trials: {', '.join(trails)}."
 
+            def _strip_reasoning_items(data: CallModelData) -> ModelInputData:
+                """Filter out 'reasoning' items from input to avoid vLLM 400 errors."""
+                filtered = [
+                    item
+                    for item in data.model_data.input
+                    if not (isinstance(item, dict) and item.get("type") == "reasoning")
+                ]
+                return ModelInputData(
+                    input=filtered, instructions=data.model_data.instructions
+                )
+
+            _run_config = RunConfig(call_model_input_filter=_strip_reasoning_items)
+
             session = SQLiteSession(f"Exploration_Session")
 
             for _ in range(100):
@@ -200,6 +215,7 @@ class ScientistAgent:
                         prompt,
                         session=session,
                         max_turns=500,
+                        run_config=_run_config,
                     )
                     if len(focus.final_output) > 10:
                         return focus.final_output

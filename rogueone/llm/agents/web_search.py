@@ -17,6 +17,7 @@ from openai import AsyncOpenAI, OpenAI
 from agents import (
     Agent,
     Runner,
+    RunConfig,
     OpenAIResponsesModel,
     ModelSettings,
     set_tracing_disabled,
@@ -25,6 +26,7 @@ from agents import (
 )
 
 from agents.memory.sqlite_session import SQLiteSession
+from agents.run import ModelInputData, CallModelData
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_chroma import Chroma
 from langchain_openai.embeddings import OpenAIEmbeddings
@@ -102,6 +104,15 @@ async def _run_search_agent(query: str) -> str:
         tools=[_web_search],
     )
 
+    def _strip_reasoning_items(data: CallModelData) -> ModelInputData:
+        """Filter out 'reasoning' items from input to avoid vLLM 400 errors."""
+        filtered = [
+            item
+            for item in data.model_data.input
+            if not (isinstance(item, dict) and item.get("type") == "reasoning")
+        ]
+        return ModelInputData(input=filtered, instructions=data.model_data.instructions)
+
     session = SQLiteSession(f"web_search_agent")
 
     try:
@@ -110,6 +121,7 @@ async def _run_search_agent(query: str) -> str:
             f"user's query: {query}",
             max_turns=knowledge_agent_cfg.max_iterations,
             session=session,
+            run_config=RunConfig(call_model_input_filter=_strip_reasoning_items),
         )
 
         if not res.final_output or res.final_output == "":

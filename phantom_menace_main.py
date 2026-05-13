@@ -1,5 +1,5 @@
-import asyncio
 from dataclasses import dataclass
+import asyncio
 
 import pandas as pd
 from pathlib import Path
@@ -10,23 +10,20 @@ from agents import set_tracing_disabled
 set_tracing_disabled(True)
 
 # from weave.integrations.openai_agents.openai_agents import WeaveTracingProcessor
-
 # import weave
-
 # set_trace_processors([WeaveTracingProcessor()])
 
 from rogueone.utils import rouge_one_cfg
 from rogueone.utils.config import ExperimentConfig
-from rogueone.utils.train_test_splitter import TrainTestSplitter
 from rogueone.utils.console import ConsoleManager
 from rogueone.llm.agents import (
     ExtractorAgent,
     ScientistAgent,
-    TesterAgent,
 )
 from rogueone.dataclasses import AttributeExplanation
 from rogueone.utils.wandb_utils import init_wandb_run, wandb_logging_wrapper
 from rogueone.utils.run_vllm import start_vllm_servers
+from phantom_menace.agents.tester import TesterAgent
 
 
 @dataclass
@@ -40,12 +37,13 @@ class TestResult:
 
 class RogueOneAgentNetwork:
 
-    def __init__(self, cfg: ExperimentConfig):
-
+    def __init__(self, cfg: ExperimentConfig, precision_min=1.00, tm_frac=0.1):
         self.cfg = cfg
+        self.precision_min = precision_min
+        self.tm_frac = tm_frac
 
         ConsoleManager.console_rule("Setting up Weights & Biases Logging")
-        init_wandb_run(cfg)
+        init_wandb_run(cfg, precision_min=precision_min, tm_frac=tm_frac)
 
         self.df = pd.read_csv(self.cfg.feature_file_path)
 
@@ -61,33 +59,28 @@ class RogueOneAgentNetwork:
 
         self.extractor_agent = ExtractorAgent(self.cfg)
         self.scientist_agent = ScientistAgent(self.cfg)
-        self.tester_agent = TesterAgent(self.cfg, include_report=True)
-
-        self.splitter = TrainTestSplitter(
-            cfg=self.cfg,
-            test_size=rouge_one_cfg.test_size,
-            # random_state=42,
+        self.tester_agent = TesterAgent(
+            self.cfg, precision_min=precision_min, tm_frac=tm_frac
         )
 
         self.df_attributes_explanations = pd.DataFrame(
             columns=["Attribute", "Description", "Pandas Command", "Status", "Added"]
         )
 
-        # self.attributes_explanations: dict[str, AttributeExplanation] = {}
         self.focus_history = []
 
-    async def update_attribute_pool(self, attribute_explanations: pd.DataFrame):
+    def update_attribute_pool(self, attribute_explanations: pd.DataFrame):
         for _, attr in attribute_explanations.iterrows():
             mask = self.df_attributes_explanations["Attribute"] == attr["Attribute"]
             if mask.any():
                 # Update status using .loc to avoid chained assignment warnings/errors
                 self.df_attributes_explanations.loc[mask, "Status"] = attr["Status"]
 
-                if attr["Status"] == "Pruned":
-                    self.df_attributes_explanations.drop(
-                        self.df_attributes_explanations[mask].index,
-                        inplace=True,
-                    )
+                # if attr["Status"] == "Pruned":
+                #     self.df_attributes_explanations.drop(
+                #         self.df_attributes_explanations[mask].index,
+                #         inplace=True,
+                #     )
 
             else:
                 # Create a new row DataFrame from the Series and align columns with the target dataframe
@@ -146,35 +139,38 @@ class RogueOneAgentNetwork:
             )
             return
 
-        await self.update_attribute_pool(_attribute_explanations)
+        self.update_attribute_pool(_attribute_explanations)
 
         ConsoleManager.console_print(f"Extracted {num_new_attributes} attributes.\n")
 
         ######### Splitting Patient Data #########
-        ConsoleManager.console_rule("Splitting Data")
-        ConsoleManager.progress_bar_update(description="Splitting data")
+        # ConsoleManager.console_rule("Splitting Data")
+        # ConsoleManager.progress_bar_update(description="Splitting data")
 
-        match self.cfg.modality:
-            case "tabular":
-                df_entities_folds = await self.splitter.k_fold_split(
-                    self.df_entities_attributes, k=rouge_one_cfg.k_folds
-                )
-            case "time_series":
-                df_entities_folds = await self.splitter.test_train_split(
-                    self.df_entities_attributes
-                )
-            case _:
-                raise ValueError(f"Unsupported modality: {self.cfg.modality}")
+        # match self.cfg.modality:
+        #     case "tabular":
+        #         df_entities_folds = self.splitter.k_fold_split(
+        #             self.df_entities_attributes, k=rouge_one_cfg.k_folds
+        #         )
+        #     case "time_series":
+        #         df_entities_folds = self.splitter.test_train_split(
+        #             self.df_entities_attributes
+        #         )
+        #     case _:
+        #         raise ValueError(f"Unsupported modality: {self.cfg.modality}")
 
         ######### Generating and Testing Hypotheses #########
         ConsoleManager.console_rule("Generating and Testing Hypotheses")
         ConsoleManager.progress_bar_update(description="Testing hypotheses")
+
+        self.df_entities_attributes.to_csv("/workspace/dummy.csv", index=False)
+
         test_results, _attribute_explanations = await self.tester_agent.test_hypotheses(
-            df_entities_folds,
+            [self.df_entities_attributes],
             self.df_attributes_explanations,
             step=index,
         )
-        await self.update_attribute_pool(_attribute_explanations)
+        self.update_attribute_pool(_attribute_explanations)
         test_results = test_results.as_dict.copy()
         test_results["id"] = "Trial " + str(index)
 
@@ -188,12 +184,12 @@ class RogueOneAgentNetwork:
 
         report = test_results.pop("report")
 
-        await self.dump_data(index)
-        await self.save_report(report, index)
+        self.dump_data(index)
+        self.save_report(report, index)
         ConsoleManager.print_dict_as_table(test_results)
-        ConsoleManager.console_print(report)
+        # ConsoleManager.console_print(report)
 
-    async def dump_data(self, step: int):
+    def dump_data(self, step: int):
         dst_dir = self.cfg.output_dir / "intermediate_steps"
         if not dst_dir.exists():
             dst_dir.mkdir(parents=True)
@@ -203,7 +199,7 @@ class RogueOneAgentNetwork:
             index=False,
         )
 
-    async def save_report(self, report: str | None, index: int):
+    def save_report(self, report: str | None, index: int):
         if report is None:
             return
         dir = self.cfg.output_dir / "tester_reports"
@@ -213,7 +209,7 @@ class RogueOneAgentNetwork:
         with open(dst_path, "w") as f:
             f.write(report)
 
-    async def save_data(self):
+    def save_data(self):
         dst_path = self.cfg.output_dir
 
         df_test_pool_path = dst_path / "df_test_pool_final.csv"
@@ -257,16 +253,22 @@ class RogueOneAgentNetwork:
                 total=rouge_one_cfg.num_iterations,
             )
 
-            for i in range(rouge_one_cfg.num_iterations):
-                ConsoleManager.progress_bar_update(completed=i)
-                await self.forward_pass(i)
+            for i in range(1, rouge_one_cfg.num_iterations + 1):
 
+                try:
+                    ConsoleManager.progress_bar_update(completed=i)
+                    await self.forward_pass(i)
+                except Exception as e:
+                    ConsoleManager.console_print(
+                        f"Error during iteration {i}: {e}", style="bold red"
+                    )
+                    continue  # Skip to the next iteration on error
                 # break  # For now, only one iteration
             ConsoleManager.console_rule("Final Results")
-            await self.save_data()
-            ConsoleManager.print_dataframe_as_table(
-                self.df_test_pool.iloc[:, :5], title="Final Test Pool (First 5 Columns)"
-            )
+            self.save_data()
+            # ConsoleManager.print_dataframe_as_table(
+            #     self.df_test_pool.iloc[:, :5], title="Final Test Pool (First 5 Columns)"
+            # )
 
         @wandb_logging_wrapper
         def log_final_results():
@@ -278,64 +280,33 @@ class RogueOneAgentNetwork:
 
 
 if __name__ == "__main__":
+    start_vllm_servers()
 
-    paths = [
-        ### Custom tasks
-        # Path("/workspace/tasks/aphasia/config.yml"),
-        # Path("/workspace/tasks/suppression_rato/config.yml"),
-        #
-        #
-        ### Time Series Classification
-        # Path("/workspace/tasks/time_series/EthanolConcentration/config.yml"),
-        # Path("/workspace/tasks/time_series/NATOPS/config.yml"),
-        # Path("/workspace/tasks/time_series/FaceDetection/config.yml"),
-        # Path("/workspace/tasks/time_series/ArticularyWordRecognition/config.yml"),
-        # Path("/workspace/tasks/time_series/BasicMotions/config.yml"),
-        #
-        #
-        ### Tabular Classification
-        Path("/workspace/tasks/classification/balance-scale/config.yml"),
-        Path("/workspace/tasks/classification/covtype/config.yml"),
-        Path("/workspace/tasks/classification/pc1/config.yml"),
-        Path("/workspace/tasks/classification/myocardial/config.yml"),
-        Path("/workspace/tasks/classification/tic-tac-toe/config.yml"),
-        Path("/workspace/tasks/classification/junglechess/config.yml"),
-        Path("/workspace/tasks/classification/communities/config.yml"),  # Skipped?
-        Path("/workspace/tasks/classification/eucalyptus/config.yml"),
-        Path("/workspace/tasks/classification/blood/config.yml"),
-        Path("/workspace/tasks/classification/car/config.yml"),
-        Path("/workspace/tasks/classification/arrhythmia/config.yml"),
-        Path("/workspace/tasks/classification/bank/config.yml"),
-        Path("/workspace/tasks/classification/breast-w/config.yml"),
-        Path("/workspace/tasks/classification/diabetes/config.yml"),
-        Path("/workspace/tasks/classification/cmc/config.yml"),
-        Path("/workspace/tasks/classification/adult/config.yml"),
-        Path("/workspace/tasks/classification/heart/config.yml"),
-        Path("/workspace/tasks/classification/vehicle/config.yml"),
-        Path("/workspace/tasks/classification/credit-g/config.yml"),
-        # #
-        # #
-        # ### Tabular Regression
-        Path("/workspace/tasks/regression/forest-fires/config.yml"),
-        Path("/workspace/tasks/regression/airfoil_self_noice/config.yml"),
-        Path("/workspace/tasks/regression/wine/config.yml"),
-        Path("/workspace/tasks/regression/plasma_retinol/config.yml"),
-        Path("/workspace/tasks/regression/housing/config.yml"),
-        Path("/workspace/tasks/regression/insurance/config.yml"),
-        Path("/workspace/tasks/regression/crab/config.yml"),
-        Path("/workspace/tasks/regression/diamonds/config.yml"),
-        Path("/workspace/tasks/regression/bike/config.yml"),
-    ]
+    precisions = [1.00]  #  0.95, 0.99, 1.00
+    tm_fracs = [1.00]  # 0.1, 0.3, 0.5, 0.7
 
     async def run_experiments():
-        for p in paths:
-            try:
-                cfg = ExperimentConfig.from_yaml(p)
-                await RogueOneAgentNetwork(cfg).main()
-            except Exception as e:
-                ConsoleManager.console_error_print(
-                    f"Error running experiment for config {p}: {e}"
+        for precision_min in precisions:
+            for tm_frac in tm_fracs:
+
+                ConsoleManager.console_print(
+                    f"Starting Rogue One Agent Network with precision_min={precision_min}, tm_frac={tm_frac}",
+                    style="bold magenta",
                 )
 
-    start_vllm_servers()
+                for _ in range(3):  # Run each configuration up to 3 times
+
+                    try:
+                        p = Path("/workspace/phantom_menace/config.yml")
+                        cfg = ExperimentConfig.from_yaml(p)
+
+                        await RogueOneAgentNetwork(
+                            cfg, precision_min=precision_min, tm_frac=tm_frac
+                        ).main()
+                        break  # Break if successful
+                    except Exception as e:
+                        ConsoleManager.console_print(
+                            f"Experiment failed with error: {e}", style="bold red"
+                        )
+
     asyncio.run(run_experiments())

@@ -14,6 +14,7 @@ from openai import AsyncOpenAI
 from agents import (
     Agent,
     Runner,
+    RunConfig,
     OpenAIResponsesModel,
     ModelSettings,
     function_tool,
@@ -21,6 +22,7 @@ from agents import (
 import scipy.signal as signal
 import tsfresh
 from agents.memory.sqlite_session import SQLiteSession
+from agents.run import ModelInputData, CallModelData
 
 from rogueone.dataclasses.attributes import AttributeExplanation
 from rogueone.utils.console import ConsoleManager
@@ -542,6 +544,19 @@ class ExtractorAgent:
 
             # conversation = await client.responses.create(input="prompt")
 
+            def _strip_reasoning_items(data: CallModelData) -> ModelInputData:
+                """Filter out 'reasoning' items from input to avoid vLLM 400 errors."""
+                filtered = [
+                    item
+                    for item in data.model_data.input
+                    if not (isinstance(item, dict) and item.get("type") == "reasoning")
+                ]
+                return ModelInputData(
+                    input=filtered, instructions=data.model_data.instructions
+                )
+
+            _run_config = RunConfig(call_model_input_filter=_strip_reasoning_items)
+
             session = SQLiteSession(f"extractor_agent_session_step_{step or 0}")
 
             for _ in range(10):
@@ -551,6 +566,7 @@ class ExtractorAgent:
                         f"System now wants to focus on: {focus}.",
                         max_turns=extractor_agent_cfg.max_iterations,
                         session=session,
+                        run_config=_run_config,
                     )
                     # ConsoleManager.console_print(f"Agent Result: {res.final_output}")
                 except Exception:

@@ -156,7 +156,7 @@ def start_vllm_servers() -> int:
             if response and isinstance(response[0], list):
                 print(f"#### {model_name} server is up and running! ####")
                 break
-        except Exception:
+        except Exception as e:
             print(f"Waiting for {model_name} server to be ready... {e}")
 
         sleep(10)

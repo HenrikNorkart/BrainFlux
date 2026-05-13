@@ -13,6 +13,7 @@ from openai import AsyncOpenAI
 from agents import (
     Agent,
     Runner,
+    RunConfig,
     OpenAIResponsesModel,
     ModelSettings,
     set_tracing_disabled,
@@ -20,6 +21,7 @@ from agents import (
 )
 
 from agents.memory.sqlite_session import SQLiteSession
+from agents.run import ModelInputData, CallModelData
 from langchain_chroma import Chroma
 from langchain_openai.embeddings import OpenAIEmbeddings
 
@@ -44,7 +46,9 @@ class ScientistAgent:
 
     def __init__(self, cfg: ExperimentConfig):
         self.cfg_experiment = cfg
-        self.knowledge_agent = KnowledgeAgent(cfg=self.cfg_experiment)
+        self.knowledge_agent = KnowledgeAgent(
+            cfg=self.cfg_experiment, collection_name="cardiac_arrest"
+        )
         self.web_search_agent = WebSearchAgent(cfg=self.cfg_experiment)
 
         self._note_book = ""
@@ -374,7 +378,7 @@ class ScientistAgent:
                     1. Analyze the test results to identify the attributes that are most predictive. Use the rapports from the tester agent to determine what attributes are most useful.
                     2. Review the explanations of the attributes to understand their significance and relevance to the investigation.
                     3. Consider the focus history to avoid repeating previous focuses and to build on past insights.
-                    4. Use the tools available to you to gather additional information and context. This may include searching the web, exploring the dataframe, and looking up attribute explanations.
+                    4. Use the tools available to you to gather additional information and context. This should be done in every iteration to ensure that the features are relevant and meaningful from a clinical perspective. Perform multiple searches if needed. This step is crucial to ensure that the focus is well-informed and grounded in existing knowledge.
                     5. Synthesize the information gathered from the previous steps to refine the focus of the investigation. Make sure the focus area is within the scope of the available data found in 'df_raw_data'.
                     6. Choose a focus that should be used for further attribute extraction. Express whether the focus should be exploratory (broad focus) or exploitative (narrow focus).
                     7. Use the notebook to keep track of important information and to pass information on to the next iteration.
@@ -382,7 +386,7 @@ class ScientistAgent:
 
                     # The Context and Global Goal:
                     {self.cfg_experiment.context_and_goal}
-                    
+
                         
                     # Important Guidelines:
                     - Use the 'search_tool' actively to find relevant information from the web to support your focus area.
@@ -418,6 +422,19 @@ class ScientistAgent:
             else:
                 prompt = f"Round 1: Determine the focus for the next round of attribute extraction. This is the first round of investigation, thus there is no focus history or extracted attributes."
 
+            def _strip_reasoning_items(data: CallModelData) -> ModelInputData:
+                """Filter out 'reasoning' items from input to avoid vLLM 400 errors."""
+                filtered = [
+                    item
+                    for item in data.model_data.input
+                    if not (isinstance(item, dict) and item.get("type") == "reasoning")
+                ]
+                return ModelInputData(
+                    input=filtered, instructions=data.model_data.instructions
+                )
+
+            _run_config = RunConfig(call_model_input_filter=_strip_reasoning_items)
+
             session = SQLiteSession(f"scientist_agent_session_step_{index or 0}")
 
             for _ in range(100):
@@ -427,6 +444,7 @@ class ScientistAgent:
                         prompt,
                         session=session,
                         max_turns=scientist_agent_cfg.max_iterations,
+                        run_config=_run_config,
                     )
                     if len(focus.final_output) > 10:
                         return focus.final_output
