@@ -1,0 +1,20 @@
+context_and_goal: |
+  "This is a classification task where the goal is to predict the class labels for instances in the balance-scale dataset. 
+  The goal is to determine if the balance scale will tip to the left, tip to the right, or remain balanced based on the provided features.
+  The features are numerical values representing distances and weights on both sides of the balance scale.
+  Here are some details about the features found in the dataset:
+  {
+    "left-distance": "Left distance in balance scale in meters",
+    "left-weight": "Left weight in balance scale in kg",
+    "right-distance": "Right distance in balance scale in meters",
+    "right-weight": "Right weight in balance scale in kg"
+  }
+experiment_description: Feature assessment for the balance-scale dataset.
+experiment_name: balance-scale
+feature_file_path: /workspace/tasks/classification/balance-scale/data.csv
+knowledge_db_collection_name: balance-scale
+knowledge_db_path: /workspace/chroma_db/balance-scale_knowledge_db
+label_file_path: /workspace/tasks/classification/balance-scale/labels.csv
+output_dir: /workspace/tasks/classification/balance-scale/output
+modality: tabular
+task_type: classification

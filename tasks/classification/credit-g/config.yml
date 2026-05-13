@@ -1,0 +1,35 @@
+context_and_goal: |
+  This is a classification task on the credit-g dataset.
+  The goal is to predict whether a credit applicant is a good or bad credit risk by analyzing various financial and personal features.
+  Here are some details about the features found in the dataset:
+  {
+    "checking_status": "Status of existing checking account, in Deutsche Mark.",
+    "duration": "Duration in months",
+    "credit_history": "Credit history",
+    "purpose": "Purpose of the credit",
+    "credit_amount": "Credit amount",
+    "savings_status": "Status of savings account/bonds, in Deutsche Mark.",
+    "employment": "Present employment, in number of years.",
+    "installment_commitment": "Installment rate in percentage of disposable income",
+    "personal_status": "Personal status (married, single,...) and sex",
+    "other_parties": "Other debtors / guarantors",
+    "residence_since": "Present residence since X years", 
+    "property_magnitude": "Property (e.g. real estate)",
+    "age": "Age in years",
+    "other_payment_plans": "Other installment plans (banks, stores)",
+    "housing": "Housing (rent, own,...)",
+    "existing_credits": "Number of existing credits at this bank",
+    "job": "Job",
+    "num_dependents": "Number of people being liable to provide maintenance for",
+    "own_telephone": "Telephone",
+    "foreign_worker": "Foreign worker"
+  }
+experiment_description: Feature assessment for the credit-g dataset.
+experiment_name: credit-g
+feature_file_path: /workspace/tasks/classification/credit-g/data.csv
+knowledge_db_collection_name: credit-g
+knowledge_db_path: /workspace/chroma_db/credit-g_knowledge_db
+label_file_path: /workspace/tasks/classification/credit-g/labels.csv
+output_dir: /workspace/tasks/classification/credit-g/output
+modality: tabular
+task_type: classification

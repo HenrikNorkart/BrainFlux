@@ -9,11 +9,6 @@ from agents import set_tracing_disabled
 
 set_tracing_disabled(True)
 
-# from weave.integrations.openai_agents.openai_agents import WeaveTracingProcessor
-
-# import weave
-
-# set_trace_processors([WeaveTracingProcessor()])
 
 from rogueone.utils import rouge_one_cfg
 from rogueone.utils.config import ExperimentConfig
@@ -280,27 +275,14 @@ class RogueOneAgentNetwork:
 if __name__ == "__main__":
 
     paths = [
-        ### Custom tasks
-        # Path("/workspace/tasks/aphasia/config.yml"),
-        # Path("/workspace/tasks/suppression_rato/config.yml"),
-        #
-        #
-        ### Time Series Classification
-        # Path("/workspace/tasks/time_series/EthanolConcentration/config.yml"),
-        # Path("/workspace/tasks/time_series/NATOPS/config.yml"),
-        # Path("/workspace/tasks/time_series/FaceDetection/config.yml"),
-        # Path("/workspace/tasks/time_series/ArticularyWordRecognition/config.yml"),
-        # Path("/workspace/tasks/time_series/BasicMotions/config.yml"),
-        #
-        #
-        ### Tabular Classification
+        ### Classification
         Path("/workspace/tasks/classification/balance-scale/config.yml"),
         Path("/workspace/tasks/classification/covtype/config.yml"),
         Path("/workspace/tasks/classification/pc1/config.yml"),
         Path("/workspace/tasks/classification/myocardial/config.yml"),
         Path("/workspace/tasks/classification/tic-tac-toe/config.yml"),
         Path("/workspace/tasks/classification/junglechess/config.yml"),
-        Path("/workspace/tasks/classification/communities/config.yml"),  # Skipped?
+        Path("/workspace/tasks/classification/communities/config.yml"), 
         Path("/workspace/tasks/classification/eucalyptus/config.yml"),
         Path("/workspace/tasks/classification/blood/config.yml"),
         Path("/workspace/tasks/classification/car/config.yml"),
@@ -313,9 +295,9 @@ if __name__ == "__main__":
         Path("/workspace/tasks/classification/heart/config.yml"),
         Path("/workspace/tasks/classification/vehicle/config.yml"),
         Path("/workspace/tasks/classification/credit-g/config.yml"),
-        # #
-        # #
-        # ### Tabular Regression
+        # 
+        # 
+        ### Regression
         Path("/workspace/tasks/regression/forest-fires/config.yml"),
         Path("/workspace/tasks/regression/airfoil_self_noice/config.yml"),
         Path("/workspace/tasks/regression/wine/config.yml"),

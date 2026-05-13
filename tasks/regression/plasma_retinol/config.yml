@@ -1,0 +1,26 @@
+context_and_goal: |
+  This is a classification task for a regression dataset on the plasma_retinol.
+  The goal is to estimate the amount of Plasma Retinol (ng/ml) based on various features.
+  Here are some details about the features found in the dataset:
+  - AGE: Age (years) 
+  - SEX: Sex (1=Male, 2=Female). 
+  - SMOKSTAT: Smoking status (1=Never, 2=Former, 3=Current Smoker) 
+  - QUETELET: Quetelet (weight/(height^2)) 
+  - VITUSE: Vitamin Use (1=Yes, fairly often, 2=Yes, not often, 3=No) 
+  - CALORIES: Number of calories consumed per day. 
+  - FAT: Grams of fat consumed per day. 
+  - FIBER: Grams of fiber consumed per day. 
+  - ALCOHOL: Number of alcoholic drinks consumed per week. 
+  - CHOLESTEROL: Cholesterol consumed (mg per day). 
+  - BETADIET: Dietary beta-carotene consumed (mcg per day). 
+  - RETDIET: Dietary retinol consumed (mcg per day) 
+  - BETAPLASMA: Plasma beta-carotene (ng/ml)
+experiment_description: Feature assessment for the plasma_retinol dataset.
+experiment_name: plasma_retinol
+feature_file_path: /workspace/tasks/regression/plasma_retinol/data.csv
+knowledge_db_collection_name: plasma_retinol
+knowledge_db_path: /workspace/chroma_db/plasma_retinol_knowledge_db
+label_file_path: /workspace/tasks/regression/plasma_retinol/labels.csv
+modality: tabular
+task_type: regression
+output_dir: /workspace/tasks/regression/plasma_retinol/output

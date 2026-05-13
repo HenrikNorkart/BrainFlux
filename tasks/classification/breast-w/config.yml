@@ -1,0 +1,24 @@
+context_and_goal: |
+  This is a classification task on breast cancer diagnosis.
+  The goal is to predict whether a tumor is benign or malignant based on various features.
+  Here are some details about the features found in the dataset:
+  {
+    "Clump_Thickness": "Measure of thickness of cell clusters, scaled to 10 distinct levels",
+    "Cell_Size_Uniformity": "Uniformity in size of the cells, scaled to 10 distinct levels",
+    "Cell_Shape_Uniformity": "Uniformity in shape of the cells, scaled to 10 distinct levels",
+    "Marginal_Adhesion": "Adhesion of cells at their margins, scaled to 10 distinct levels",
+    "Single_Epi_Cell_Size": "Size of epithelial cells, scaled to 10 distinct levels",
+    "Bare_Nuclei": "Count of nuclei without cytoplasm, scaled to 10 distinct levels (16 missing values)",
+    "Bland_Chromatin": "Texture of chromatin in the cell nucleus, scaled to 10 distinct levels",
+    "Normal_Nucleoli": "Presence of nucleoli in the nucleus, scaled to 10 distinct levels",
+    "Mitoses": "Frequency of mitotic cell division, scaled to 9 distinct levels"
+  }
+experiment_description: Feature assessment for the breast-w dataset.
+experiment_name: breast-w
+feature_file_path: /workspace/tasks/classification/breast-w/data.csv
+knowledge_db_collection_name: breast-w
+knowledge_db_path: /workspace/chroma_db/breast-w_knowledge_db
+label_file_path: /workspace/tasks/classification/breast-w/labels.csv
+output_dir: /workspace/tasks/classification/breast-w/output
+modality: tabular
+task_type: classification

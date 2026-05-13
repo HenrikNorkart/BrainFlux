@@ -1,0 +1,25 @@
+context_and_goal: |
+  This is a classification task.
+  The target label is "Contraceptive_method_used" which indicates the type of contraceptive method used (categorical) 1=No-use, 2=Long-term, 3=Short-term.
+  The goal is to assess the importance of each feature in predicting the target label.
+  Here are some details about the features found in the dataset:
+  {
+    "Wifes_age": "Wife's age (numerical)",
+    "Wifes_education": "Wife's education (categorical) 1=low, 2=low-mid, 3=mid-high, 4=high",
+    "Husbands_education": "Husband's education (categorical) 1=low, 2=low-mid, 3=mid-high, 4=high",
+    "Number_of_children_ever_born": "Number of children ever born (numerical)",
+    "Wifes_religion": "Wife's religion (binary) 0=Non-Islam, 1=Islam",
+    "Wifes_now_working": "Wife's now working? (binary) 0=Yes, 1=No",
+    "Husbands_occupation": "Husband's occupation (categorical) 1=low, 2=low-mid, 3=mid-high, 4=high",
+    "Standard_of_living_index": "Standard-of-living index (categorical) 1=low, 2=low-mid, 3=mid-high, 4=high",
+    "Media_exposure": "Media exposure (binary) 0=Good, 1=Not good",
+  }
+experiment_description: Feature assessment for the cmc dataset.
+experiment_name: cmc
+feature_file_path: /workspace/tasks/classification/cmc/data.csv
+knowledge_db_collection_name: cmc
+knowledge_db_path: /workspace/chroma_db/cmc_knowledge_db
+label_file_path: /workspace/tasks/classification/cmc/labels.csv
+output_dir: /workspace/tasks/classification/cmc/output
+modality: tabular
+task_type: classification

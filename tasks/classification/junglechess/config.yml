@@ -1,0 +1,21 @@
+context_and_goal: | 
+  This is a classification task on the junglechess dataset.
+  The goal is to predict the outcome of an encounter between two jungle chess pieces based on their attributes.
+  Here are some details about the features found in the dataset:
+  {
+    "white_piece0_strength": "white piece strength",
+    "white_piece0_file": "white piece file",
+    "white_piece0_rank": "white piece rank",
+    "black_piece0_strength": "black piece strength",
+    "black_piece0_file": "black piece file",
+    "black_piece0_rank": "black piece rank"
+  }
+experiment_description: Feature assessment for the junglechess dataset.
+experiment_name: junglechess
+feature_file_path: /workspace/tasks/classification/junglechess/data.csv
+knowledge_db_collection_name: junglechess
+knowledge_db_path: /workspace/chroma_db/junglechess_knowledge_db
+label_file_path: /workspace/tasks/classification/junglechess/labels.csv
+output_dir: /workspace/tasks/classification/junglechess/output
+modality: tabular
+task_type: classification

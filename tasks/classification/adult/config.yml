@@ -1,0 +1,23 @@
+context_and_goal: "\n            This is a classification task. \n            Here\
+  \ are some details about the features found in the dataset:\n            {\n   \
+  \ \"age\": \"the age of an individual\",\n    \"workclass\": \"a general term to\
+  \ represent the employment status of an individual\",\n    \"fnlwgt\": \"the number\
+  \ of units in the target population that the responding unit represents\",\n   \
+  \ \"education\": \"the highest level of education achieved by an individual\",\n\
+  \    \"educational-num\": \"the highest level of education achieved in numerical\
+  \ form\",\n    \"marital-status\": \"marital status of an individual\",\n    \"\
+  occupation\": \"the general type of occupation of an individual\",\n    \"relationship\"\
+  : \"what this individual is relative to others\",\n    \"race\": \"race\",\n   \
+  \ \"gender\": \"gender\",\n    \"capital-gain\": \"capital gain last year\",\n \
+  \   \"capital-loss\": \"capital loss last year\",\n    \"hours-per-week\": \"the\
+  \ hours an individual has reported to work per week\",\n    \"native-country\":\
+  \ \"country of origin for an individual\"\n}\n        "
+experiment_description: Feature assessment for the adult dataset.
+experiment_name: adult
+feature_file_path: /workspace/tasks/classification/adult/data.csv
+knowledge_db_collection_name: adult
+knowledge_db_path: /workspace/chroma_db/adult_knowledge_db
+label_file_path: /workspace/tasks/classification/adult/labels.csv
+output_dir: /workspace/tasks/classification/adult/output
+modality: tabular
+task_type: classification

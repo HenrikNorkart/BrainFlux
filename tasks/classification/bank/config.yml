@@ -1,0 +1,29 @@
+context_and_goal: | 
+  This is a classification task for the bank marketing dataset. 
+  The classification goal is to predict if the client will subscribe a term deposit (yes/no) based on various features related to the client's personal information and the details of the marketing campaign. 
+  Here are some details about the features found in the dataset:
+  {
+    "age": "age",
+    "job": "type of job",
+    "marital": "marital status",
+    "default": "has credit in default?",
+    "balance": "average yearly balance, in euros",
+    "housing": "has housing loan?",
+    "contact": "contact communication type",
+    "day": "last contact day of the month",
+    "month": "last contact month of year",
+    "duration": "last contact duration, in seconds",
+    "campaign": "number of contacts performed during this campaign and for this client",
+    "pdays": "number of days that passed by after the client was last contacted from a previous campaign",
+    "previous": "number of contacts performed before this campaign and for this client",
+    "poutcome": "outcome of the previous marketing campaign"
+  }
+experiment_description: Feature assessment for the bank dataset.
+experiment_name: bank
+feature_file_path: /workspace/tasks/classification/bank/data.csv
+knowledge_db_collection_name: bank
+knowledge_db_path: /workspace/chroma_db/bank_knowledge_db
+label_file_path: /workspace/tasks/classification/bank/labels.csv
+output_dir: /workspace/tasks/classification/bank/output
+modality: tabular
+task_type: classification

@@ -1,0 +1,1729 @@
+id,buying,maint,doors,persons,lug_boot,safety
+0,very high,very high,2,2,small,low
+1,very high,very high,2,2,small,med
+2,very high,very high,2,2,small,high
+3,very high,very high,2,2,med,low
+4,very high,very high,2,2,med,med
+5,very high,very high,2,2,med,high
+6,very high,very high,2,2,big,low
+7,very high,very high,2,2,big,med
+8,very high,very high,2,2,big,high
+9,very high,very high,2,4,small,low
+10,very high,very high,2,4,small,med
+11,very high,very high,2,4,small,high
+12,very high,very high,2,4,med,low
+13,very high,very high,2,4,med,med
+14,very high,very high,2,4,med,high
+15,very high,very high,2,4,big,low
+16,very high,very high,2,4,big,med
+17,very high,very high,2,4,big,high
+18,very high,very high,2,more,small,low
+19,very high,very high,2,more,small,med
+20,very high,very high,2,more,small,high
+21,very high,very high,2,more,med,low
+22,very high,very high,2,more,med,med
+23,very high,very high,2,more,med,high
+24,very high,very high,2,more,big,low
+25,very high,very high,2,more,big,med
+26,very high,very high,2,more,big,high
+27,very high,very high,3,2,small,low
+28,very high,very high,3,2,small,med
+29,very high,very high,3,2,small,high
+30,very high,very high,3,2,med,low
+31,very high,very high,3,2,med,med
+32,very high,very high,3,2,med,high
+33,very high,very high,3,2,big,low
+34,very high,very high,3,2,big,med
+35,very high,very high,3,2,big,high
+36,very high,very high,3,4,small,low
+37,very high,very high,3,4,small,med
+38,very high,very high,3,4,small,high
+39,very high,very high,3,4,med,low
+40,very high,very high,3,4,med,med
+41,very high,very high,3,4,med,high
+42,very high,very high,3,4,big,low
+43,very high,very high,3,4,big,med
+44,very high,very high,3,4,big,high
+45,very high,very high,3,more,small,low
+46,very high,very high,3,more,small,med
+47,very high,very high,3,more,small,high
+48,very high,very high,3,more,med,low
+49,very high,very high,3,more,med,med
+50,very high,very high,3,more,med,high
+51,very high,very high,3,more,big,low
+52,very high,very high,3,more,big,med
+53,very high,very high,3,more,big,high
+54,very high,very high,4,2,small,low
+55,very high,very high,4,2,small,med
+56,very high,very high,4,2,small,high
+57,very high,very high,4,2,med,low
+58,very high,very high,4,2,med,med
+59,very high,very high,4,2,med,high
+60,very high,very high,4,2,big,low
+61,very high,very high,4,2,big,med
+62,very high,very high,4,2,big,high
+63,very high,very high,4,4,small,low
+64,very high,very high,4,4,small,med
+65,very high,very high,4,4,small,high
+66,very high,very high,4,4,med,low
+67,very high,very high,4,4,med,med
+68,very high,very high,4,4,med,high
+69,very high,very high,4,4,big,low
+70,very high,very high,4,4,big,med
+71,very high,very high,4,4,big,high
+72,very high,very high,4,more,small,low
+73,very high,very high,4,more,small,med
+74,very high,very high,4,more,small,high
+75,very high,very high,4,more,med,low
+76,very high,very high,4,more,med,med
+77,very high,very high,4,more,med,high
+78,very high,very high,4,more,big,low
+79,very high,very high,4,more,big,med
+80,very high,very high,4,more,big,high
+81,very high,very high,5more,2,small,low
+82,very high,very high,5more,2,small,med
+83,very high,very high,5more,2,small,high
+84,very high,very high,5more,2,med,low
+85,very high,very high,5more,2,med,med
+86,very high,very high,5more,2,med,high
+87,very high,very high,5more,2,big,low
+88,very high,very high,5more,2,big,med
+89,very high,very high,5more,2,big,high
+90,very high,very high,5more,4,small,low
+91,very high,very high,5more,4,small,med
+92,very high,very high,5more,4,small,high
+93,very high,very high,5more,4,med,low
+94,very high,very high,5more,4,med,med
+95,very high,very high,5more,4,med,high
+96,very high,very high,5more,4,big,low
+97,very high,very high,5more,4,big,med
+98,very high,very high,5more,4,big,high
+99,very high,very high,5more,more,small,low
+100,very high,very high,5more,more,small,med
+101,very high,very high,5more,more,small,high
+102,very high,very high,5more,more,med,low
+103,very high,very high,5more,more,med,med
+104,very high,very high,5more,more,med,high
+105,very high,very high,5more,more,big,low
+106,very high,very high,5more,more,big,med
+107,very high,very high,5more,more,big,high
+108,very high,high,2,2,small,low
+109,very high,high,2,2,small,med
+110,very high,high,2,2,small,high
+111,very high,high,2,2,med,low
+112,very high,high,2,2,med,med
+113,very high,high,2,2,med,high
+114,very high,high,2,2,big,low
+115,very high,high,2,2,big,med
+116,very high,high,2,2,big,high
+117,very high,high,2,4,small,low
+118,very high,high,2,4,small,med
+119,very high,high,2,4,small,high
+120,very high,high,2,4,med,low
+121,very high,high,2,4,med,med
+122,very high,high,2,4,med,high
+123,very high,high,2,4,big,low
+124,very high,high,2,4,big,med
+125,very high,high,2,4,big,high
+126,very high,high,2,more,small,low
+127,very high,high,2,more,small,med
+128,very high,high,2,more,small,high
+129,very high,high,2,more,med,low
+130,very high,high,2,more,med,med
+131,very high,high,2,more,med,high
+132,very high,high,2,more,big,low
+133,very high,high,2,more,big,med
+134,very high,high,2,more,big,high
+135,very high,high,3,2,small,low
+136,very high,high,3,2,small,med
+137,very high,high,3,2,small,high
+138,very high,high,3,2,med,low
+139,very high,high,3,2,med,med
+140,very high,high,3,2,med,high
+141,very high,high,3,2,big,low
+142,very high,high,3,2,big,med
+143,very high,high,3,2,big,high
+144,very high,high,3,4,small,low
+145,very high,high,3,4,small,med
+146,very high,high,3,4,small,high
+147,very high,high,3,4,med,low
+148,very high,high,3,4,med,med
+149,very high,high,3,4,med,high
+150,very high,high,3,4,big,low
+151,very high,high,3,4,big,med
+152,very high,high,3,4,big,high
+153,very high,high,3,more,small,low
+154,very high,high,3,more,small,med
+155,very high,high,3,more,small,high
+156,very high,high,3,more,med,low
+157,very high,high,3,more,med,med
+158,very high,high,3,more,med,high
+159,very high,high,3,more,big,low
+160,very high,high,3,more,big,med
+161,very high,high,3,more,big,high
+162,very high,high,4,2,small,low
+163,very high,high,4,2,small,med
+164,very high,high,4,2,small,high
+165,very high,high,4,2,med,low
+166,very high,high,4,2,med,med
+167,very high,high,4,2,med,high
+168,very high,high,4,2,big,low
+169,very high,high,4,2,big,med
+170,very high,high,4,2,big,high
+171,very high,high,4,4,small,low
+172,very high,high,4,4,small,med
+173,very high,high,4,4,small,high
+174,very high,high,4,4,med,low
+175,very high,high,4,4,med,med
+176,very high,high,4,4,med,high
+177,very high,high,4,4,big,low
+178,very high,high,4,4,big,med
+179,very high,high,4,4,big,high
+180,very high,high,4,more,small,low
+181,very high,high,4,more,small,med
+182,very high,high,4,more,small,high
+183,very high,high,4,more,med,low
+184,very high,high,4,more,med,med
+185,very high,high,4,more,med,high
+186,very high,high,4,more,big,low
+187,very high,high,4,more,big,med
+188,very high,high,4,more,big,high
+189,very high,high,5more,2,small,low
+190,very high,high,5more,2,small,med
+191,very high,high,5more,2,small,high
+192,very high,high,5more,2,med,low
+193,very high,high,5more,2,med,med
+194,very high,high,5more,2,med,high
+195,very high,high,5more,2,big,low
+196,very high,high,5more,2,big,med
+197,very high,high,5more,2,big,high
+198,very high,high,5more,4,small,low
+199,very high,high,5more,4,small,med
+200,very high,high,5more,4,small,high
+201,very high,high,5more,4,med,low
+202,very high,high,5more,4,med,med
+203,very high,high,5more,4,med,high
+204,very high,high,5more,4,big,low
+205,very high,high,5more,4,big,med
+206,very high,high,5more,4,big,high
+207,very high,high,5more,more,small,low
+208,very high,high,5more,more,small,med
+209,very high,high,5more,more,small,high
+210,very high,high,5more,more,med,low
+211,very high,high,5more,more,med,med
+212,very high,high,5more,more,med,high
+213,very high,high,5more,more,big,low
+214,very high,high,5more,more,big,med
+215,very high,high,5more,more,big,high
+216,very high,medium,2,2,small,low
+217,very high,medium,2,2,small,med
+218,very high,medium,2,2,small,high
+219,very high,medium,2,2,med,low
+220,very high,medium,2,2,med,med
+221,very high,medium,2,2,med,high
+222,very high,medium,2,2,big,low
+223,very high,medium,2,2,big,med
+224,very high,medium,2,2,big,high
+225,very high,medium,2,4,small,low
+226,very high,medium,2,4,small,med
+227,very high,medium,2,4,small,high
+228,very high,medium,2,4,med,low
+229,very high,medium,2,4,med,med
+230,very high,medium,2,4,med,high
+231,very high,medium,2,4,big,low
+232,very high,medium,2,4,big,med
+233,very high,medium,2,4,big,high
+234,very high,medium,2,more,small,low
+235,very high,medium,2,more,small,med
+236,very high,medium,2,more,small,high
+237,very high,medium,2,more,med,low
+238,very high,medium,2,more,med,med
+239,very high,medium,2,more,med,high
+240,very high,medium,2,more,big,low
+241,very high,medium,2,more,big,med
+242,very high,medium,2,more,big,high
+243,very high,medium,3,2,small,low
+244,very high,medium,3,2,small,med
+245,very high,medium,3,2,small,high
+246,very high,medium,3,2,med,low
+247,very high,medium,3,2,med,med
+248,very high,medium,3,2,med,high
+249,very high,medium,3,2,big,low
+250,very high,medium,3,2,big,med
+251,very high,medium,3,2,big,high
+252,very high,medium,3,4,small,low
+253,very high,medium,3,4,small,med
+254,very high,medium,3,4,small,high
+255,very high,medium,3,4,med,low
+256,very high,medium,3,4,med,med
+257,very high,medium,3,4,med,high
+258,very high,medium,3,4,big,low
+259,very high,medium,3,4,big,med
+260,very high,medium,3,4,big,high
+261,very high,medium,3,more,small,low
+262,very high,medium,3,more,small,med
+263,very high,medium,3,more,small,high
+264,very high,medium,3,more,med,low
+265,very high,medium,3,more,med,med
+266,very high,medium,3,more,med,high
+267,very high,medium,3,more,big,low
+268,very high,medium,3,more,big,med
+269,very high,medium,3,more,big,high
+270,very high,medium,4,2,small,low
+271,very high,medium,4,2,small,med
+272,very high,medium,4,2,small,high
+273,very high,medium,4,2,med,low
+274,very high,medium,4,2,med,med
+275,very high,medium,4,2,med,high
+276,very high,medium,4,2,big,low
+277,very high,medium,4,2,big,med
+278,very high,medium,4,2,big,high
+279,very high,medium,4,4,small,low
+280,very high,medium,4,4,small,med
+281,very high,medium,4,4,small,high
+282,very high,medium,4,4,med,low
+283,very high,medium,4,4,med,med
+284,very high,medium,4,4,med,high
+285,very high,medium,4,4,big,low
+286,very high,medium,4,4,big,med
+287,very high,medium,4,4,big,high
+288,very high,medium,4,more,small,low
+289,very high,medium,4,more,small,med
+290,very high,medium,4,more,small,high
+291,very high,medium,4,more,med,low
+292,very high,medium,4,more,med,med
+293,very high,medium,4,more,med,high
+294,very high,medium,4,more,big,low
+295,very high,medium,4,more,big,med
+296,very high,medium,4,more,big,high
+297,very high,medium,5more,2,small,low
+298,very high,medium,5more,2,small,med
+299,very high,medium,5more,2,small,high
+300,very high,medium,5more,2,med,low
+301,very high,medium,5more,2,med,med
+302,very high,medium,5more,2,med,high
+303,very high,medium,5more,2,big,low
+304,very high,medium,5more,2,big,med
+305,very high,medium,5more,2,big,high
+306,very high,medium,5more,4,small,low
+307,very high,medium,5more,4,small,med
+308,very high,medium,5more,4,small,high
+309,very high,medium,5more,4,med,low
+310,very high,medium,5more,4,med,med
+311,very high,medium,5more,4,med,high
+312,very high,medium,5more,4,big,low
+313,very high,medium,5more,4,big,med
+314,very high,medium,5more,4,big,high
+315,very high,medium,5more,more,small,low
+316,very high,medium,5more,more,small,med
+317,very high,medium,5more,more,small,high
+318,very high,medium,5more,more,med,low
+319,very high,medium,5more,more,med,med
+320,very high,medium,5more,more,med,high
+321,very high,medium,5more,more,big,low
+322,very high,medium,5more,more,big,med
+323,very high,medium,5more,more,big,high
+324,very high,low,2,2,small,low
+325,very high,low,2,2,small,med
+326,very high,low,2,2,small,high
+327,very high,low,2,2,med,low
+328,very high,low,2,2,med,med
+329,very high,low,2,2,med,high
+330,very high,low,2,2,big,low
+331,very high,low,2,2,big,med
+332,very high,low,2,2,big,high
+333,very high,low,2,4,small,low
+334,very high,low,2,4,small,med
+335,very high,low,2,4,small,high
+336,very high,low,2,4,med,low
+337,very high,low,2,4,med,med
+338,very high,low,2,4,med,high
+339,very high,low,2,4,big,low
+340,very high,low,2,4,big,med
+341,very high,low,2,4,big,high
+342,very high,low,2,more,small,low
+343,very high,low,2,more,small,med
+344,very high,low,2,more,small,high
+345,very high,low,2,more,med,low
+346,very high,low,2,more,med,med
+347,very high,low,2,more,med,high
+348,very high,low,2,more,big,low
+349,very high,low,2,more,big,med
+350,very high,low,2,more,big,high
+351,very high,low,3,2,small,low
+352,very high,low,3,2,small,med
+353,very high,low,3,2,small,high
+354,very high,low,3,2,med,low
+355,very high,low,3,2,med,med
+356,very high,low,3,2,med,high
+357,very high,low,3,2,big,low
+358,very high,low,3,2,big,med
+359,very high,low,3,2,big,high
+360,very high,low,3,4,small,low
+361,very high,low,3,4,small,med
+362,very high,low,3,4,small,high
+363,very high,low,3,4,med,low
+364,very high,low,3,4,med,med
+365,very high,low,3,4,med,high
+366,very high,low,3,4,big,low
+367,very high,low,3,4,big,med
+368,very high,low,3,4,big,high
+369,very high,low,3,more,small,low
+370,very high,low,3,more,small,med
+371,very high,low,3,more,small,high
+372,very high,low,3,more,med,low
+373,very high,low,3,more,med,med
+374,very high,low,3,more,med,high
+375,very high,low,3,more,big,low
+376,very high,low,3,more,big,med
+377,very high,low,3,more,big,high
+378,very high,low,4,2,small,low
+379,very high,low,4,2,small,med
+380,very high,low,4,2,small,high
+381,very high,low,4,2,med,low
+382,very high,low,4,2,med,med
+383,very high,low,4,2,med,high
+384,very high,low,4,2,big,low
+385,very high,low,4,2,big,med
+386,very high,low,4,2,big,high
+387,very high,low,4,4,small,low
+388,very high,low,4,4,small,med
+389,very high,low,4,4,small,high
+390,very high,low,4,4,med,low
+391,very high,low,4,4,med,med
+392,very high,low,4,4,med,high
+393,very high,low,4,4,big,low
+394,very high,low,4,4,big,med
+395,very high,low,4,4,big,high
+396,very high,low,4,more,small,low
+397,very high,low,4,more,small,med
+398,very high,low,4,more,small,high
+399,very high,low,4,more,med,low
+400,very high,low,4,more,med,med
+401,very high,low,4,more,med,high
+402,very high,low,4,more,big,low
+403,very high,low,4,more,big,med
+404,very high,low,4,more,big,high
+405,very high,low,5more,2,small,low
+406,very high,low,5more,2,small,med
+407,very high,low,5more,2,small,high
+408,very high,low,5more,2,med,low
+409,very high,low,5more,2,med,med
+410,very high,low,5more,2,med,high
+411,very high,low,5more,2,big,low
+412,very high,low,5more,2,big,med
+413,very high,low,5more,2,big,high
+414,very high,low,5more,4,small,low
+415,very high,low,5more,4,small,med
+416,very high,low,5more,4,small,high
+417,very high,low,5more,4,med,low
+418,very high,low,5more,4,med,med
+419,very high,low,5more,4,med,high
+420,very high,low,5more,4,big,low
+421,very high,low,5more,4,big,med
+422,very high,low,5more,4,big,high
+423,very high,low,5more,more,small,low
+424,very high,low,5more,more,small,med
+425,very high,low,5more,more,small,high
+426,very high,low,5more,more,med,low
+427,very high,low,5more,more,med,med
+428,very high,low,5more,more,med,high
+429,very high,low,5more,more,big,low
+430,very high,low,5more,more,big,med
+431,very high,low,5more,more,big,high
+432,high,very high,2,2,small,low
+433,high,very high,2,2,small,med
+434,high,very high,2,2,small,high
+435,high,very high,2,2,med,low
+436,high,very high,2,2,med,med
+437,high,very high,2,2,med,high
+438,high,very high,2,2,big,low
+439,high,very high,2,2,big,med
+440,high,very high,2,2,big,high
+441,high,very high,2,4,small,low
+442,high,very high,2,4,small,med
+443,high,very high,2,4,small,high
+444,high,very high,2,4,med,low
+445,high,very high,2,4,med,med
+446,high,very high,2,4,med,high
+447,high,very high,2,4,big,low
+448,high,very high,2,4,big,med
+449,high,very high,2,4,big,high
+450,high,very high,2,more,small,low
+451,high,very high,2,more,small,med
+452,high,very high,2,more,small,high
+453,high,very high,2,more,med,low
+454,high,very high,2,more,med,med
+455,high,very high,2,more,med,high
+456,high,very high,2,more,big,low
+457,high,very high,2,more,big,med
+458,high,very high,2,more,big,high
+459,high,very high,3,2,small,low
+460,high,very high,3,2,small,med
+461,high,very high,3,2,small,high
+462,high,very high,3,2,med,low
+463,high,very high,3,2,med,med
+464,high,very high,3,2,med,high
+465,high,very high,3,2,big,low
+466,high,very high,3,2,big,med
+467,high,very high,3,2,big,high
+468,high,very high,3,4,small,low
+469,high,very high,3,4,small,med
+470,high,very high,3,4,small,high
+471,high,very high,3,4,med,low
+472,high,very high,3,4,med,med
+473,high,very high,3,4,med,high
+474,high,very high,3,4,big,low
+475,high,very high,3,4,big,med
+476,high,very high,3,4,big,high
+477,high,very high,3,more,small,low
+478,high,very high,3,more,small,med
+479,high,very high,3,more,small,high
+480,high,very high,3,more,med,low
+481,high,very high,3,more,med,med
+482,high,very high,3,more,med,high
+483,high,very high,3,more,big,low
+484,high,very high,3,more,big,med
+485,high,very high,3,more,big,high
+486,high,very high,4,2,small,low
+487,high,very high,4,2,small,med
+488,high,very high,4,2,small,high
+489,high,very high,4,2,med,low
+490,high,very high,4,2,med,med
+491,high,very high,4,2,med,high
+492,high,very high,4,2,big,low
+493,high,very high,4,2,big,med
+494,high,very high,4,2,big,high
+495,high,very high,4,4,small,low
+496,high,very high,4,4,small,med
+497,high,very high,4,4,small,high
+498,high,very high,4,4,med,low
+499,high,very high,4,4,med,med
+500,high,very high,4,4,med,high
+501,high,very high,4,4,big,low
+502,high,very high,4,4,big,med
+503,high,very high,4,4,big,high
+504,high,very high,4,more,small,low
+505,high,very high,4,more,small,med
+506,high,very high,4,more,small,high
+507,high,very high,4,more,med,low
+508,high,very high,4,more,med,med
+509,high,very high,4,more,med,high
+510,high,very high,4,more,big,low
+511,high,very high,4,more,big,med
+512,high,very high,4,more,big,high
+513,high,very high,5more,2,small,low
+514,high,very high,5more,2,small,med
+515,high,very high,5more,2,small,high
+516,high,very high,5more,2,med,low
+517,high,very high,5more,2,med,med
+518,high,very high,5more,2,med,high
+519,high,very high,5more,2,big,low
+520,high,very high,5more,2,big,med
+521,high,very high,5more,2,big,high
+522,high,very high,5more,4,small,low
+523,high,very high,5more,4,small,med
+524,high,very high,5more,4,small,high
+525,high,very high,5more,4,med,low
+526,high,very high,5more,4,med,med
+527,high,very high,5more,4,med,high
+528,high,very high,5more,4,big,low
+529,high,very high,5more,4,big,med
+530,high,very high,5more,4,big,high
+531,high,very high,5more,more,small,low
+532,high,very high,5more,more,small,med
+533,high,very high,5more,more,small,high
+534,high,very high,5more,more,med,low
+535,high,very high,5more,more,med,med
+536,high,very high,5more,more,med,high
+537,high,very high,5more,more,big,low
+538,high,very high,5more,more,big,med
+539,high,very high,5more,more,big,high
+540,high,high,2,2,small,low
+541,high,high,2,2,small,med
+542,high,high,2,2,small,high
+543,high,high,2,2,med,low
+544,high,high,2,2,med,med
+545,high,high,2,2,med,high
+546,high,high,2,2,big,low
+547,high,high,2,2,big,med
+548,high,high,2,2,big,high
+549,high,high,2,4,small,low
+550,high,high,2,4,small,med
+551,high,high,2,4,small,high
+552,high,high,2,4,med,low
+553,high,high,2,4,med,med
+554,high,high,2,4,med,high
+555,high,high,2,4,big,low
+556,high,high,2,4,big,med
+557,high,high,2,4,big,high
+558,high,high,2,more,small,low
+559,high,high,2,more,small,med
+560,high,high,2,more,small,high
+561,high,high,2,more,med,low
+562,high,high,2,more,med,med
+563,high,high,2,more,med,high
+564,high,high,2,more,big,low
+565,high,high,2,more,big,med
+566,high,high,2,more,big,high
+567,high,high,3,2,small,low
+568,high,high,3,2,small,med
+569,high,high,3,2,small,high
+570,high,high,3,2,med,low
+571,high,high,3,2,med,med
+572,high,high,3,2,med,high
+573,high,high,3,2,big,low
+574,high,high,3,2,big,med
+575,high,high,3,2,big,high
+576,high,high,3,4,small,low
+577,high,high,3,4,small,med
+578,high,high,3,4,small,high
+579,high,high,3,4,med,low
+580,high,high,3,4,med,med
+581,high,high,3,4,med,high
+582,high,high,3,4,big,low
+583,high,high,3,4,big,med
+584,high,high,3,4,big,high
+585,high,high,3,more,small,low
+586,high,high,3,more,small,med
+587,high,high,3,more,small,high
+588,high,high,3,more,med,low
+589,high,high,3,more,med,med
+590,high,high,3,more,med,high
+591,high,high,3,more,big,low
+592,high,high,3,more,big,med
+593,high,high,3,more,big,high
+594,high,high,4,2,small,low
+595,high,high,4,2,small,med
+596,high,high,4,2,small,high
+597,high,high,4,2,med,low
+598,high,high,4,2,med,med
+599,high,high,4,2,med,high
+600,high,high,4,2,big,low
+601,high,high,4,2,big,med
+602,high,high,4,2,big,high
+603,high,high,4,4,small,low
+604,high,high,4,4,small,med
+605,high,high,4,4,small,high
+606,high,high,4,4,med,low
+607,high,high,4,4,med,med
+608,high,high,4,4,med,high
+609,high,high,4,4,big,low
+610,high,high,4,4,big,med
+611,high,high,4,4,big,high
+612,high,high,4,more,small,low
+613,high,high,4,more,small,med
+614,high,high,4,more,small,high
+615,high,high,4,more,med,low
+616,high,high,4,more,med,med
+617,high,high,4,more,med,high
+618,high,high,4,more,big,low
+619,high,high,4,more,big,med
+620,high,high,4,more,big,high
+621,high,high,5more,2,small,low
+622,high,high,5more,2,small,med
+623,high,high,5more,2,small,high
+624,high,high,5more,2,med,low
+625,high,high,5more,2,med,med
+626,high,high,5more,2,med,high
+627,high,high,5more,2,big,low
+628,high,high,5more,2,big,med
+629,high,high,5more,2,big,high
+630,high,high,5more,4,small,low
+631,high,high,5more,4,small,med
+632,high,high,5more,4,small,high
+633,high,high,5more,4,med,low
+634,high,high,5more,4,med,med
+635,high,high,5more,4,med,high
+636,high,high,5more,4,big,low
+637,high,high,5more,4,big,med
+638,high,high,5more,4,big,high
+639,high,high,5more,more,small,low
+640,high,high,5more,more,small,med
+641,high,high,5more,more,small,high
+642,high,high,5more,more,med,low
+643,high,high,5more,more,med,med
+644,high,high,5more,more,med,high
+645,high,high,5more,more,big,low
+646,high,high,5more,more,big,med
+647,high,high,5more,more,big,high
+648,high,medium,2,2,small,low
+649,high,medium,2,2,small,med
+650,high,medium,2,2,small,high
+651,high,medium,2,2,med,low
+652,high,medium,2,2,med,med
+653,high,medium,2,2,med,high
+654,high,medium,2,2,big,low
+655,high,medium,2,2,big,med
+656,high,medium,2,2,big,high
+657,high,medium,2,4,small,low
+658,high,medium,2,4,small,med
+659,high,medium,2,4,small,high
+660,high,medium,2,4,med,low
+661,high,medium,2,4,med,med
+662,high,medium,2,4,med,high
+663,high,medium,2,4,big,low
+664,high,medium,2,4,big,med
+665,high,medium,2,4,big,high
+666,high,medium,2,more,small,low
+667,high,medium,2,more,small,med
+668,high,medium,2,more,small,high
+669,high,medium,2,more,med,low
+670,high,medium,2,more,med,med
+671,high,medium,2,more,med,high
+672,high,medium,2,more,big,low
+673,high,medium,2,more,big,med
+674,high,medium,2,more,big,high
+675,high,medium,3,2,small,low
+676,high,medium,3,2,small,med
+677,high,medium,3,2,small,high
+678,high,medium,3,2,med,low
+679,high,medium,3,2,med,med
+680,high,medium,3,2,med,high
+681,high,medium,3,2,big,low
+682,high,medium,3,2,big,med
+683,high,medium,3,2,big,high
+684,high,medium,3,4,small,low
+685,high,medium,3,4,small,med
+686,high,medium,3,4,small,high
+687,high,medium,3,4,med,low
+688,high,medium,3,4,med,med
+689,high,medium,3,4,med,high
+690,high,medium,3,4,big,low
+691,high,medium,3,4,big,med
+692,high,medium,3,4,big,high
+693,high,medium,3,more,small,low
+694,high,medium,3,more,small,med
+695,high,medium,3,more,small,high
+696,high,medium,3,more,med,low
+697,high,medium,3,more,med,med
+698,high,medium,3,more,med,high
+699,high,medium,3,more,big,low
+700,high,medium,3,more,big,med
+701,high,medium,3,more,big,high
+702,high,medium,4,2,small,low
+703,high,medium,4,2,small,med
+704,high,medium,4,2,small,high
+705,high,medium,4,2,med,low
+706,high,medium,4,2,med,med
+707,high,medium,4,2,med,high
+708,high,medium,4,2,big,low
+709,high,medium,4,2,big,med
+710,high,medium,4,2,big,high
+711,high,medium,4,4,small,low
+712,high,medium,4,4,small,med
+713,high,medium,4,4,small,high
+714,high,medium,4,4,med,low
+715,high,medium,4,4,med,med
+716,high,medium,4,4,med,high
+717,high,medium,4,4,big,low
+718,high,medium,4,4,big,med
+719,high,medium,4,4,big,high
+720,high,medium,4,more,small,low
+721,high,medium,4,more,small,med
+722,high,medium,4,more,small,high
+723,high,medium,4,more,med,low
+724,high,medium,4,more,med,med
+725,high,medium,4,more,med,high
+726,high,medium,4,more,big,low
+727,high,medium,4,more,big,med
+728,high,medium,4,more,big,high
+729,high,medium,5more,2,small,low
+730,high,medium,5more,2,small,med
+731,high,medium,5more,2,small,high
+732,high,medium,5more,2,med,low
+733,high,medium,5more,2,med,med
+734,high,medium,5more,2,med,high
+735,high,medium,5more,2,big,low
+736,high,medium,5more,2,big,med
+737,high,medium,5more,2,big,high
+738,high,medium,5more,4,small,low
+739,high,medium,5more,4,small,med
+740,high,medium,5more,4,small,high
+741,high,medium,5more,4,med,low
+742,high,medium,5more,4,med,med
+743,high,medium,5more,4,med,high
+744,high,medium,5more,4,big,low
+745,high,medium,5more,4,big,med
+746,high,medium,5more,4,big,high
+747,high,medium,5more,more,small,low
+748,high,medium,5more,more,small,med
+749,high,medium,5more,more,small,high
+750,high,medium,5more,more,med,low
+751,high,medium,5more,more,med,med
+752,high,medium,5more,more,med,high
+753,high,medium,5more,more,big,low
+754,high,medium,5more,more,big,med
+755,high,medium,5more,more,big,high
+756,high,low,2,2,small,low
+757,high,low,2,2,small,med
+758,high,low,2,2,small,high
+759,high,low,2,2,med,low
+760,high,low,2,2,med,med
+761,high,low,2,2,med,high
+762,high,low,2,2,big,low
+763,high,low,2,2,big,med
+764,high,low,2,2,big,high
+765,high,low,2,4,small,low
+766,high,low,2,4,small,med
+767,high,low,2,4,small,high
+768,high,low,2,4,med,low
+769,high,low,2,4,med,med
+770,high,low,2,4,med,high
+771,high,low,2,4,big,low
+772,high,low,2,4,big,med
+773,high,low,2,4,big,high
+774,high,low,2,more,small,low
+775,high,low,2,more,small,med
+776,high,low,2,more,small,high
+777,high,low,2,more,med,low
+778,high,low,2,more,med,med
+779,high,low,2,more,med,high
+780,high,low,2,more,big,low
+781,high,low,2,more,big,med
+782,high,low,2,more,big,high
+783,high,low,3,2,small,low
+784,high,low,3,2,small,med
+785,high,low,3,2,small,high
+786,high,low,3,2,med,low
+787,high,low,3,2,med,med
+788,high,low,3,2,med,high
+789,high,low,3,2,big,low
+790,high,low,3,2,big,med
+791,high,low,3,2,big,high
+792,high,low,3,4,small,low
+793,high,low,3,4,small,med
+794,high,low,3,4,small,high
+795,high,low,3,4,med,low
+796,high,low,3,4,med,med
+797,high,low,3,4,med,high
+798,high,low,3,4,big,low
+799,high,low,3,4,big,med
+800,high,low,3,4,big,high
+801,high,low,3,more,small,low
+802,high,low,3,more,small,med
+803,high,low,3,more,small,high
+804,high,low,3,more,med,low
+805,high,low,3,more,med,med
+806,high,low,3,more,med,high
+807,high,low,3,more,big,low
+808,high,low,3,more,big,med
+809,high,low,3,more,big,high
+810,high,low,4,2,small,low
+811,high,low,4,2,small,med
+812,high,low,4,2,small,high
+813,high,low,4,2,med,low
+814,high,low,4,2,med,med
+815,high,low,4,2,med,high
+816,high,low,4,2,big,low
+817,high,low,4,2,big,med
+818,high,low,4,2,big,high
+819,high,low,4,4,small,low
+820,high,low,4,4,small,med
+821,high,low,4,4,small,high
+822,high,low,4,4,med,low
+823,high,low,4,4,med,med
+824,high,low,4,4,med,high
+825,high,low,4,4,big,low
+826,high,low,4,4,big,med
+827,high,low,4,4,big,high
+828,high,low,4,more,small,low
+829,high,low,4,more,small,med
+830,high,low,4,more,small,high
+831,high,low,4,more,med,low
+832,high,low,4,more,med,med
+833,high,low,4,more,med,high
+834,high,low,4,more,big,low
+835,high,low,4,more,big,med
+836,high,low,4,more,big,high
+837,high,low,5more,2,small,low
+838,high,low,5more,2,small,med
+839,high,low,5more,2,small,high
+840,high,low,5more,2,med,low
+841,high,low,5more,2,med,med
+842,high,low,5more,2,med,high
+843,high,low,5more,2,big,low
+844,high,low,5more,2,big,med
+845,high,low,5more,2,big,high
+846,high,low,5more,4,small,low
+847,high,low,5more,4,small,med
+848,high,low,5more,4,small,high
+849,high,low,5more,4,med,low
+850,high,low,5more,4,med,med
+851,high,low,5more,4,med,high
+852,high,low,5more,4,big,low
+853,high,low,5more,4,big,med
+854,high,low,5more,4,big,high
+855,high,low,5more,more,small,low
+856,high,low,5more,more,small,med
+857,high,low,5more,more,small,high
+858,high,low,5more,more,med,low
+859,high,low,5more,more,med,med
+860,high,low,5more,more,med,high
+861,high,low,5more,more,big,low
+862,high,low,5more,more,big,med
+863,high,low,5more,more,big,high
+864,medium,very high,2,2,small,low
+865,medium,very high,2,2,small,med
+866,medium,very high,2,2,small,high
+867,medium,very high,2,2,med,low
+868,medium,very high,2,2,med,med
+869,medium,very high,2,2,med,high
+870,medium,very high,2,2,big,low
+871,medium,very high,2,2,big,med
+872,medium,very high,2,2,big,high
+873,medium,very high,2,4,small,low
+874,medium,very high,2,4,small,med
+875,medium,very high,2,4,small,high
+876,medium,very high,2,4,med,low
+877,medium,very high,2,4,med,med
+878,medium,very high,2,4,med,high
+879,medium,very high,2,4,big,low
+880,medium,very high,2,4,big,med
+881,medium,very high,2,4,big,high
+882,medium,very high,2,more,small,low
+883,medium,very high,2,more,small,med
+884,medium,very high,2,more,small,high
+885,medium,very high,2,more,med,low
+886,medium,very high,2,more,med,med
+887,medium,very high,2,more,med,high
+888,medium,very high,2,more,big,low
+889,medium,very high,2,more,big,med
+890,medium,very high,2,more,big,high
+891,medium,very high,3,2,small,low
+892,medium,very high,3,2,small,med
+893,medium,very high,3,2,small,high
+894,medium,very high,3,2,med,low
+895,medium,very high,3,2,med,med
+896,medium,very high,3,2,med,high
+897,medium,very high,3,2,big,low
+898,medium,very high,3,2,big,med
+899,medium,very high,3,2,big,high
+900,medium,very high,3,4,small,low
+901,medium,very high,3,4,small,med
+902,medium,very high,3,4,small,high
+903,medium,very high,3,4,med,low
+904,medium,very high,3,4,med,med
+905,medium,very high,3,4,med,high
+906,medium,very high,3,4,big,low
+907,medium,very high,3,4,big,med
+908,medium,very high,3,4,big,high
+909,medium,very high,3,more,small,low
+910,medium,very high,3,more,small,med
+911,medium,very high,3,more,small,high
+912,medium,very high,3,more,med,low
+913,medium,very high,3,more,med,med
+914,medium,very high,3,more,med,high
+915,medium,very high,3,more,big,low
+916,medium,very high,3,more,big,med
+917,medium,very high,3,more,big,high
+918,medium,very high,4,2,small,low
+919,medium,very high,4,2,small,med
+920,medium,very high,4,2,small,high
+921,medium,very high,4,2,med,low
+922,medium,very high,4,2,med,med
+923,medium,very high,4,2,med,high
+924,medium,very high,4,2,big,low
+925,medium,very high,4,2,big,med
+926,medium,very high,4,2,big,high
+927,medium,very high,4,4,small,low
+928,medium,very high,4,4,small,med
+929,medium,very high,4,4,small,high
+930,medium,very high,4,4,med,low
+931,medium,very high,4,4,med,med
+932,medium,very high,4,4,med,high
+933,medium,very high,4,4,big,low
+934,medium,very high,4,4,big,med
+935,medium,very high,4,4,big,high
+936,medium,very high,4,more,small,low
+937,medium,very high,4,more,small,med
+938,medium,very high,4,more,small,high
+939,medium,very high,4,more,med,low
+940,medium,very high,4,more,med,med
+941,medium,very high,4,more,med,high
+942,medium,very high,4,more,big,low
+943,medium,very high,4,more,big,med
+944,medium,very high,4,more,big,high
+945,medium,very high,5more,2,small,low
+946,medium,very high,5more,2,small,med
+947,medium,very high,5more,2,small,high
+948,medium,very high,5more,2,med,low
+949,medium,very high,5more,2,med,med
+950,medium,very high,5more,2,med,high
+951,medium,very high,5more,2,big,low
+952,medium,very high,5more,2,big,med
+953,medium,very high,5more,2,big,high
+954,medium,very high,5more,4,small,low
+955,medium,very high,5more,4,small,med
+956,medium,very high,5more,4,small,high
+957,medium,very high,5more,4,med,low
+958,medium,very high,5more,4,med,med
+959,medium,very high,5more,4,med,high
+960,medium,very high,5more,4,big,low
+961,medium,very high,5more,4,big,med
+962,medium,very high,5more,4,big,high
+963,medium,very high,5more,more,small,low
+964,medium,very high,5more,more,small,med
+965,medium,very high,5more,more,small,high
+966,medium,very high,5more,more,med,low
+967,medium,very high,5more,more,med,med
+968,medium,very high,5more,more,med,high
+969,medium,very high,5more,more,big,low
+970,medium,very high,5more,more,big,med
+971,medium,very high,5more,more,big,high
+972,medium,high,2,2,small,low
+973,medium,high,2,2,small,med
+974,medium,high,2,2,small,high
+975,medium,high,2,2,med,low
+976,medium,high,2,2,med,med
+977,medium,high,2,2,med,high
+978,medium,high,2,2,big,low
+979,medium,high,2,2,big,med
+980,medium,high,2,2,big,high
+981,medium,high,2,4,small,low
+982,medium,high,2,4,small,med
+983,medium,high,2,4,small,high
+984,medium,high,2,4,med,low
+985,medium,high,2,4,med,med
+986,medium,high,2,4,med,high
+987,medium,high,2,4,big,low
+988,medium,high,2,4,big,med
+989,medium,high,2,4,big,high
+990,medium,high,2,more,small,low
+991,medium,high,2,more,small,med
+992,medium,high,2,more,small,high
+993,medium,high,2,more,med,low
+994,medium,high,2,more,med,med
+995,medium,high,2,more,med,high
+996,medium,high,2,more,big,low
+997,medium,high,2,more,big,med
+998,medium,high,2,more,big,high
+999,medium,high,3,2,small,low
+1000,medium,high,3,2,small,med
+1001,medium,high,3,2,small,high
+1002,medium,high,3,2,med,low
+1003,medium,high,3,2,med,med
+1004,medium,high,3,2,med,high
+1005,medium,high,3,2,big,low
+1006,medium,high,3,2,big,med
+1007,medium,high,3,2,big,high
+1008,medium,high,3,4,small,low
+1009,medium,high,3,4,small,med
+1010,medium,high,3,4,small,high
+1011,medium,high,3,4,med,low
+1012,medium,high,3,4,med,med
+1013,medium,high,3,4,med,high
+1014,medium,high,3,4,big,low
+1015,medium,high,3,4,big,med
+1016,medium,high,3,4,big,high
+1017,medium,high,3,more,small,low
+1018,medium,high,3,more,small,med
+1019,medium,high,3,more,small,high
+1020,medium,high,3,more,med,low
+1021,medium,high,3,more,med,med
+1022,medium,high,3,more,med,high
+1023,medium,high,3,more,big,low
+1024,medium,high,3,more,big,med
+1025,medium,high,3,more,big,high
+1026,medium,high,4,2,small,low
+1027,medium,high,4,2,small,med
+1028,medium,high,4,2,small,high
+1029,medium,high,4,2,med,low
+1030,medium,high,4,2,med,med
+1031,medium,high,4,2,med,high
+1032,medium,high,4,2,big,low
+1033,medium,high,4,2,big,med
+1034,medium,high,4,2,big,high
+1035,medium,high,4,4,small,low
+1036,medium,high,4,4,small,med
+1037,medium,high,4,4,small,high
+1038,medium,high,4,4,med,low
+1039,medium,high,4,4,med,med
+1040,medium,high,4,4,med,high
+1041,medium,high,4,4,big,low
+1042,medium,high,4,4,big,med
+1043,medium,high,4,4,big,high
+1044,medium,high,4,more,small,low
+1045,medium,high,4,more,small,med
+1046,medium,high,4,more,small,high
+1047,medium,high,4,more,med,low
+1048,medium,high,4,more,med,med
+1049,medium,high,4,more,med,high
+1050,medium,high,4,more,big,low
+1051,medium,high,4,more,big,med
+1052,medium,high,4,more,big,high
+1053,medium,high,5more,2,small,low
+1054,medium,high,5more,2,small,med
+1055,medium,high,5more,2,small,high
+1056,medium,high,5more,2,med,low
+1057,medium,high,5more,2,med,med
+1058,medium,high,5more,2,med,high
+1059,medium,high,5more,2,big,low
+1060,medium,high,5more,2,big,med
+1061,medium,high,5more,2,big,high
+1062,medium,high,5more,4,small,low
+1063,medium,high,5more,4,small,med
+1064,medium,high,5more,4,small,high
+1065,medium,high,5more,4,med,low
+1066,medium,high,5more,4,med,med
+1067,medium,high,5more,4,med,high
+1068,medium,high,5more,4,big,low
+1069,medium,high,5more,4,big,med
+1070,medium,high,5more,4,big,high
+1071,medium,high,5more,more,small,low
+1072,medium,high,5more,more,small,med
+1073,medium,high,5more,more,small,high
+1074,medium,high,5more,more,med,low
+1075,medium,high,5more,more,med,med
+1076,medium,high,5more,more,med,high
+1077,medium,high,5more,more,big,low
+1078,medium,high,5more,more,big,med
+1079,medium,high,5more,more,big,high
+1080,medium,medium,2,2,small,low
+1081,medium,medium,2,2,small,med
+1082,medium,medium,2,2,small,high
+1083,medium,medium,2,2,med,low
+1084,medium,medium,2,2,med,med
+1085,medium,medium,2,2,med,high
+1086,medium,medium,2,2,big,low
+1087,medium,medium,2,2,big,med
+1088,medium,medium,2,2,big,high
+1089,medium,medium,2,4,small,low
+1090,medium,medium,2,4,small,med
+1091,medium,medium,2,4,small,high
+1092,medium,medium,2,4,med,low
+1093,medium,medium,2,4,med,med
+1094,medium,medium,2,4,med,high
+1095,medium,medium,2,4,big,low
+1096,medium,medium,2,4,big,med
+1097,medium,medium,2,4,big,high
+1098,medium,medium,2,more,small,low
+1099,medium,medium,2,more,small,med
+1100,medium,medium,2,more,small,high
+1101,medium,medium,2,more,med,low
+1102,medium,medium,2,more,med,med
+1103,medium,medium,2,more,med,high
+1104,medium,medium,2,more,big,low
+1105,medium,medium,2,more,big,med
+1106,medium,medium,2,more,big,high
+1107,medium,medium,3,2,small,low
+1108,medium,medium,3,2,small,med
+1109,medium,medium,3,2,small,high
+1110,medium,medium,3,2,med,low
+1111,medium,medium,3,2,med,med
+1112,medium,medium,3,2,med,high
+1113,medium,medium,3,2,big,low
+1114,medium,medium,3,2,big,med
+1115,medium,medium,3,2,big,high
+1116,medium,medium,3,4,small,low
+1117,medium,medium,3,4,small,med
+1118,medium,medium,3,4,small,high
+1119,medium,medium,3,4,med,low
+1120,medium,medium,3,4,med,med
+1121,medium,medium,3,4,med,high
+1122,medium,medium,3,4,big,low
+1123,medium,medium,3,4,big,med
+1124,medium,medium,3,4,big,high
+1125,medium,medium,3,more,small,low
+1126,medium,medium,3,more,small,med
+1127,medium,medium,3,more,small,high
+1128,medium,medium,3,more,med,low
+1129,medium,medium,3,more,med,med
+1130,medium,medium,3,more,med,high
+1131,medium,medium,3,more,big,low
+1132,medium,medium,3,more,big,med
+1133,medium,medium,3,more,big,high
+1134,medium,medium,4,2,small,low
+1135,medium,medium,4,2,small,med
+1136,medium,medium,4,2,small,high
+1137,medium,medium,4,2,med,low
+1138,medium,medium,4,2,med,med
+1139,medium,medium,4,2,med,high
+1140,medium,medium,4,2,big,low
+1141,medium,medium,4,2,big,med
+1142,medium,medium,4,2,big,high
+1143,medium,medium,4,4,small,low
+1144,medium,medium,4,4,small,med
+1145,medium,medium,4,4,small,high
+1146,medium,medium,4,4,med,low
+1147,medium,medium,4,4,med,med
+1148,medium,medium,4,4,med,high
+1149,medium,medium,4,4,big,low
+1150,medium,medium,4,4,big,med
+1151,medium,medium,4,4,big,high
+1152,medium,medium,4,more,small,low
+1153,medium,medium,4,more,small,med
+1154,medium,medium,4,more,small,high
+1155,medium,medium,4,more,med,low
+1156,medium,medium,4,more,med,med
+1157,medium,medium,4,more,med,high
+1158,medium,medium,4,more,big,low
+1159,medium,medium,4,more,big,med
+1160,medium,medium,4,more,big,high
+1161,medium,medium,5more,2,small,low
+1162,medium,medium,5more,2,small,med
+1163,medium,medium,5more,2,small,high
+1164,medium,medium,5more,2,med,low
+1165,medium,medium,5more,2,med,med
+1166,medium,medium,5more,2,med,high
+1167,medium,medium,5more,2,big,low
+1168,medium,medium,5more,2,big,med
+1169,medium,medium,5more,2,big,high
+1170,medium,medium,5more,4,small,low
+1171,medium,medium,5more,4,small,med
+1172,medium,medium,5more,4,small,high
+1173,medium,medium,5more,4,med,low
+1174,medium,medium,5more,4,med,med
+1175,medium,medium,5more,4,med,high
+1176,medium,medium,5more,4,big,low
+1177,medium,medium,5more,4,big,med
+1178,medium,medium,5more,4,big,high
+1179,medium,medium,5more,more,small,low
+1180,medium,medium,5more,more,small,med
+1181,medium,medium,5more,more,small,high
+1182,medium,medium,5more,more,med,low
+1183,medium,medium,5more,more,med,med
+1184,medium,medium,5more,more,med,high
+1185,medium,medium,5more,more,big,low
+1186,medium,medium,5more,more,big,med
+1187,medium,medium,5more,more,big,high
+1188,medium,low,2,2,small,low
+1189,medium,low,2,2,small,med
+1190,medium,low,2,2,small,high
+1191,medium,low,2,2,med,low
+1192,medium,low,2,2,med,med
+1193,medium,low,2,2,med,high
+1194,medium,low,2,2,big,low
+1195,medium,low,2,2,big,med
+1196,medium,low,2,2,big,high
+1197,medium,low,2,4,small,low
+1198,medium,low,2,4,small,med
+1199,medium,low,2,4,small,high
+1200,medium,low,2,4,med,low
+1201,medium,low,2,4,med,med
+1202,medium,low,2,4,med,high
+1203,medium,low,2,4,big,low
+1204,medium,low,2,4,big,med
+1205,medium,low,2,4,big,high
+1206,medium,low,2,more,small,low
+1207,medium,low,2,more,small,med
+1208,medium,low,2,more,small,high
+1209,medium,low,2,more,med,low
+1210,medium,low,2,more,med,med
+1211,medium,low,2,more,med,high
+1212,medium,low,2,more,big,low
+1213,medium,low,2,more,big,med
+1214,medium,low,2,more,big,high
+1215,medium,low,3,2,small,low
+1216,medium,low,3,2,small,med
+1217,medium,low,3,2,small,high
+1218,medium,low,3,2,med,low
+1219,medium,low,3,2,med,med
+1220,medium,low,3,2,med,high
+1221,medium,low,3,2,big,low
+1222,medium,low,3,2,big,med
+1223,medium,low,3,2,big,high
+1224,medium,low,3,4,small,low
+1225,medium,low,3,4,small,med
+1226,medium,low,3,4,small,high
+1227,medium,low,3,4,med,low
+1228,medium,low,3,4,med,med
+1229,medium,low,3,4,med,high
+1230,medium,low,3,4,big,low
+1231,medium,low,3,4,big,med
+1232,medium,low,3,4,big,high
+1233,medium,low,3,more,small,low
+1234,medium,low,3,more,small,med
+1235,medium,low,3,more,small,high
+1236,medium,low,3,more,med,low
+1237,medium,low,3,more,med,med
+1238,medium,low,3,more,med,high
+1239,medium,low,3,more,big,low
+1240,medium,low,3,more,big,med
+1241,medium,low,3,more,big,high
+1242,medium,low,4,2,small,low
+1243,medium,low,4,2,small,med
+1244,medium,low,4,2,small,high
+1245,medium,low,4,2,med,low
+1246,medium,low,4,2,med,med
+1247,medium,low,4,2,med,high
+1248,medium,low,4,2,big,low
+1249,medium,low,4,2,big,med
+1250,medium,low,4,2,big,high
+1251,medium,low,4,4,small,low
+1252,medium,low,4,4,small,med
+1253,medium,low,4,4,small,high
+1254,medium,low,4,4,med,low
+1255,medium,low,4,4,med,med
+1256,medium,low,4,4,med,high
+1257,medium,low,4,4,big,low
+1258,medium,low,4,4,big,med
+1259,medium,low,4,4,big,high
+1260,medium,low,4,more,small,low
+1261,medium,low,4,more,small,med
+1262,medium,low,4,more,small,high
+1263,medium,low,4,more,med,low
+1264,medium,low,4,more,med,med
+1265,medium,low,4,more,med,high
+1266,medium,low,4,more,big,low
+1267,medium,low,4,more,big,med
+1268,medium,low,4,more,big,high
+1269,medium,low,5more,2,small,low
+1270,medium,low,5more,2,small,med
+1271,medium,low,5more,2,small,high
+1272,medium,low,5more,2,med,low
+1273,medium,low,5more,2,med,med
+1274,medium,low,5more,2,med,high
+1275,medium,low,5more,2,big,low
+1276,medium,low,5more,2,big,med
+1277,medium,low,5more,2,big,high
+1278,medium,low,5more,4,small,low
+1279,medium,low,5more,4,small,med
+1280,medium,low,5more,4,small,high
+1281,medium,low,5more,4,med,low
+1282,medium,low,5more,4,med,med
+1283,medium,low,5more,4,med,high
+1284,medium,low,5more,4,big,low
+1285,medium,low,5more,4,big,med
+1286,medium,low,5more,4,big,high
+1287,medium,low,5more,more,small,low
+1288,medium,low,5more,more,small,med
+1289,medium,low,5more,more,small,high
+1290,medium,low,5more,more,med,low
+1291,medium,low,5more,more,med,med
+1292,medium,low,5more,more,med,high
+1293,medium,low,5more,more,big,low
+1294,medium,low,5more,more,big,med
+1295,medium,low,5more,more,big,high
+1296,low,very high,2,2,small,low
+1297,low,very high,2,2,small,med
+1298,low,very high,2,2,small,high
+1299,low,very high,2,2,med,low
+1300,low,very high,2,2,med,med
+1301,low,very high,2,2,med,high
+1302,low,very high,2,2,big,low
+1303,low,very high,2,2,big,med
+1304,low,very high,2,2,big,high
+1305,low,very high,2,4,small,low
+1306,low,very high,2,4,small,med
+1307,low,very high,2,4,small,high
+1308,low,very high,2,4,med,low
+1309,low,very high,2,4,med,med
+1310,low,very high,2,4,med,high
+1311,low,very high,2,4,big,low
+1312,low,very high,2,4,big,med
+1313,low,very high,2,4,big,high
+1314,low,very high,2,more,small,low
+1315,low,very high,2,more,small,med
+1316,low,very high,2,more,small,high
+1317,low,very high,2,more,med,low
+1318,low,very high,2,more,med,med
+1319,low,very high,2,more,med,high
+1320,low,very high,2,more,big,low
+1321,low,very high,2,more,big,med
+1322,low,very high,2,more,big,high
+1323,low,very high,3,2,small,low
+1324,low,very high,3,2,small,med
+1325,low,very high,3,2,small,high
+1326,low,very high,3,2,med,low
+1327,low,very high,3,2,med,med
+1328,low,very high,3,2,med,high
+1329,low,very high,3,2,big,low
+1330,low,very high,3,2,big,med
+1331,low,very high,3,2,big,high
+1332,low,very high,3,4,small,low
+1333,low,very high,3,4,small,med
+1334,low,very high,3,4,small,high
+1335,low,very high,3,4,med,low
+1336,low,very high,3,4,med,med
+1337,low,very high,3,4,med,high
+1338,low,very high,3,4,big,low
+1339,low,very high,3,4,big,med
+1340,low,very high,3,4,big,high
+1341,low,very high,3,more,small,low
+1342,low,very high,3,more,small,med
+1343,low,very high,3,more,small,high
+1344,low,very high,3,more,med,low
+1345,low,very high,3,more,med,med
+1346,low,very high,3,more,med,high
+1347,low,very high,3,more,big,low
+1348,low,very high,3,more,big,med
+1349,low,very high,3,more,big,high
+1350,low,very high,4,2,small,low
+1351,low,very high,4,2,small,med
+1352,low,very high,4,2,small,high
+1353,low,very high,4,2,med,low
+1354,low,very high,4,2,med,med
+1355,low,very high,4,2,med,high
+1356,low,very high,4,2,big,low
+1357,low,very high,4,2,big,med
+1358,low,very high,4,2,big,high
+1359,low,very high,4,4,small,low
+1360,low,very high,4,4,small,med
+1361,low,very high,4,4,small,high
+1362,low,very high,4,4,med,low
+1363,low,very high,4,4,med,med
+1364,low,very high,4,4,med,high
+1365,low,very high,4,4,big,low
+1366,low,very high,4,4,big,med
+1367,low,very high,4,4,big,high
+1368,low,very high,4,more,small,low
+1369,low,very high,4,more,small,med
+1370,low,very high,4,more,small,high
+1371,low,very high,4,more,med,low
+1372,low,very high,4,more,med,med
+1373,low,very high,4,more,med,high
+1374,low,very high,4,more,big,low
+1375,low,very high,4,more,big,med
+1376,low,very high,4,more,big,high
+1377,low,very high,5more,2,small,low
+1378,low,very high,5more,2,small,med
+1379,low,very high,5more,2,small,high
+1380,low,very high,5more,2,med,low
+1381,low,very high,5more,2,med,med
+1382,low,very high,5more,2,med,high
+1383,low,very high,5more,2,big,low
+1384,low,very high,5more,2,big,med
+1385,low,very high,5more,2,big,high
+1386,low,very high,5more,4,small,low
+1387,low,very high,5more,4,small,med
+1388,low,very high,5more,4,small,high
+1389,low,very high,5more,4,med,low
+1390,low,very high,5more,4,med,med
+1391,low,very high,5more,4,med,high
+1392,low,very high,5more,4,big,low
+1393,low,very high,5more,4,big,med
+1394,low,very high,5more,4,big,high
+1395,low,very high,5more,more,small,low
+1396,low,very high,5more,more,small,med
+1397,low,very high,5more,more,small,high
+1398,low,very high,5more,more,med,low
+1399,low,very high,5more,more,med,med
+1400,low,very high,5more,more,med,high
+1401,low,very high,5more,more,big,low
+1402,low,very high,5more,more,big,med
+1403,low,very high,5more,more,big,high
+1404,low,high,2,2,small,low
+1405,low,high,2,2,small,med
+1406,low,high,2,2,small,high
+1407,low,high,2,2,med,low
+1408,low,high,2,2,med,med
+1409,low,high,2,2,med,high
+1410,low,high,2,2,big,low
+1411,low,high,2,2,big,med
+1412,low,high,2,2,big,high
+1413,low,high,2,4,small,low
+1414,low,high,2,4,small,med
+1415,low,high,2,4,small,high
+1416,low,high,2,4,med,low
+1417,low,high,2,4,med,med
+1418,low,high,2,4,med,high
+1419,low,high,2,4,big,low
+1420,low,high,2,4,big,med
+1421,low,high,2,4,big,high
+1422,low,high,2,more,small,low
+1423,low,high,2,more,small,med
+1424,low,high,2,more,small,high
+1425,low,high,2,more,med,low
+1426,low,high,2,more,med,med
+1427,low,high,2,more,med,high
+1428,low,high,2,more,big,low
+1429,low,high,2,more,big,med
+1430,low,high,2,more,big,high
+1431,low,high,3,2,small,low
+1432,low,high,3,2,small,med
+1433,low,high,3,2,small,high
+1434,low,high,3,2,med,low
+1435,low,high,3,2,med,med
+1436,low,high,3,2,med,high
+1437,low,high,3,2,big,low
+1438,low,high,3,2,big,med
+1439,low,high,3,2,big,high
+1440,low,high,3,4,small,low
+1441,low,high,3,4,small,med
+1442,low,high,3,4,small,high
+1443,low,high,3,4,med,low
+1444,low,high,3,4,med,med
+1445,low,high,3,4,med,high
+1446,low,high,3,4,big,low
+1447,low,high,3,4,big,med
+1448,low,high,3,4,big,high
+1449,low,high,3,more,small,low
+1450,low,high,3,more,small,med
+1451,low,high,3,more,small,high
+1452,low,high,3,more,med,low
+1453,low,high,3,more,med,med
+1454,low,high,3,more,med,high
+1455,low,high,3,more,big,low
+1456,low,high,3,more,big,med
+1457,low,high,3,more,big,high
+1458,low,high,4,2,small,low
+1459,low,high,4,2,small,med
+1460,low,high,4,2,small,high
+1461,low,high,4,2,med,low
+1462,low,high,4,2,med,med
+1463,low,high,4,2,med,high
+1464,low,high,4,2,big,low
+1465,low,high,4,2,big,med
+1466,low,high,4,2,big,high
+1467,low,high,4,4,small,low
+1468,low,high,4,4,small,med
+1469,low,high,4,4,small,high
+1470,low,high,4,4,med,low
+1471,low,high,4,4,med,med
+1472,low,high,4,4,med,high
+1473,low,high,4,4,big,low
+1474,low,high,4,4,big,med
+1475,low,high,4,4,big,high
+1476,low,high,4,more,small,low
+1477,low,high,4,more,small,med
+1478,low,high,4,more,small,high
+1479,low,high,4,more,med,low
+1480,low,high,4,more,med,med
+1481,low,high,4,more,med,high
+1482,low,high,4,more,big,low
+1483,low,high,4,more,big,med
+1484,low,high,4,more,big,high
+1485,low,high,5more,2,small,low
+1486,low,high,5more,2,small,med
+1487,low,high,5more,2,small,high
+1488,low,high,5more,2,med,low
+1489,low,high,5more,2,med,med
+1490,low,high,5more,2,med,high
+1491,low,high,5more,2,big,low
+1492,low,high,5more,2,big,med
+1493,low,high,5more,2,big,high
+1494,low,high,5more,4,small,low
+1495,low,high,5more,4,small,med
+1496,low,high,5more,4,small,high
+1497,low,high,5more,4,med,low
+1498,low,high,5more,4,med,med
+1499,low,high,5more,4,med,high
+1500,low,high,5more,4,big,low
+1501,low,high,5more,4,big,med
+1502,low,high,5more,4,big,high
+1503,low,high,5more,more,small,low
+1504,low,high,5more,more,small,med
+1505,low,high,5more,more,small,high
+1506,low,high,5more,more,med,low
+1507,low,high,5more,more,med,med
+1508,low,high,5more,more,med,high
+1509,low,high,5more,more,big,low
+1510,low,high,5more,more,big,med
+1511,low,high,5more,more,big,high
+1512,low,medium,2,2,small,low
+1513,low,medium,2,2,small,med
+1514,low,medium,2,2,small,high
+1515,low,medium,2,2,med,low
+1516,low,medium,2,2,med,med
+1517,low,medium,2,2,med,high
+1518,low,medium,2,2,big,low
+1519,low,medium,2,2,big,med
+1520,low,medium,2,2,big,high
+1521,low,medium,2,4,small,low
+1522,low,medium,2,4,small,med
+1523,low,medium,2,4,small,high
+1524,low,medium,2,4,med,low
+1525,low,medium,2,4,med,med
+1526,low,medium,2,4,med,high
+1527,low,medium,2,4,big,low
+1528,low,medium,2,4,big,med
+1529,low,medium,2,4,big,high
+1530,low,medium,2,more,small,low
+1531,low,medium,2,more,small,med
+1532,low,medium,2,more,small,high
+1533,low,medium,2,more,med,low
+1534,low,medium,2,more,med,med
+1535,low,medium,2,more,med,high
+1536,low,medium,2,more,big,low
+1537,low,medium,2,more,big,med
+1538,low,medium,2,more,big,high
+1539,low,medium,3,2,small,low
+1540,low,medium,3,2,small,med
+1541,low,medium,3,2,small,high
+1542,low,medium,3,2,med,low
+1543,low,medium,3,2,med,med
+1544,low,medium,3,2,med,high
+1545,low,medium,3,2,big,low
+1546,low,medium,3,2,big,med
+1547,low,medium,3,2,big,high
+1548,low,medium,3,4,small,low
+1549,low,medium,3,4,small,med
+1550,low,medium,3,4,small,high
+1551,low,medium,3,4,med,low
+1552,low,medium,3,4,med,med
+1553,low,medium,3,4,med,high
+1554,low,medium,3,4,big,low
+1555,low,medium,3,4,big,med
+1556,low,medium,3,4,big,high
+1557,low,medium,3,more,small,low
+1558,low,medium,3,more,small,med
+1559,low,medium,3,more,small,high
+1560,low,medium,3,more,med,low
+1561,low,medium,3,more,med,med
+1562,low,medium,3,more,med,high
+1563,low,medium,3,more,big,low
+1564,low,medium,3,more,big,med
+1565,low,medium,3,more,big,high
+1566,low,medium,4,2,small,low
+1567,low,medium,4,2,small,med
+1568,low,medium,4,2,small,high
+1569,low,medium,4,2,med,low
+1570,low,medium,4,2,med,med
+1571,low,medium,4,2,med,high
+1572,low,medium,4,2,big,low
+1573,low,medium,4,2,big,med
+1574,low,medium,4,2,big,high
+1575,low,medium,4,4,small,low
+1576,low,medium,4,4,small,med
+1577,low,medium,4,4,small,high
+1578,low,medium,4,4,med,low
+1579,low,medium,4,4,med,med
+1580,low,medium,4,4,med,high
+1581,low,medium,4,4,big,low
+1582,low,medium,4,4,big,med
+1583,low,medium,4,4,big,high
+1584,low,medium,4,more,small,low
+1585,low,medium,4,more,small,med
+1586,low,medium,4,more,small,high
+1587,low,medium,4,more,med,low
+1588,low,medium,4,more,med,med
+1589,low,medium,4,more,med,high
+1590,low,medium,4,more,big,low
+1591,low,medium,4,more,big,med
+1592,low,medium,4,more,big,high
+1593,low,medium,5more,2,small,low
+1594,low,medium,5more,2,small,med
+1595,low,medium,5more,2,small,high
+1596,low,medium,5more,2,med,low
+1597,low,medium,5more,2,med,med
+1598,low,medium,5more,2,med,high
+1599,low,medium,5more,2,big,low
+1600,low,medium,5more,2,big,med
+1601,low,medium,5more,2,big,high
+1602,low,medium,5more,4,small,low
+1603,low,medium,5more,4,small,med
+1604,low,medium,5more,4,small,high
+1605,low,medium,5more,4,med,low
+1606,low,medium,5more,4,med,med
+1607,low,medium,5more,4,med,high
+1608,low,medium,5more,4,big,low
+1609,low,medium,5more,4,big,med
+1610,low,medium,5more,4,big,high
+1611,low,medium,5more,more,small,low
+1612,low,medium,5more,more,small,med
+1613,low,medium,5more,more,small,high
+1614,low,medium,5more,more,med,low
+1615,low,medium,5more,more,med,med
+1616,low,medium,5more,more,med,high
+1617,low,medium,5more,more,big,low
+1618,low,medium,5more,more,big,med
+1619,low,medium,5more,more,big,high
+1620,low,low,2,2,small,low
+1621,low,low,2,2,small,med
+1622,low,low,2,2,small,high
+1623,low,low,2,2,med,low
+1624,low,low,2,2,med,med
+1625,low,low,2,2,med,high
+1626,low,low,2,2,big,low
+1627,low,low,2,2,big,med
+1628,low,low,2,2,big,high
+1629,low,low,2,4,small,low
+1630,low,low,2,4,small,med
+1631,low,low,2,4,small,high
+1632,low,low,2,4,med,low
+1633,low,low,2,4,med,med
+1634,low,low,2,4,med,high
+1635,low,low,2,4,big,low
+1636,low,low,2,4,big,med
+1637,low,low,2,4,big,high
+1638,low,low,2,more,small,low
+1639,low,low,2,more,small,med
+1640,low,low,2,more,small,high
+1641,low,low,2,more,med,low
+1642,low,low,2,more,med,med
+1643,low,low,2,more,med,high
+1644,low,low,2,more,big,low
+1645,low,low,2,more,big,med
+1646,low,low,2,more,big,high
+1647,low,low,3,2,small,low
+1648,low,low,3,2,small,med
+1649,low,low,3,2,small,high
+1650,low,low,3,2,med,low
+1651,low,low,3,2,med,med
+1652,low,low,3,2,med,high
+1653,low,low,3,2,big,low
+1654,low,low,3,2,big,med
+1655,low,low,3,2,big,high
+1656,low,low,3,4,small,low
+1657,low,low,3,4,small,med
+1658,low,low,3,4,small,high
+1659,low,low,3,4,med,low
+1660,low,low,3,4,med,med
+1661,low,low,3,4,med,high
+1662,low,low,3,4,big,low
+1663,low,low,3,4,big,med
+1664,low,low,3,4,big,high
+1665,low,low,3,more,small,low
+1666,low,low,3,more,small,med
+1667,low,low,3,more,small,high
+1668,low,low,3,more,med,low
+1669,low,low,3,more,med,med
+1670,low,low,3,more,med,high
+1671,low,low,3,more,big,low
+1672,low,low,3,more,big,med
+1673,low,low,3,more,big,high
+1674,low,low,4,2,small,low
+1675,low,low,4,2,small,med
+1676,low,low,4,2,small,high
+1677,low,low,4,2,med,low
+1678,low,low,4,2,med,med
+1679,low,low,4,2,med,high
+1680,low,low,4,2,big,low
+1681,low,low,4,2,big,med
+1682,low,low,4,2,big,high
+1683,low,low,4,4,small,low
+1684,low,low,4,4,small,med
+1685,low,low,4,4,small,high
+1686,low,low,4,4,med,low
+1687,low,low,4,4,med,med
+1688,low,low,4,4,med,high
+1689,low,low,4,4,big,low
+1690,low,low,4,4,big,med
+1691,low,low,4,4,big,high
+1692,low,low,4,more,small,low
+1693,low,low,4,more,small,med
+1694,low,low,4,more,small,high
+1695,low,low,4,more,med,low
+1696,low,low,4,more,med,med
+1697,low,low,4,more,med,high
+1698,low,low,4,more,big,low
+1699,low,low,4,more,big,med
+1700,low,low,4,more,big,high
+1701,low,low,5more,2,small,low
+1702,low,low,5more,2,small,med
+1703,low,low,5more,2,small,high
+1704,low,low,5more,2,med,low
+1705,low,low,5more,2,med,med
+1706,low,low,5more,2,med,high
+1707,low,low,5more,2,big,low
+1708,low,low,5more,2,big,med
+1709,low,low,5more,2,big,high
+1710,low,low,5more,4,small,low
+1711,low,low,5more,4,small,med
+1712,low,low,5more,4,small,high
+1713,low,low,5more,4,med,low
+1714,low,low,5more,4,med,med
+1715,low,low,5more,4,med,high
+1716,low,low,5more,4,big,low
+1717,low,low,5more,4,big,med
+1718,low,low,5more,4,big,high
+1719,low,low,5more,more,small,low
+1720,low,low,5more,more,small,med
+1721,low,low,5more,more,small,high
+1722,low,low,5more,more,med,low
+1723,low,low,5more,more,med,med
+1724,low,low,5more,more,med,high
+1725,low,low,5more,more,big,low
+1726,low,low,5more,more,big,med
+1727,low,low,5more,more,big,high

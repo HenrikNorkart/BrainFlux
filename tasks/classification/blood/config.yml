@@ -1,0 +1,20 @@
+context_and_goal: |
+ This is a classification task for blood donation prediction.
+ The goal is to determine if a person can donate blood based on their donation history (yes/no).
+ Here are some details about the features found in the dataset:
+ {
+   "Recency": "months since last donation",
+    "Frequency": "total number of donation",
+    "Monetary": "total blood donated in c.c.",
+    "Time": "months since first donation"
+  }
+        
+experiment_description: Feature assessment for the blood dataset.
+experiment_name: blood
+feature_file_path: /workspace/tasks/classification/blood/data.csv
+knowledge_db_collection_name: blood
+knowledge_db_path: /workspace/chroma_db/blood_knowledge_db
+label_file_path: /workspace/tasks/classification/blood/labels.csv
+output_dir: /workspace/tasks/classification/blood/output
+modality: tabular
+task_type: classification

@@ -1,0 +1,23 @@
+context_and_goal: | 
+  This is a classification task for a regression dataset on diamonds.
+  The goal is to estimate the price of diamonds based on various features.
+  Here are some details about the features found in the dataset:
+  - carat weight of the diamond (0.2--5.01)
+  - cut quality of the cut (Fair, Good, Very Good, Premium, Ideal)
+  - color diamond colour, from J (worst) to D (best)
+  - clarity a measurement of how clear the diamond is (I1 (worst), SI2, SI1, VS2, VS1, VVS2, VVS1, IF (best))
+  - x length in mm (0--10.74)
+  - y width in mm (0--58.9)
+  - z depth in mm (0--31.8)
+  - depth total depth percentage = z / mean(x, y) = 2 * z / (x + y) (43--79)
+  - table width of top of diamond relative to widest point (43--95)
+    
+experiment_description: Feature assessment for the diamonds dataset.
+experiment_name: diamonds
+feature_file_path: /workspace/tasks/regression/diamonds/data.csv
+knowledge_db_collection_name: diamonds
+knowledge_db_path: /workspace/chroma_db/diamonds_knowledge_db
+label_file_path: /workspace/tasks/regression/diamonds/labels.csv
+modality: tabular
+task_type: regression
+output_dir: /workspace/tasks/regression/diamonds/output
