@@ -761,29 +761,33 @@ class TesterAgent:
             predictions_enc_test = model.predict(X_all_test)
             predictions_enc_train = model.predict(X_all_train)
 
-            score = 0
+            train_score = 0
             best_val = 0
             for val in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]:
-                patient_ids_test = df_attributes_test[predictions_enc_test > val][
-                    "id"
-                ].values
-
-                patient_ids_train = df_attributes_train[predictions_enc_train > val][
+                patient_ids_train_val = df_attributes_train[predictions_enc_train > val][
                     "id"
                 ].values
 
                 tmp_score = self._brainflux_filter_pipeline.get_score(
-                    patient_ids_test.tolist() + patient_ids_train.tolist()
-                )["test"]
-                if tmp_score > score:
-                    score = tmp_score
+                    patient_ids_train_val.tolist()
+                )["train"]
+                if tmp_score > train_score:
+                    train_score = tmp_score
                     best_val = val
-                else:
-                    continue
 
-                patient_labels = self._brainflux_filter_pipeline.get_patient_classes(
-                    list_of_patients=patient_ids_test.tolist()
-                )
+            # Evaluate the chosen threshold on the held-out test partition
+            patient_ids_test = df_attributes_test[predictions_enc_test > best_val][
+                "id"
+            ].values
+            patient_ids_train = df_attributes_train[predictions_enc_train > best_val][
+                "id"
+            ].values
+            score = self._brainflux_filter_pipeline.get_score(
+                patient_ids_test.tolist() + patient_ids_train.tolist()
+            )["test"]
+            patient_labels = self._brainflux_filter_pipeline.get_patient_classes(
+                list_of_patients=patient_ids_test.tolist()
+            )
 
             top_10_features = sorted(
                 zip(df_attributes.columns, model.feature_importances_),
