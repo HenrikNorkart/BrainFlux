@@ -282,8 +282,8 @@ class RogueOneAgentNetwork:
 if __name__ == "__main__":
     start_vllm_servers()
 
-    precisions = [1.00]  #  0.95, 0.99, 1.00
-    tm_fracs = [1.00]  # 0.1, 0.3, 0.5, 0.7
+    precisions = [0.90, 0.95, 0.99, 1.00]
+    tm_fracs = [0.1, 0.3, 0.5, 0.7]
 
     async def run_experiments():
         for precision_min in precisions:
