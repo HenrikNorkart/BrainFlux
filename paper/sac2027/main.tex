@@ -1,0 +1,112 @@
+%% SAC 2027 submission -- ACM SAC, ASH track (Applications and Systems for Healthcare)
+%% Deadline 2 October 2026. Double-blind, >=3 reviewers.
+%% 6-8 pages, +2 at extra cost, 10 maximum. Current budget: 9 (see tmp/w1_claim.md S3).
+%%
+%% Framing is fixed in tmp/w1_claim.md (HQ #132). Do not drift from it without
+%% updating that document first.
+%%
+%% Build:  latexmk -pdf main.tex
+
+\documentclass[sigconf,anonymous,review]{acmart}
+
+%% --- No ACM reference format block while under review ---
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
+
+%% --- Math ---
+%% NOTE: do NOT load amsmath/amsfonts/amssymb here. acmart already loads them,
+%% and re-loading amssymb fails with "Command \Bbbk already defined".
+
+%% --- Graphics and plots ---
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+
+%% --- Tables ---
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+
+%% --- Draft annotations. REMOVE BEFORE SUBMISSION. ---
+\usepackage{todonotes}
+
+%% Page-budget instrument. Prints the final page count into the build log on
+%% every run, so the 8-page target (9 if the paid page is bought) stays visible
+%% instead of being discovered at the final pass. Check with:
+%%     grep PAGECOUNT build.log
+\AtEndDocument{\typeout{PAGECOUNT: \thepage\space pages; target 8, max 10}}
+
+\begin{document}
+
+%% =====================================================================
+%% Title
+%%
+%% OPEN QUESTION (W1 #132, for Henrik): does the paper keep the "Phantom
+%% Menace" title? The phantom construct now survives only at top-p = 0.1,
+%% and the paper is no longer about phantoms. Placeholder below reflects
+%% what the paper now argues.
+%% =====================================================================
+\title{When a Clinical Subgroup Result Passes Every Check and Still Fails:
+       A Controlled Post-Mortem of LLM-Driven Feature Discovery}
+
+%% Anonymous submission -- acmart's `anonymous' option suppresses these.
+\author{Anonymous Author(s)}
+\affiliation{%
+  \institution{Anonymous Institution}
+  \country{}
+}
+
+\input{sections/abstract}
+
+%% =====================================================================
+%% CCS concepts -- ACM requires these. Generated from the CCS tool at
+%% https://dl.acm.org/ccs
+%% =====================================================================
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10010405.10010444.10010449</concept_id>
+<concept_desc>Applied computing~Health informatics</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10010147.10010257.10010258.10010262</concept_id>
+<concept_desc>Computing methodologies~Cross-validation</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+<concept>
+<concept_id>10010147.10010257.10010293</concept_id>
+<concept_desc>Computing methodologies~Machine learning approaches</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Applied computing~Health informatics}
+\ccsdesc[300]{Computing methodologies~Cross-validation}
+\ccsdesc[300]{Computing methodologies~Machine learning approaches}
+
+\keywords{clinical decision support, subgroup discovery, permutation control,
+          automated feature engineering, large language models, electroencephalography,
+          reproducibility, negative results}
+
+\maketitle
+
+\input{sections/introduction}
+\input{sections/background}
+\input{sections/pipeline}
+\input{sections/controls}
+\input{sections/results}
+\input{sections/survives}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}

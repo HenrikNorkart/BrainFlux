@@ -1,0 +1,14 @@
+%% W4 (#135). Budget 0.8pp.
+%% Specify the gate precisely enough to reimplement from this section alone:
+%%   - exact matching on group count, per-group size, per-group survivor fraction
+%%   - pooled clean-split scoring (threshold chosen on TRAIN, applied to TEST,
+%%     predicted-positive sets unioned, pooled precision/recall computed once)
+%%   - the one-sided empirical p-value (1 + #{sham >= real}) / (1 + n)
+%%   - the NON-DEGENERACY precondition from T4 (#127): >=20 patients and >=5 of
+%%     the rarer class per group, else "no usable partition found" rather than a
+%%     gate FAIL. Explain WHY: percentiles are not comparable across partition
+%%     shapes, because the shams are matched to the partition under test.
+%% Reference implementation: filter-repository-python/sham_gate.py
+\section{The Controls}
+\label{sec:controls}
+\todo[inline]{W4 (\#135): draft.}

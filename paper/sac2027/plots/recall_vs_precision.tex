@@ -1,0 +1,76 @@
+% Recall versus minimum-precision floor for each trimmed-tree sub-group.
+% Data is the same as Table~\ref{tab:fdp_recall_nosurv} (target class = Non-survivor)
+% produced by filter-repository-python/compute_fdp_and_recall.py. The
+% precision floor decreases left-to-right so the curve sweeps from the
+% strict strong-filter regime (P = 1.00) to a relaxed P >= 0.95 cut.
+\begin{tikzpicture}
+    \begin{axis}[
+        width=\linewidth,
+        height=6.4cm,
+        xlabel={Minimum precision floor},
+        ylabel={Non-survivor recall},
+        xmin=0.94, xmax=1.01,
+        ymin=-0.02, ymax=1.0,
+        x dir=reverse,                 % strict (P=1) on the left
+        xtick={1.00, 0.99, 0.98, 0.97, 0.96, 0.95},
+        xticklabel style={
+            /pgf/number format/.cd, fixed, fixed zerofill, precision=2,
+        },
+        ytick={0, 0.2, 0.4, 0.6, 0.8, 1.0},
+        grid=major,
+        grid style={dashed, gray!25},
+        legend style={
+            at={(0.03, 0.97)},
+            anchor=north west,
+            draw=none,
+            fill=white,
+            fill opacity=0.7,
+            text opacity=1,
+            font=\scriptsize,
+            legend columns=2,
+        },
+        cycle list name=exotic,
+    ]
+
+    % ---- Full cohort (dashed, gray); n=658, matches Table~\ref{tab:fdp_recall_nosurv} ----
+    \addplot+[mark=*, thick, dashed, gray, mark options={fill=gray}]
+        coordinates {
+            (1.00, 0.073) (0.99, 0.073) (0.98, 0.135)
+            (0.97, 0.312) (0.96, 0.413) (0.95, 0.537)
+        };
+    \addlegendentry{Full cohort}
+
+    % ---- G1 ----
+    \addplot+[mark=square*, thick, red!70!black]
+        coordinates {
+            (1.00, 0.367) (0.99, 0.367) (0.98, 0.367)
+            (0.97, 0.367) (0.96, 0.367) (0.95, 0.367)
+        };
+    \addlegendentry{$G_1$}
+
+    % ---- G2 ----
+    \addplot+[mark=triangle*, thick, blue!70!black]
+        coordinates {
+            (1.00, 0.125) (0.99, 0.125) (0.98, 0.834)
+            (0.97, 0.834) (0.96, 0.834) (0.95, 0.834)
+        };
+    \addlegendentry{$G_2$}
+
+    % ---- G3 ----
+    \addplot+[mark=diamond*, thick, green!60!black]
+        coordinates {
+            (1.00, 0.290) (0.99, 0.290) (0.98, 0.620)
+            (0.97, 0.620) (0.96, 0.620) (0.95, 0.790)
+        };
+    \addlegendentry{$G_3$}
+
+    % ---- G4 (merged Stable / ambiguous) ----
+    \addplot+[mark=pentagon*, thick, orange!80!black]
+        coordinates {
+            (1.00, 0.098) (0.99, 0.098) (0.98, 0.098)
+            (0.97, 0.098) (0.96, 0.098) (0.95, 0.098)
+        };
+    \addlegendentry{$G_4$}
+
+    \end{axis}
+\end{tikzpicture}

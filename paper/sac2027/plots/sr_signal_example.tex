@@ -1,0 +1,77 @@
+% Two real per-patient Suppression Ratio (SR) signals -- a low-score
+% survivor and a high-score non-survivor -- with the two filter ranges
+% used in this paper drawn as shaded bands:
+%   [75, 100) (red)   -- top range, Non-survivor signature
+%                        (cell [-1, 0] of GeneralRangeFilter(4, 1))
+%   [ 0,  25) (green) -- bottom range, Survivor signature
+%                        (cell [ 0, 0] of GeneralRangeFilter(4, 1))
+% Both projections are forwarded to single-threshold linear classifiers
+% in Section~\ref{sec:results}. The per-patient filter score reported
+% in each panel title is the fraction of the recording inside the
+% corresponding band.
+%
+% Data:
+%   data/sr_example_nonsurvivor.csv  -- PUH-2012-213, top-range = 0.702
+%   data/sr_example_survivor.csv     -- PUH-2015-133, top-range = 0.162
+% produced by filter-repository-python/export_sr_example_signals.py.
+\usepgfplotslibrary{groupplots}
+\begin{tikzpicture}
+    \begin{groupplot}[
+        group style={
+            group size=1 by 2,
+            vertical sep=1.6cm,
+            xlabels at=edge bottom,
+        },
+        width=\linewidth,
+        height=3.8cm,
+        xmin=0, xmax=1,
+        ymin=0, ymax=100,
+        ytick={0, 25, 50, 75, 100},
+        extra y ticks={25, 75},
+        extra y tick labels={},
+        extra y tick style={grid=major, grid style={dashed, gray!60, thick}},
+        enlarge x limits=false,
+        xlabel={Normalised recording time},
+        ylabel={Suppression Ratio},
+        grid=major,
+        grid style={dashed, gray!25},
+        title style={font=\small\bfseries, align=center},
+        legend columns=2,
+        legend style={
+            font=\footnotesize, draw=none, fill=none,
+            /tikz/every even column/.append style={column sep=0.8em},
+        },
+    ]
+
+    % ---------- Panel 1: Non-survivor ----------
+    \nextgroupplot[title={Non-survivor (PUH-2012-213)}]
+        % Top range: Non-survivor signature.
+        \fill[red!12] (axis cs:0,75) rectangle (axis cs:1,100);
+        % Bottom range: Survivor signature.
+        \fill[green!12] (axis cs:0,0)  rectangle (axis cs:1,25);
+        \addplot+[mark=none, forget plot, line width=0.4pt, draw=red!50!black]
+            table [col sep=comma, x=t, y=sr]
+            {data/sr_example_nonsurvivor.csv};
+        % All legend entries collected on the second panel below so the
+        % shared `legend to name=srlegend' is only emitted once.
+
+    % ---------- Panel 2: Survivor (also collects the shared legend) ----------
+    \nextgroupplot[title={Survivor (PUH-2015-133)},
+                   legend to name=srlegend]
+        \fill[red!12]   (axis cs:0,75) rectangle (axis cs:1,100);
+        \fill[green!12] (axis cs:0,0)  rectangle (axis cs:1,25);
+        \addplot+[mark=none, forget plot, line width=0.4pt, draw=green!40!black]
+            table [col sep=comma, x=t, y=sr]
+            {data/sr_example_survivor.csv};
+        \addlegendimage{mark=none, thick, draw=red!50!black}
+        \addlegendentry{SR signal (Non-survivor)}
+        \addlegendimage{mark=none, thick, draw=green!40!black}
+        \addlegendentry{SR signal (Survivor)}
+        \addlegendimage{area legend, fill=red!12, draw=red!12}
+        \addlegendentry{Top range $[75, 100)$}
+        \addlegendimage{area legend, fill=green!12, draw=green!12}
+        \addlegendentry{Bottom range $[0, 25)$}
+
+    \end{groupplot}
+    \node[anchor=north] at ($(group c1r2.south) + (0, -1.0cm)$) {\ref{srlegend}};
+\end{tikzpicture}

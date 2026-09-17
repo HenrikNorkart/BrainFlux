@@ -1,0 +1,39 @@
+%% W3 (#134). Budget 2.3pp. THE CENTREPIECE.
+%%
+%% DO NOT RECOMPUTE ANYTHING. Every number already exists:
+%%   tmp/b1_sham_control.md          sham control, 2000 exact-matched partitions
+%%   tmp/b2_ehr_only.md              features predict survival, AUROC + CIs
+%%   tmp/c1_temporal_cutoff.md       coverage table, base-rate collapse
+%%   tmp/c117_fixed_window.md        G2 recall 0.8163 -> 0.3048 under 24h
+%%   tmp/a5_headline_numbers.md      pooled clean-split numbers, floor failures
+%%   tmp/b6_intervals.md             fragility of all 56 cells
+%%   tmp/t4_24h_sham_precheck.md     fresh 24h run, no usable partition
+%%   tmp/t5_discovery.md             (if T5 #128 lands in time; optional)
+%%
+%% Requirements from W1:
+%%   - ONE summary table carrying each control, what it tests, its result. A
+%%     reviewer should be able to read that table alone and get the paper.
+%%   - Every number annotated with the tmp/ report it came from, in a comment.
+%%   - CIs on every proportion (B6). No bare point estimates.
+%%   - State the honest asymmetries rather than burying them: the 5x gain at
+%%     P>=0.98 narrows to 1.34x at P>=0.95; the 0.98 precision figure rests on
+%%     3 false positives; percentiles are not comparable across partition shapes.
+\section{Results: What Each Control Found}
+\label{sec:results}
+\todo[inline]{W3 (\#134): draft.}
+
+%% --- Carried over from ictai2026, kept per W1 S4. RELABEL: this is the result
+%% --- being examined, not a result. Caption must say in-sample.
+\begin{figure}[t]
+    \centering
+    \input{plots/recall_vs_precision}
+    \caption{Non-survivor recall against the precision floor, full cohort and
+    each subgroup. \todo[inline]{W3 (\#134): rewrite caption --- must state that
+    thresholds here are selected \emph{in-sample}, and that this is the result
+    the controls go on to examine.}}
+    \label{fig:recall_vs_precision}
+\end{figure}
+
+%% Citation smoke test -- verifies ACM-Reference-Format resolves. W3 may remove.
+The pipeline under examination is described in~\cite{bradland_knowledge-informed_2025}
+and its downstream filter in~\cite{zadorozhny_towards_nodate}.
