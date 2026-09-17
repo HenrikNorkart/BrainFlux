@@ -87,10 +87,24 @@ ACM `sigconf`, two columns. SAC allows 6–8 pages, +2 at cost, 10 maximum.
 | — | References | .8 |
 | | **total** | **≈ 8.8** |
 
-**Recommendation: budget for 9 pages and buy one paid page.** Trying to force this to 8
-means cutting either §5 or §3, and §3 is what makes the paper verifiable without the two
-under-review references — the thing Reviewer 2 named as the main obstacle last time. Decide
-early; discovering it at the final pass is how §5 gets gutted.
+**DECIDED 2026-09-17 (Henrik): force 8 pages. No paid page.**
+
+So ~0.8pp has to come out, and the decision of *where* is made now rather than at the final
+pass — otherwise §5 gets gutted by default, which would cut the evidence the paper exists to
+present. The budget above is revised to:
+
+| § | revised | change |
+|---|---|---|
+| 3 Pipeline | .8 | **−.4** — compress to what a reader needs to follow the controls. Push the full reproduction detail (prompts, generation parameters, retrieval config, exact feature definitions) to the anonymous supplement and cite it. |
+| 2 Background | .6 | **−.2** — related work stays, the clinical primer on post-arrest prognostication shrinks to a paragraph. |
+| 7 Discussion | .5 | **−.2** — one clear recommendation, not three. |
+| 5 Results | 2.3 | unchanged. Protected. |
+
+**Known risk, accepted:** trimming §3 is exactly what Reviewer 2 complained about last time
+("relies on two unpublished, under-review papers ... hinders independent verification"). The
+mitigation is that the supplement must exist and be referenced explicitly, and that §3 must
+still stand alone for *the controls* even if not for the full pipeline. If the supplement
+does not materialise, this trim is the first thing to revisit.
 
 ## 4. Figures
 
