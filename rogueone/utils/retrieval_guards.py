@@ -98,3 +98,39 @@ def assert_serper_key_present() -> str:
         return ""
     print(f"[retrieval-guard] SERPER_API_KEY present (…{key[-4:]})")
     return key
+
+
+def assert_serper_live(probe_query: str = "cardiac arrest guidelines") -> None:
+    """Assert the web-search channel can actually return results.
+
+    Key presence is not enough. On 2026-09-17 the key in .secret.env was valid
+    but the Serper account had no credits left, so every search returned
+    HTTP 400 {"message": "Not enough credits"} -- which the search agent
+    summarises as "no information found", i.e. indistinguishable from a real
+    negative. This probe costs one credit and turns that into a launch failure.
+    """
+    key = assert_serper_key_present()
+    if not key:
+        return
+
+    try:
+        import requests
+
+        resp = requests.post(
+            "https://google.serper.dev/search",
+            headers={"X-API-KEY": key, "Content-Type": "application/json"},
+            json={"q": probe_query},
+            timeout=30,
+        )
+    except Exception as exc:
+        _fail(f"Serper probe could not reach google.serper.dev: {exc}")
+        return
+
+    if resp.status_code != 200:
+        _fail(
+            f"Serper probe failed with HTTP {resp.status_code}: "
+            f"{resp.text[:200]}. The web-search channel is dead."
+        )
+        return
+
+    print("[retrieval-guard] Serper probe OK (HTTP 200)")

@@ -35,7 +35,7 @@ from langchain_community.utilities import GoogleSerperAPIWrapper
 from rogueone.utils import embedding_cfg, llm_cfg, knowledge_agent_cfg
 from rogueone.utils.console import ConsoleManager
 from rogueone.utils.config import ExperimentConfig
-from rogueone.utils.retrieval_guards import assert_serper_key_present
+from rogueone.utils.retrieval_guards import assert_serper_live
 
 
 # set_tracing_disabled(True)
@@ -141,7 +141,7 @@ class WebSearchAgent:
         # hard-coded literal, so a key supplied via .secret.env had no effect.
         # The key now comes from the environment only, and its absence is a
         # launch-time failure rather than a silent per-query error string.
-        assert_serper_key_present()
+        assert_serper_live()
 
     async def explain_query(self, query: str) -> str:
         ans = await _run_search_agent(query)
