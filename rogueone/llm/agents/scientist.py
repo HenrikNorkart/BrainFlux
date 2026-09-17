@@ -46,8 +46,11 @@ class ScientistAgent:
 
     def __init__(self, cfg: ExperimentConfig):
         self.cfg_experiment = cfg
+        # collection_name used to be hard-coded to "cardiac_arrest", which
+        # combined with the hard-coded persist path to point at an empty store.
         self.knowledge_agent = KnowledgeAgent(
-            cfg=self.cfg_experiment, collection_name="cardiac_arrest"
+            cfg=self.cfg_experiment,
+            collection_name=self.cfg_experiment.knowledge_db_collection_name,
         )
         self.web_search_agent = WebSearchAgent(cfg=self.cfg_experiment)
 

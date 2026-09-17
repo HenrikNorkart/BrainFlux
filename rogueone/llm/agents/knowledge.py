@@ -30,6 +30,7 @@ from langchain_core.documents import Document
 from rogueone.utils import embedding_cfg, llm_cfg, knowledge_agent_cfg
 from rogueone.utils.console import ConsoleManager
 from rogueone.utils.config import ExperimentConfig
+from rogueone.utils.retrieval_guards import assert_knowledge_store_live
 
 
 # set_tracing_disabled(True)
@@ -143,9 +144,18 @@ class KnowledgeAgent:
     def __init__(self, cfg: ExperimentConfig, collection_name: str | None = None):
         self._cfg = cfg
 
+        # The persist directory used to be hard-coded to
+        # /workspaces/BrainFlux/chroma_db_medical_knowledge, which only exists in
+        # Henrik's devcontainer. Anywhere else Chroma silently auto-created an
+        # empty store and the whole knowledge channel went dead without a word.
+        self._collection_name = (
+            collection_name or self._cfg.knowledge_db_collection_name
+        )
+        self._persist_directory = str(self._cfg.knowledge_db_path)
+
         self._vector_db = Chroma(
-            collection_name=collection_name or self._cfg.knowledge_db_collection_name,
-            persist_directory=str("/workspaces/BrainFlux/chroma_db_medical_knowledge"),
+            collection_name=self._collection_name,
+            persist_directory=self._persist_directory,
             embedding_function=OpenAIEmbeddings(
                 base_url=embedding_cfg.endpoint,
                 api_key=embedding_cfg.api_key,
@@ -153,6 +163,10 @@ class KnowledgeAgent:
                 tiktoken_enabled=True,
                 chunk_size=embedding_cfg.chunk_size,
             ),
+        )
+
+        assert_knowledge_store_live(
+            self._vector_db, self._persist_directory, self._collection_name
         )
 
     async def explain_query(self, query: str) -> str:
