@@ -16,7 +16,7 @@ from agents import (
     Agent,
     Runner,
     RunConfig,
-    OpenAIResponsesModel,
+    OpenAIChatCompletionsModel,
     ModelSettings,
     function_tool,
 )
@@ -532,7 +532,7 @@ class ExtractorAgent:
                     - When creating new attributes, ensure they are relevant to the focus area provided by the Scientist
                     """,
                 # Provide a final summary of the new attributes you have added to 'df_features' as a markdown table.
-                model=OpenAIResponsesModel(
+                model=OpenAIChatCompletionsModel(
                     model=llm_cfg.model,
                     openai_client=client,
                 ),

@@ -81,3 +81,38 @@ if __name__ == "__main__":
         wandb.log({"test_metric": cos(i / 10)}, step=i)
 
 # %%
+
+
+def log_llm_token_usage(
+    agent_name: str,
+    input_tokens: int,
+    output_tokens: int,
+    total_tokens: int,
+    cumulative_input_tokens: int = 0,
+    cumulative_output_tokens: int = 0,
+    cumulative_total_tokens: int = 0,
+) -> None:
+    """Record per-agent token usage.
+
+    Shim added 2026-09-18 when rogueone/llm/clients.py was ported into this
+    vendored tree: upstream's wandb_utils exports this, this copy did not, so a
+    straight copy of clients.py would have failed at import. Best-effort by
+    design -- token accounting must never be able to break a run.
+    """
+    try:
+        import wandb
+
+        if wandb.run is None:
+            return
+        wandb.log(
+            {
+                f"tokens/{agent_name}/input": input_tokens,
+                f"tokens/{agent_name}/output": output_tokens,
+                f"tokens/{agent_name}/total": total_tokens,
+                f"tokens/{agent_name}/cumulative_input": cumulative_input_tokens,
+                f"tokens/{agent_name}/cumulative_output": cumulative_output_tokens,
+                f"tokens/{agent_name}/cumulative_total": cumulative_total_tokens,
+            }
+        )
+    except Exception:  # noqa: BLE001 - never let logging break the run
+        pass

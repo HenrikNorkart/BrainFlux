@@ -14,7 +14,7 @@ from rogueone.llm.clients import create_openai_client_for_vllm
 from agents import (
     Agent,
     Runner,
-    OpenAIResponsesModel,
+    OpenAIChatCompletionsModel,
     ModelSettings,
     function_tool,
 )
@@ -487,7 +487,7 @@ class TesterAgent:
                     - Do not create new features or modify the 'df_attributes' dataframe. Only use it as is for testing.
                     
                 """,
-                model=OpenAIResponsesModel(
+                model=OpenAIChatCompletionsModel(
                     model=llm_cfg.model,
                     openai_client=self._client,
                 ),
@@ -679,7 +679,7 @@ class TesterAgent:
                     - All the needed data is already loaded and available for use in the 'df_attributes' pandas DataFrame. DO NOT SEARCH FOR FILES OR DATA PATHS.
                 
                     """,
-                model=OpenAIResponsesModel(
+                model=OpenAIChatCompletionsModel(
                     model=llm_cfg.model,
                     openai_client=self._client,
                 ),

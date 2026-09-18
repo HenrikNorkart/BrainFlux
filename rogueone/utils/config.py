@@ -135,6 +135,8 @@ class rogueoneConfig(metaclass=Singleton):
             "True",
         ]
         self.k_folds: int = int(os.getenv("ROGUE_ONE_K_FOLDS", 5))
+        # Added 2026-09-18 alongside the clients.py port; upstream has it.
+        self.llm_seed: int = int(os.getenv("ROGUE_ONE_LLM_SEED", 42))
         self.do_balancing = os.getenv("ROGUE_ONE_DO_BALANCING", "1") in [
             "1",
             "true",

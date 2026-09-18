@@ -15,7 +15,7 @@ from agents import (
     Agent,
     Runner,
     RunConfig,
-    OpenAIResponsesModel,
+    OpenAIChatCompletionsModel,
     ModelSettings,
     set_tracing_disabled,
     function_tool,
@@ -407,7 +407,7 @@ class ScientistAgent:
                     - For time series data the Extractor Agent can use the 'tsfresh' and 'scipy.signal' libraries to generate new attributes. These libraries offer more complex features that can be useful for extractions with an exploitative "focus area". Thus, the focus can also be on time series attributes that can be derived using these libraries.
                     - Use the lookup tool if you need to understand more information about the libraries available for the Extractor Agent.
                     """,
-                model=OpenAIResponsesModel(
+                model=OpenAIChatCompletionsModel(
                     model=llm_cfg.model,
                     openai_client=client,
                 ),

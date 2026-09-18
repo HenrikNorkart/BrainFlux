@@ -9,7 +9,7 @@ from agents import (
     Agent,
     Runner,
     RunConfig,
-    OpenAIResponsesModel,
+    OpenAIChatCompletionsModel,
     ModelSettings,
     function_tool,
 )
@@ -179,7 +179,7 @@ class ScientistAgent:
                 #     - Ensure that your summary is well-structured and easy to understand.
                 #     - we only care about the feature importance and attribute explanations, not the other metrics.
                 #     """,
-                model=OpenAIResponsesModel(
+                model=OpenAIChatCompletionsModel(
                     model=llm_cfg.model,
                     openai_client=client,
                 ),

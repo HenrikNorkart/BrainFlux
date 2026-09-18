@@ -32,7 +32,7 @@ from agents import (
     Agent,
     Runner,
     RunConfig,
-    OpenAIResponsesModel,
+    OpenAIChatCompletionsModel,
     ModelSettings,
     function_tool,
 )
@@ -630,7 +630,7 @@ class TesterAgent:
                     - When using XGBoost, always pass device="cpu" and tree_method="hist" in the model parameters to run on CPU.
                 
                     """,
-                model=OpenAIResponsesModel(
+                model=OpenAIChatCompletionsModel(
                     model=llm_cfg.model,
                     openai_client=client,
                 ),

@@ -18,7 +18,7 @@ from agents import (
     Agent,
     Runner,
     RunConfig,
-    OpenAIResponsesModel,
+    OpenAIChatCompletionsModel,
     ModelSettings,
     set_tracing_disabled,
     function_tool,
@@ -99,7 +99,7 @@ async def _run_search_agent(query: str) -> str:
             - You must only base your summaries on the information found using the web search tool.
             - Respond with "Unable to provide an explanation at this time." if no relevant information is found.
             """,
-        model=OpenAIResponsesModel(
+        model=OpenAIChatCompletionsModel(
             model=llm_cfg.model,
             openai_client=client,
         ),
