@@ -11,6 +11,7 @@ logger = getLogger(__name__)
 
 from pydantic import BaseModel, Field
 from openai import AsyncOpenAI, OpenAI
+from rogueone.llm.clients import create_openai_client_for_vllm
 from agents import (
     Agent,
     Runner,
@@ -46,7 +47,8 @@ class SearchArgs(BaseModel):
 
 
 async def _run_explanation_agent(query: str, db: Chroma) -> str:
-    client = AsyncOpenAI(
+    client = create_openai_client_for_vllm(
+        agent_name="knowledge",
         base_url=llm_cfg.endpoint,
         api_key=llm_cfg.api_key,
     )

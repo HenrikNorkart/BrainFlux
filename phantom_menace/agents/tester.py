@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 import sklearn
 import numpy as np
 from openai import AsyncOpenAI
+from rogueone.llm.clients import create_openai_client_for_vllm
 from agents import (
     Agent,
     Runner,
@@ -139,7 +140,8 @@ class TesterAgent:
         #     min_precision=self.precision_min,
         # )
 
-        self._client = AsyncOpenAI(
+        self._client = create_openai_client_for_vllm(
+            agent_name="phantom_menace_tester",
             base_url=llm_cfg.endpoint,
             api_key=llm_cfg.api_key,
             organization="brainflux-inc",

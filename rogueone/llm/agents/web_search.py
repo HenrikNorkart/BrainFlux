@@ -13,6 +13,7 @@ logger = getLogger(__name__)
 
 from pydantic import BaseModel, Field
 from openai import AsyncOpenAI, OpenAI
+from rogueone.llm.clients import create_openai_client_for_vllm
 from agents import (
     Agent,
     Runner,
@@ -63,7 +64,8 @@ async def _run_search_agent(query: str) -> str:
 
         return search_results
 
-    client = AsyncOpenAI(
+    client = create_openai_client_for_vllm(
+        agent_name="web_search",
         base_url=llm_cfg.endpoint,
         api_key=llm_cfg.api_key,
     )

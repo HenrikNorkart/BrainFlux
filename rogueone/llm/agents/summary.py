@@ -4,6 +4,7 @@ from collections import defaultdict
 
 import pandas as pd
 from openai import AsyncOpenAI
+from rogueone.llm.clients import create_openai_client_for_vllm
 from agents import (
     Agent,
     Runner,
@@ -118,7 +119,8 @@ class ScientistAgent:
 
         async def main():
 
-            client = AsyncOpenAI(
+            client = create_openai_client_for_vllm(
+                agent_name="summary",
                 base_url=llm_cfg.endpoint,
                 api_key=llm_cfg.api_key,
             )

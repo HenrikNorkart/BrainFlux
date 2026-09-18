@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 import pandas as pd
 import numpy as np
 from openai import AsyncOpenAI
+from rogueone.llm.clients import create_openai_client_for_vllm
 from agents import (
     Agent,
     Runner,
@@ -346,7 +347,8 @@ class ScientistAgent:
 
         async def main():
 
-            client = AsyncOpenAI(
+            client = create_openai_client_for_vllm(
+                agent_name="scientist",
                 base_url=llm_cfg.endpoint,
                 api_key=llm_cfg.api_key,
             )
