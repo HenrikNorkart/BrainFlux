@@ -5,10 +5,13 @@ context_and_goal: |
   The dataset contains log events from ICU stays of patients who experienced cardiac arrest.
   Each row represents a log event with various attributes and contains the following columns:
   - id: Unique identifier for each patient.
-  - name: Name of the log event. This indicates the type of measurement or observation recorded.
-  - result: Result of the log event. This is the value or outcome of the measurement or an observation.
+  - name/drug: Name of the log event or the drug administered. This indicates the type of measurement, observation, or medication recorded. NOTE the slash: the column is literally called "name/drug", not "name".
+  - result/dose: Result of the log event, or the dose administered. This is the value or outcome of the measurement. NOTE the slash: the column is literally called "result/dose", not "result".
   - unit: Unit of measurement for the result (this may be empty if not applicable).
-  - time: Timestamp indicating when the log event was recorded.
+  - relative_sec: Time of the event in SECONDS since the start of that patient's record. There is no column called "time".
+  - route: Administration route for medication rows (e.g. IV); empty for observation rows.
+
+  Use these exact column names. Writing df['name'], df['result'] or df['time'] raises a KeyError -- those columns do not exist.
 experiment_description: Feature assessment for the cardiac arrest dataset.
 experiment_name: cardiac_arrest
 feature_file_path: /workspace/phantom_menace/all_merged.csv
