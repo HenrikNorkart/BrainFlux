@@ -61,7 +61,7 @@ exist either — so fixing only bug 1a would still have produced an empty store.
 `rogueone/llm/agents/web_search.py` line 9 did:
 
 ```python
-os.environ["SERPER_API_KEY"] = r"beb4ce298263eb3a1f442507b051d9599e028fca"
+os.environ["SERPER_API_KEY"] = r"<REDACTED-see-HQ-140: exposed Serper key, rotation waived while CAIR-local; MUST be rotated before any push to GitHub>"
 ```
 
 This runs at **import** time, so it clobbers whatever `.secret.env` supplies.
