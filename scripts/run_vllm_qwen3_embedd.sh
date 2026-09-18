@@ -11,6 +11,16 @@ if [[ -f "${ENV_FILE}" ]]; then
     set +a
 fi
 
+# Auth tokens live in .secret.env, which stays git-ignored, so that .env -- which
+# carries the experiment's hyperparameters -- can be tracked without committing
+# anything named like a credential. Sourced after .env so it wins.
+SECRET_ENV_FILE="${SECRET_ENV_FILE:-${SCRIPT_DIR}/../.secret.env}"
+if [[ -f "${SECRET_ENV_FILE}" ]]; then
+    set -a
+    source "${SECRET_ENV_FILE}"
+    set +a
+fi
+
 : "${EMBEDD_API_KEY:?EMBEDD_API_KEY must be set in the environment or ${ENV_FILE}}"
 : "${EMBEDD_PORT:?EMBEDD_PORT must be set in the environment or ${ENV_FILE}}"
 : "${EMBEDD_MODEL:?EMBEDD_MODEL must be set in the environment or ${ENV_FILE}}"
