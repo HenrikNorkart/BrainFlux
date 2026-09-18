@@ -26,5 +26,6 @@ CUDA_VISIBLE_DEVICES=$GPUS vllm serve \
     --tensor-parallel-size $(( $(echo "$GPUS" | awk -F',' '{print NF}') )) \
     --api-key "${API_KEY}" \
     --dtype auto \
+    --enforce-eager \
     --port "${PORT}" \
     "${MODEL_NAME}"

@@ -545,31 +545,50 @@ class ExtractorAgent:
             # conversation = await client.responses.create(input="prompt")
 
             def _strip_reasoning_items(data: CallModelData) -> ModelInputData:
-                """Filter out 'reasoning' items from input to avoid vLLM 400 errors."""
-                filtered = [
-                    item
-                    for item in data.model_data.input
-                    if not (isinstance(item, dict) and item.get("type") == "reasoning")
+                """Recursively strip special tokens from all string fields, handling Pydantic models."""
+                import re as _re
+                _PAT = _re.compile(
+                    r'<[|](?:end|start|endoftext|im_end|im_start|eot_id|begin_of_text|channel)[^|]*[|]>',
+                    _re.IGNORECASE
+                )
+                def _clean(obj):
+                    if isinstance(obj, str):
+                        return _PAT.sub('', obj)
+                    if isinstance(obj, dict):
+                        return {k: _clean(v) for k, v in obj.items()}
+                    if isinstance(obj, list):
+                        return [_clean(i) for i in obj]
+                    if hasattr(obj, 'model_dump'):
+                        return _clean(obj.model_dump())
+                    return obj
+                cleaned_input = _clean(list(data.model_data.input))
+                cleaned = [
+                    item for item in cleaned_input
+                    if not (isinstance(item, dict) and item.get('type') == 'reasoning')
+                    and not (isinstance(item, dict)
+                             and isinstance(item.get('content'), list)
+                             and len(item['content']) == 0)
                 ]
                 return ModelInputData(
-                    input=filtered, instructions=data.model_data.instructions
+                    input=cleaned, instructions=data.model_data.instructions
                 )
-
             _run_config = RunConfig(call_model_input_filter=_strip_reasoning_items)
 
-            session = SQLiteSession(f"extractor_agent_session_step_{step or 0}")
+            # session disabled: fresh context each retry to avoid poisoned-message 500 errors
 
-            for _ in range(10):
+            for retry in range(10):
                 try:
                     res = await Runner().run(
                         agent,
                         f"System now wants to focus on: {focus}.",
                         max_turns=extractor_agent_cfg.max_iterations,
-                        session=session,
                         run_config=_run_config,
                     )
                     # ConsoleManager.console_print(f"Agent Result: {res.final_output}")
-                except Exception:
+                except Exception as e:
+                    err_str = str(e)
+                    if any(kw in err_str for kw in ("max_model_len", "context_length_exceeded", "prompt length", "maximum context length", "unexpected tokens", "InternalServerError")):
+                        session = SQLiteSession(f"extractor_agent_session_step_{step or 0}_fresh_{retry}")
                     continue
 
         await main()
