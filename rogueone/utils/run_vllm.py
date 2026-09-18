@@ -4,7 +4,7 @@ import subprocess
 import os
 import signal
 from typing import Optional
-from time import sleep
+from time import sleep, time
 
 from openai import OpenAI
 from langchain_openai.embeddings import OpenAIEmbeddings
@@ -90,6 +90,39 @@ def run_script_daemon(
     return start_daemon(cmd, pidfile=pidfile, logfile=logfile, cwd=cwd)
 
 
+_LAUNCH_LOG_DIR = "/workspace/tmp"
+_LLM_LOG = f"{_LAUNCH_LOG_DIR}/vllm_llm.log"
+_EMBEDD_LOG = f"{_LAUNCH_LOG_DIR}/vllm_embedd.log"
+# How long to wait for a server before giving up. The servers take minutes to
+# load a 20B at TP=2, so this is generous -- it exists to stop an INFINITE wait
+# when the daemon is already dead, not to race a slow load.
+_SERVER_WAIT_SECONDS = 1800
+
+
+def _daemon_alive(pid: int) -> bool:
+    try:
+        os.kill(pid, 0)
+    except (ProcessLookupError, PermissionError):
+        return False
+    except Exception:
+        return True
+    return True
+
+
+def _die_with_log(what: str, pid: int, logfile: str) -> None:
+    """Raise with the daemon's own output, which used to go to /dev/null."""
+    tail = ""
+    try:
+        with open(logfile, "r", errors="replace") as fh:
+            tail = "".join(fh.readlines()[-40:])
+    except Exception as exc:
+        tail = f"(could not read {logfile}: {exc})"
+    raise RuntimeError(
+        f"{what} daemon (pid {pid}) is not running and its port never opened.\n"
+        f"--- last lines of {logfile} ---\n{tail}"
+    )
+
+
 def start_vllm_servers() -> int:
     global _EMBEDDING_SERVER_PID
 
@@ -103,13 +136,21 @@ def start_vllm_servers() -> int:
         EMBEDD_server_script.exists()
     ), f"Embedding server script not found: {EMBEDD_server_script}"
 
-    run_script_daemon(
+    os.makedirs(_LAUNCH_LOG_DIR, exist_ok=True)
+
+    # Logfiles, not /dev/null: a daemon that dies on startup must leave evidence.
+    _llm_pid = run_script_daemon(
         script_path=str(LLM_server_script),
+        logfile=_LLM_LOG,
     )
 
     _EMBEDDING_SERVER_PID = run_script_daemon(
         script_path=str(EMBEDD_server_script),
+        logfile=_EMBEDD_LOG,
     )
+    print(f"#### vLLM daemons started: llm pid={_llm_pid} log={_LLM_LOG}, "
+          f"embedding pid={_EMBEDDING_SERVER_PID} log={_EMBEDD_LOG} ####")
+    _llm_deadline = time() + _SERVER_WAIT_SECONDS
 
     print("#### Waiting for VLLM servers to start... ####")
 
@@ -135,9 +176,17 @@ def start_vllm_servers() -> int:
         except Exception as e:
             print(f"Waiting for {model_name} servers to be ready... {e}")
 
+        if not _daemon_alive(_llm_pid):
+            _die_with_log("LLM", _llm_pid, _LLM_LOG)
+        if time() > _llm_deadline:
+            raise TimeoutError(
+                f"LLM server did not come up within {_SERVER_WAIT_SECONDS}s; "
+                f"see {_LLM_LOG}"
+            )
         sleep(10)
 
     print("#### Waiting for Embedding server to start... ####")
+    _embedd_deadline = time() + _SERVER_WAIT_SECONDS
 
     while True:
         base_url = f"http://localhost:{os.getenv('EMBEDD_PORT')}/v1"
@@ -159,6 +208,13 @@ def start_vllm_servers() -> int:
         except Exception as e:
             print(f"Waiting for {model_name} server to be ready... {e}")
 
+        if not _daemon_alive(_EMBEDDING_SERVER_PID):
+            _die_with_log("Embedding", _EMBEDDING_SERVER_PID, _EMBEDD_LOG)
+        if time() > _embedd_deadline:
+            raise TimeoutError(
+                f"Embedding server did not come up within {_SERVER_WAIT_SECONDS}s; "
+                f"see {_EMBEDD_LOG}"
+            )
         sleep(10)
 
     print()
