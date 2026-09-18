@@ -1,0 +1,20 @@
+context_and_goal: | 
+  This is an optimization task for the time series cardiac arrest dataset.
+  The goal is to produce useful features to predict if a patient's outcome can be predicted by monitoring their suppression ratio during an EEG.
+  The outcome predictions are done by an external program. Our goal is to identify which patients are eligible for this kind of monitoring.
+  The dataset contains log events from ICU stays of patients who experienced cardiac arrest.
+  Each row represents a log event with various attributes and contains the following columns:
+  - id: Unique identifier for each patient.
+  - name: Name of the log event. This indicates the type of measurement or observation recorded.
+  - result: Result of the log event. This is the value or outcome of the measurement or an observation.
+  - unit: Unit of measurement for the result (this may be empty if not applicable).
+  - time: Timestamp indicating when the log event was recorded.
+experiment_description: Feature assessment for the cardiac arrest dataset.
+experiment_name: cardiac_arrest
+feature_file_path: /workspace/phantom_menace/all_merged.csv
+knowledge_db_collection_name: medical_knowledge
+knowledge_db_path: /workspace/chroma_db
+label_file_path: /workspace/phantom_menace/Suppression_Ratio
+output_dir: /workspace/phantom_menace/output
+modality: time_series
+task_type: classification
