@@ -103,6 +103,11 @@ class TesterAgent:
         precision_min: float,
         tm_frac: float,
         target_class: int = 0,
+        *,
+        n_sham: int = 200,
+        n_folds: int = 5,
+        objective_seed: int = 20260917,
+        two_sided_target: bool = True,
     ):
         self.cfg_experiment = cfg
         self.knowledge_agent = WebSearchAgent(
@@ -111,6 +116,18 @@ class TesterAgent:
         self.target_class = target_class
         self.precision_min = precision_min
         self.tm_frac = tm_frac
+
+        # --- objective configuration (2026-09-17) -------------------------
+        # n_sham: matched exclusion sets drawn per objective evaluation. 200 is a
+        #   search-time compromise; the end-of-run reported figure should use more.
+        # n_folds: inner-validation folds. The test partition is never read during
+        #   search.
+        # two_sided_target: use the class-symmetric biomarker loss instead of the
+        #   outcome-gated troublemaker score. See CHANGE 2 in the pipeline.
+        self.n_sham = n_sham
+        self.n_folds = n_folds
+        self.objective_seed = objective_seed
+        self.two_sided_target = two_sided_target
 
         self._brainflux_filter_pipeline = BrainfluxFilterPipeline(
             data_path="/workspace/phantom_menace/Suppression_Ratio",
@@ -185,9 +202,31 @@ class TesterAgent:
         X_all_train = df_attributes_train.copy().drop(columns=["id"])
         X_all_test = df_attributes_test.copy().drop(columns=["id"])
 
-        trouble_makers = self._brainflux_filter_pipeline.get_troublemaker(
-            excluded_patients=[], top_p=self.tm_frac, set="train"
-        )
+        # ============================================================
+        # CHANGE 2 (2026-09-17): the supervision target.
+        #
+        # WAS: get_troublemaker(top_p=tm_frac), which scores only NON-target
+        #      patients -- InvSqDistTroublemaker gates on target_class -- with
+        #      everyone else mapped to 0 below. Eligibility for a non-zero target
+        #      was therefore decided by the outcome label (Reviewer 1 pt 3), and
+        #      B2 (#11) showed the consequence: the features the loop surfaced
+        #      were survival predictors (AUROC .821/.715/.709) rather than
+        #      biomarker confounders.
+        #
+        # NOW: the class-symmetric per-patient biomarker loss. Defined for every
+        #      patient; zero where the filter is right; weighted by proximity to
+        #      the boundary where it is wrong. Still outcome-linked -- any error
+        #      signal is -- but no longer class-gated, which was the structural
+        #      criticism.
+        # ============================================================
+        if self.two_sided_target:
+            trouble_makers = self._brainflux_filter_pipeline.get_biomarker_loss(
+                excluded_patients=[], split="train"
+            )
+        else:
+            trouble_makers = self._brainflux_filter_pipeline.get_troublemaker(
+                excluded_patients=[], top_p=self.tm_frac, set="train"
+            )
 
         trouble_makers = {k: v for k, v in trouble_makers.items()}
 
@@ -761,30 +800,55 @@ class TesterAgent:
             predictions_enc_test = model.predict(X_all_test)
             predictions_enc_train = model.predict(X_all_train)
 
-            train_score = 0
-            best_val = 0
+            # ============================================================
+            # CHANGE 1 + 3 (2026-09-17): the objective.
+            #
+            # WAS: sweep the threshold on raw TRAIN recall, then return
+            #        get_score(test_ids + train_ids)["test"]
+            #      to the Scientist. Two defects in three lines --
+            #        (a) raw recall is won by depleting survivors, so the search
+            #            was rewarded for class-balance enrichment rather than
+            #            structure (B1, HQ #10);
+            #        (b) the returned value read the TEST partition, so every LLM
+            #            proposal was graded on held-out data (Reviewer 1 pt 2).
+            #
+            # NOW: sweep the threshold on J -- the nested inner-validation recall
+            #      standardised against exclusion sets matched exactly on class
+            #      composition -- and return J. The test partition is untouched
+            #      during search; it is read once, after the loop, by the
+            #      reporting path.
+            # ============================================================
+            best_objective = None
+            best_val = 0.0
             for val in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]:
                 patient_ids_train_val = df_attributes_train[predictions_enc_train > val][
                     "id"
                 ].values
 
-                tmp_score = self._brainflux_filter_pipeline.get_score(
-                    patient_ids_train_val.tolist()
-                )["train"]
-                if tmp_score > train_score:
-                    train_score = tmp_score
+                candidate = self._brainflux_filter_pipeline.get_objective(
+                    patient_ids_train_val.tolist(),
+                    n_sham=self.n_sham,
+                    n_folds=self.n_folds,
+                    seed=self.objective_seed,
+                )
+                if best_objective is None or candidate.j > best_objective.j:
+                    best_objective = candidate
                     best_val = val
 
-            # Evaluate the chosen threshold on the held-out test partition
-            patient_ids_test = df_attributes_test[predictions_enc_test > best_val][
-                "id"
-            ].values
+            score = best_objective.j if best_objective is not None else 0.0
+
+            if best_objective is not None and best_objective.degenerate:
+                ConsoleManager.print(
+                    f"[yellow]All thresholds degenerate: {best_objective.reason}[/yellow]"
+                )
+
+            # Selected on TRAIN only. Kept for reporting, never fed back.
             patient_ids_train = df_attributes_train[predictions_enc_train > best_val][
                 "id"
             ].values
-            score = self._brainflux_filter_pipeline.get_score(
-                patient_ids_test.tolist() + patient_ids_train.tolist()
-            )["test"]
+            patient_ids_test = df_attributes_test[predictions_enc_test > best_val][
+                "id"
+            ].values
             patient_labels = self._brainflux_filter_pipeline.get_patient_classes(
                 list_of_patients=patient_ids_test.tolist()
             )
