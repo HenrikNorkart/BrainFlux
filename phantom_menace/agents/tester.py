@@ -37,13 +37,7 @@ from brainflux.external_connectors.brainflux_filter_pipeline import (
 
 # set_tracing_disabled(True)
 
-GPUS = [
-    # "cuda:3",
-    # "cuda:4",
-    # "cuda:5",
-    # "cuda:6",
-    "cuda:7",
-]
+GPUS = ["cuda:0"]
 
 
 @dataclass
@@ -184,6 +178,10 @@ class TesterAgent:
 
         X_all_train = df_attributes_train.copy().drop(columns=["id"])
         X_all_test = df_attributes_test.copy().drop(columns=["id"])
+
+        if X_all_train.shape[1] == 0:
+            ConsoleManager.console_error_print("No feature columns -- skipping XGBoost, global_recall=0.0")
+            return TestResultClassification(global_recall=0.0), df_attribute_explanations
 
         trouble_makers = self._brainflux_filter_pipeline.get_troublemaker(
             excluded_patients=[], top_p=self.tm_frac, set="train"
@@ -729,7 +727,7 @@ class TesterAgent:
 
                 with contextlib.redirect_stdout(io.StringIO()) as f:
                     study = optuna.create_study(direction="minimize")
-                    study.optimize(objective, n_trials=50, n_jobs=len(GPUS))
+                    study.optimize(objective, n_trials=20, n_jobs=len(GPUS))
                     best_params = study.best_params
             except Exception as e:
                 ConsoleManager.console_error_print(
@@ -783,7 +781,7 @@ class TesterAgent:
                 "id"
             ].values
             score = self._brainflux_filter_pipeline.get_score(
-                patient_ids_test.tolist() + patient_ids_train.tolist()
+                patient_ids_train.tolist()
             )["test"]
             patient_labels = self._brainflux_filter_pipeline.get_patient_classes(
                 list_of_patients=patient_ids_test.tolist()

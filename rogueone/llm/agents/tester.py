@@ -643,16 +643,33 @@ class TesterAgent:
             )
 
             def _strip_reasoning_items(data: CallModelData) -> ModelInputData:
-                """Filter out 'reasoning' items from input to avoid vLLM 400 errors."""
-                filtered = [
-                    item
-                    for item in data.model_data.input
-                    if not (isinstance(item, dict) and item.get("type") == "reasoning")
+                """Recursively strip special tokens from all string fields, handling Pydantic models."""
+                import re as _re
+                _PAT = _re.compile(
+                    r'<[|](?:end|start|endoftext|im_end|im_start|eot_id|begin_of_text|channel)[^|]*[|]>',
+                    _re.IGNORECASE
+                )
+                def _clean(obj):
+                    if isinstance(obj, str):
+                        return _PAT.sub('', obj)
+                    if isinstance(obj, dict):
+                        return {k: _clean(v) for k, v in obj.items()}
+                    if isinstance(obj, list):
+                        return [_clean(i) for i in obj]
+                    if hasattr(obj, 'model_dump'):
+                        return _clean(obj.model_dump())
+                    return obj
+                cleaned_input = _clean(list(data.model_data.input))
+                cleaned = [
+                    item for item in cleaned_input
+                    if not (isinstance(item, dict) and item.get('type') == 'reasoning')
+                    and not (isinstance(item, dict)
+                             and isinstance(item.get('content'), list)
+                             and len(item['content']) == 0)
                 ]
                 return ModelInputData(
-                    input=filtered, instructions=data.model_data.instructions
+                    input=cleaned, instructions=data.model_data.instructions
                 )
-
             _run_config = RunConfig(call_model_input_filter=_strip_reasoning_items)
 
             session = SQLiteSession(f"tester_agent_session_step_{step or 0}")

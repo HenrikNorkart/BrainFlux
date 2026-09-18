@@ -26,6 +26,5 @@ CUDA_VISIBLE_DEVICES=$GPUS vllm serve \
     --api-key "${API_KEY}" \
     --dtype auto \
     --port "${PORT}" \
-    --task embedding \
     --gpu_memory_utilization 0.5 \
     "${MODEL_NAME}"

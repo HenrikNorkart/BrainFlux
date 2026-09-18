@@ -6,7 +6,6 @@ import json
 from logging import getLogger
 import os
 
-os.environ["SERPER_API_KEY"] = r"beb4ce298263eb3a1f442507b051d9599e028fca"
 
 from requests import session
 
@@ -36,6 +35,7 @@ from langchain_community.utilities import GoogleSerperAPIWrapper
 from rogueone.utils import embedding_cfg, llm_cfg, knowledge_agent_cfg
 from rogueone.utils.console import ConsoleManager
 from rogueone.utils.config import ExperimentConfig
+from rogueone.utils.retrieval_guards import assert_serper_live
 
 
 # set_tracing_disabled(True)
@@ -105,14 +105,33 @@ async def _run_search_agent(query: str) -> str:
     )
 
     def _strip_reasoning_items(data: CallModelData) -> ModelInputData:
-        """Filter out 'reasoning' items from input to avoid vLLM 400 errors."""
-        filtered = [
-            item
-            for item in data.model_data.input
-            if not (isinstance(item, dict) and item.get("type") == "reasoning")
+        """Recursively strip special tokens from all string fields, handling Pydantic models."""
+        import re as _re
+        _PAT = _re.compile(
+            r'<[|](?:end|start|endoftext|im_end|im_start|eot_id|begin_of_text|channel)[^|]*[|]>',
+            _re.IGNORECASE
+        )
+        def _clean(obj):
+            if isinstance(obj, str):
+                return _PAT.sub('', obj)
+            if isinstance(obj, dict):
+                return {k: _clean(v) for k, v in obj.items()}
+            if isinstance(obj, list):
+                return [_clean(i) for i in obj]
+            if hasattr(obj, 'model_dump'):
+                return _clean(obj.model_dump())
+            return obj
+        cleaned_input = _clean(list(data.model_data.input))
+        cleaned = [
+            item for item in cleaned_input
+            if not (isinstance(item, dict) and item.get('type') == 'reasoning')
+            and not (isinstance(item, dict)
+                     and isinstance(item.get('content'), list)
+                     and len(item['content']) == 0)
         ]
-        return ModelInputData(input=filtered, instructions=data.model_data.instructions)
-
+        return ModelInputData(
+            input=cleaned, instructions=data.model_data.instructions
+        )
     session = SQLiteSession(f"web_search_agent")
 
     try:
@@ -137,6 +156,7 @@ async def _run_search_agent(query: str) -> str:
 class WebSearchAgent:
     def __init__(self, cfg: ExperimentConfig):
         self._cfg = cfg
+        assert_serper_live()
 
     async def explain_query(self, query: str) -> str:
         ans = await _run_search_agent(query)

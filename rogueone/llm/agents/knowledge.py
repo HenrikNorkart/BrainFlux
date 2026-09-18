@@ -30,6 +30,7 @@ from langchain_core.documents import Document
 from rogueone.utils import embedding_cfg, llm_cfg, knowledge_agent_cfg
 from rogueone.utils.console import ConsoleManager
 from rogueone.utils.config import ExperimentConfig
+from rogueone.utils.retrieval_guards import assert_knowledge_store_live
 
 
 # set_tracing_disabled(True)
@@ -110,14 +111,33 @@ async def _run_explanation_agent(query: str, db: Chroma) -> str:
     )
 
     def _strip_reasoning_items(data: CallModelData) -> ModelInputData:
-        """Filter out 'reasoning' items from input to avoid vLLM 400 errors."""
-        filtered = [
-            item
-            for item in data.model_data.input
-            if not (isinstance(item, dict) and item.get("type") == "reasoning")
+        """Recursively strip special tokens from all string fields, handling Pydantic models."""
+        import re as _re
+        _PAT = _re.compile(
+            r'<[|](?:end|start|endoftext|im_end|im_start|eot_id|begin_of_text|channel)[^|]*[|]>',
+            _re.IGNORECASE
+        )
+        def _clean(obj):
+            if isinstance(obj, str):
+                return _PAT.sub('', obj)
+            if isinstance(obj, dict):
+                return {k: _clean(v) for k, v in obj.items()}
+            if isinstance(obj, list):
+                return [_clean(i) for i in obj]
+            if hasattr(obj, 'model_dump'):
+                return _clean(obj.model_dump())
+            return obj
+        cleaned_input = _clean(list(data.model_data.input))
+        cleaned = [
+            item for item in cleaned_input
+            if not (isinstance(item, dict) and item.get('type') == 'reasoning')
+            and not (isinstance(item, dict)
+                     and isinstance(item.get('content'), list)
+                     and len(item['content']) == 0)
         ]
-        return ModelInputData(input=filtered, instructions=data.model_data.instructions)
-
+        return ModelInputData(
+            input=cleaned, instructions=data.model_data.instructions
+        )
     session = SQLiteSession(f"knowledge_agent_session_db_{db._collection_name}")
 
     try:
@@ -143,9 +163,14 @@ class KnowledgeAgent:
     def __init__(self, cfg: ExperimentConfig, collection_name: str | None = None):
         self._cfg = cfg
 
+        self._collection_name = (
+            collection_name or self._cfg.knowledge_db_collection_name
+        )
+        self._persist_directory = str(self._cfg.knowledge_db_path)
+
         self._vector_db = Chroma(
-            collection_name=collection_name or self._cfg.knowledge_db_collection_name,
-            persist_directory=str("/workspaces/BrainFlux/chroma_db_medical_knowledge"),
+            collection_name=self._collection_name,
+            persist_directory=self._persist_directory,
             embedding_function=OpenAIEmbeddings(
                 base_url=embedding_cfg.endpoint,
                 api_key=embedding_cfg.api_key,
@@ -153,6 +178,10 @@ class KnowledgeAgent:
                 tiktoken_enabled=True,
                 chunk_size=embedding_cfg.chunk_size,
             ),
+        )
+
+        assert_knowledge_store_live(
+            self._vector_db, self._persist_directory, self._collection_name
         )
 
     async def explain_query(self, query: str) -> str:
