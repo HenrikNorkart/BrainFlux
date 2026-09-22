@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import asyncio
+import os
 
 import pandas as pd
 from pathlib import Path
@@ -282,31 +283,56 @@ class RogueOneAgentNetwork:
 if __name__ == "__main__":
     start_vllm_servers()
 
-    precisions = [0.90, 0.95, 0.99, 1.00]
-    tm_fracs = [0.1, 0.3, 0.5, 0.7]
+    # The pre-registration (tmp/t2_prereg.md, sections 3 and 4) fixes ONE arm:
+    # precision floor 0.95, top-p 0.1. The previous nested sweep ran
+    # [0.90, 0.95, 0.99, 1.00] x [0.1, 0.3, 0.5, 0.7] = 16 cells, which re-opened
+    # exactly the garden of forking paths the ICTAI result died of, and was most of
+    # the reason bf-newobj never finished: 16 cells against an objective costing
+    # ~7000 classifier fits per tester pass.
+    #
+    # Read from the environment rather than hardcoded, so the arm is explicit and
+    # a secondary analysis can be run deliberately instead of by editing literals.
+    # NOTE: if a floor sweep is ever wanted again as a SECONDARY analysis, 0.98 --
+    # the manuscript's own operating point -- must be in it. It was absent from the
+    # old grid entirely, which A6 flagged.
+    PRECISION_MIN = float(os.getenv("ROGUE_ONE_PRECISION_MIN", "0.95"))
+    TM_FRAC = float(os.getenv("ROGUE_ONE_TM_FRAC", "0.1"))
+
+    ConsoleManager.console_print(
+        f"PRE-REGISTERED ARM: precision_min={PRECISION_MIN}, tm_frac={TM_FRAC} "
+        f"(single configuration, not a sweep -- see tmp/t2_prereg.md). "
+        f"Both values are also written to the WandB run config.",
+        style="bold magenta",
+    )
 
     async def run_experiments():
-        for precision_min in precisions:
-            for tm_frac in tm_fracs:
+        # This is a retry-on-exception guard that stops at the first success. It is
+        # NOT the pre-registered three-seed replication -- the old `for _ in range(3)`
+        # spelling was read that way at least once. Replication is a separate concern
+        # and is driven by objective_seed (F3/#150), not by this loop.
+        MAX_LAUNCH_ATTEMPTS = 3
+        last_error: Exception | None = None
 
+        for attempt in range(1, MAX_LAUNCH_ATTEMPTS + 1):
+            try:
+                p = Path("/workspace/phantom_menace/config.yml")
+                cfg = ExperimentConfig.from_yaml(p)
+
+                await RogueOneAgentNetwork(
+                    cfg, precision_min=PRECISION_MIN, tm_frac=TM_FRAC
+                ).main()
+                return
+            except Exception as e:  # noqa: BLE001 - retried, then re-raised below
+                last_error = e
                 ConsoleManager.console_print(
-                    f"Starting Rogue One Agent Network with precision_min={precision_min}, tm_frac={tm_frac}",
-                    style="bold magenta",
+                    f"Launch attempt {attempt}/{MAX_LAUNCH_ATTEMPTS} failed: {e}",
+                    style="bold red",
                 )
 
-                for _ in range(3):  # Run each configuration up to 3 times
-
-                    try:
-                        p = Path("/workspace/phantom_menace/config.yml")
-                        cfg = ExperimentConfig.from_yaml(p)
-
-                        await RogueOneAgentNetwork(
-                            cfg, precision_min=precision_min, tm_frac=tm_frac
-                        ).main()
-                        break  # Break if successful
-                    except Exception as e:
-                        ConsoleManager.console_print(
-                            f"Experiment failed with error: {e}", style="bold red"
-                        )
+        # Previously the loop fell through silently, so a run that never started
+        # looked the same as one that finished.
+        raise RuntimeError(
+            f"All {MAX_LAUNCH_ATTEMPTS} launch attempts failed; last error: {last_error}"
+        )
 
     asyncio.run(run_experiments())
