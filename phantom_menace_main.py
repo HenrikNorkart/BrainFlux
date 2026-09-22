@@ -38,13 +38,24 @@ class TestResult:
 
 class RogueOneAgentNetwork:
 
-    def __init__(self, cfg: ExperimentConfig, precision_min=1.00, tm_frac=0.1):
+    def __init__(self, cfg: ExperimentConfig, precision_min=1.00, tm_frac=0.1,
+                 objective_seed: int = 20260917):
         self.cfg = cfg
         self.precision_min = precision_min
         self.tm_frac = tm_frac
+        # Pre-reg section 7 requires seeds 20260916/17/18 with PASS at 2 of 3.
+        # This was a hardcoded default inside TesterAgent, unreachable from
+        # config, env or CLI, so the three-seed design was not expressible at
+        # all -- which is why bf-newobj is n=1.
+        self.objective_seed = objective_seed
 
         ConsoleManager.console_rule("Setting up Weights & Biases Logging")
-        init_wandb_run(cfg, precision_min=precision_min, tm_frac=tm_frac)
+        init_wandb_run(
+            cfg,
+            precision_min=precision_min,
+            tm_frac=tm_frac,
+            objective_seed=objective_seed,
+        )
 
         self.df = pd.read_csv(self.cfg.feature_file_path)
 
@@ -61,7 +72,10 @@ class RogueOneAgentNetwork:
         self.extractor_agent = ExtractorAgent(self.cfg)
         self.scientist_agent = ScientistAgent(self.cfg)
         self.tester_agent = TesterAgent(
-            self.cfg, precision_min=precision_min, tm_frac=tm_frac
+            self.cfg,
+            precision_min=precision_min,
+            tm_frac=tm_frac,
+            objective_seed=objective_seed,
         )
 
         self.df_attributes_explanations = pd.DataFrame(
@@ -174,6 +188,8 @@ class RogueOneAgentNetwork:
         self.update_attribute_pool(_attribute_explanations)
         test_results = test_results.as_dict.copy()
         test_results["id"] = "Trial " + str(index)
+        # AC3: without this a pooled three-seed run cannot be split by seed.
+        test_results["objective_seed"] = self.objective_seed
 
         if self.df_test_pool is None:
             self.df_test_pool = pd.DataFrame([test_results])
@@ -297,9 +313,13 @@ if __name__ == "__main__":
     # old grid entirely, which A6 flagged.
     PRECISION_MIN = float(os.getenv("ROGUE_ONE_PRECISION_MIN", "0.95"))
     TM_FRAC = float(os.getenv("ROGUE_ONE_TM_FRAC", "0.1"))
+    # Pre-reg section 7: 20260916 / 20260917 / 20260918, PASS at 2 of 3.
+    # One run carries one seed; the three are separate runs.
+    OBJECTIVE_SEED = int(os.getenv("ROGUE_ONE_OBJECTIVE_SEED", "20260917"))
 
     ConsoleManager.console_print(
-        f"PRE-REGISTERED ARM: precision_min={PRECISION_MIN}, tm_frac={TM_FRAC} "
+        f"PRE-REGISTERED ARM: precision_min={PRECISION_MIN}, tm_frac={TM_FRAC}, "
+        f"objective_seed={OBJECTIVE_SEED} "
         f"(single configuration, not a sweep -- see tmp/t2_prereg.md). "
         f"Both values are also written to the WandB run config.",
         style="bold magenta",
@@ -319,7 +339,10 @@ if __name__ == "__main__":
                 cfg = ExperimentConfig.from_yaml(p)
 
                 await RogueOneAgentNetwork(
-                    cfg, precision_min=PRECISION_MIN, tm_frac=TM_FRAC
+                    cfg,
+                    precision_min=PRECISION_MIN,
+                    tm_frac=TM_FRAC,
+                    objective_seed=OBJECTIVE_SEED,
                 ).main()
                 return
             except Exception as e:  # noqa: BLE001 - retried, then re-raised below
