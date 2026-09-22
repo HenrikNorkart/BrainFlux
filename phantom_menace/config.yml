@@ -14,7 +14,7 @@ context_and_goal: |
   Use these exact column names. Writing df['name'], df['result'] or df['time'] raises a KeyError -- those columns do not exist.
 experiment_description: Feature assessment for the cardiac arrest dataset.
 experiment_name: cardiac_arrest
-feature_file_path: /workspace/phantom_menace/all_merged.csv
+feature_file_path: /workspace/phantom_menace/all_merged_24h.csv
 knowledge_db_collection_name: medical_knowledge
 knowledge_db_path: /workspace/chroma_db
 label_file_path: /workspace/phantom_menace/Suppression_Ratio
