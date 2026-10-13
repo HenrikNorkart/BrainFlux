@@ -41,15 +41,44 @@ from brainflux.external_connectors.brainflux_filter_pipeline import (
 GPUS = ["cuda:0"]
 
 
+# F9 (HQ #156). CHANGE 1 (2026-09-17) made this field carry J -- the sham-
+# standardised objective -- and left the name `global_recall` alone. The pool CSV
+# then advertised a recall in [0,1] while holding a z-score of 15.6-16.3, and the
+# Scientist selects the next focus of investigation from that pool. The earlier
+# 24h run's 0.8053 was already misread once as a paper number when it was the
+# Tester's own optimisation signal.
+#
+# `loss` was likewise repurposed: it carries test_rmse, not a loss in any sense
+# the name suggests.
+#
+# RENAMED 2026-09-23. A df_test_pool_final.csv written before this date has a
+# `global_recall` column holding J; one written after has `j`. See
+# OBJECTIVE_SCHEMA_VERSION below -- do not read an old CSV under the new meaning.
+OBJECTIVE_SCHEMA_VERSION = "2026-09-23"
+
+
 @dataclass
 class TestResultClassification:
-    global_recall: float
-    loss: float | None = None
+    # The sham-standardised objective, (real - sham_mean) / sham_sd. Higher is
+    # better. NOT a recall and NOT bounded to [0, 1].
+    j: float
+    test_rmse: float | None = None
     best_threshold: float | None = None
     target_class_patients_removed: int | None = None
     non_target_class_patients_removed: int | None = None
     top_impactful_attributes: dict[str, float] | None = None
     report: str | None = None
+    # AC3: the diagnostics behind `j`. Without these a reported J cannot be
+    # interrogated at all without re-running the whole objective -- which is
+    # precisely what F4 (#151) had to do.
+    real_score: float | None = None
+    sham_mean: float | None = None
+    sham_sd: float | None = None
+    n_sham: int | None = None
+    n_excluded: int | None = None
+    retained_fraction: float | None = None
+    objective_seed: int | None = None
+    schema_version: str = OBJECTIVE_SCHEMA_VERSION
 
     def to_dict(self, only_metrics: bool = True) -> dict:
         if only_metrics:
@@ -58,12 +87,22 @@ class TestResultClassification:
             return tmp
         else:
             tmp = {
-                "global_recall": self.global_recall,
-                "loss": self.loss,
+                "j": self.j,
+                "test_rmse": self.test_rmse,
                 "best_threshold": self.best_threshold,
                 "target_class_patients_removed": self.target_class_patients_removed,
                 "non_target_class_patients_removed": self.non_target_class_patients_removed,
                 "report": self.report,
+                # AC3 -- the numbers behind j.
+                "real_score": self.real_score,
+                "sham_mean": self.sham_mean,
+                "sham_sd": self.sham_sd,
+                "n_sham": self.n_sham,
+                "n_excluded": self.n_excluded,
+                "retained_fraction": self.retained_fraction,
+                "objective_seed": self.objective_seed,
+                # AC4 -- so an old CSV is never read under the new meaning.
+                "schema_version": self.schema_version,
             }
             for k, v in (self.top_impactful_attributes or {}).items():
                 tmp[f"top_impactful_attribute_{k}"] = v
@@ -199,8 +238,8 @@ class TesterAgent:
         X_all_test = df_attributes_test.copy().drop(columns=["id"])
 
         if X_all_train.shape[1] == 0:
-            ConsoleManager.console_error_print("No feature columns -- skipping XGBoost, global_recall=0.0")
-            return TestResultClassification(global_recall=0.0), df_attribute_explanations
+            ConsoleManager.console_error_print("No feature columns -- skipping XGBoost, j=0.0")
+            return TestResultClassification(j=0.0), df_attribute_explanations
 
         # ============================================================
         # CHANGE 2 (2026-09-17): the supervision target.
@@ -861,7 +900,7 @@ class TesterAgent:
             top_10_features_dict = {name: score for name, score in top_10_features}
 
             out = df_best_params.copy()
-            out["test_global_recall"] = score
+            out["test_j"] = score
             out["test_rmse"] = np.sqrt(
                 mean_squared_error(y_all_test["target"], predictions_enc_test)
             )
@@ -874,8 +913,29 @@ class TesterAgent:
             # queue.put(device)
 
             return TestResultClassification(
-                global_recall=score,
-                loss=out["test_rmse"].iloc[0],
+                j=score,
+                test_rmse=out["test_rmse"].iloc[0],
+                # AC3: carry the objective's own diagnostics through, so the pool
+                # answers "why is j that number" without a re-run.
+                real_score=(
+                    float(best_objective.real_score) if best_objective else None
+                ),
+                sham_mean=(
+                    float(best_objective.sham_mean) if best_objective else None
+                ),
+                sham_sd=float(best_objective.sham_sd) if best_objective else None,
+                n_sham=int(best_objective.n_sham) if best_objective else None,
+                n_excluded=(
+                    int(best_objective.n_excluded) if best_objective else None
+                ),
+                retained_fraction=(
+                    1.0 - best_objective.n_excluded / len(
+                        self._brainflux_filter_pipeline.all_patient_ids_train
+                    )
+                    if best_objective
+                    else None
+                ),
+                objective_seed=self.objective_seed,
                 best_threshold=out["best_threshold"].iloc[0],
                 target_class_patients_removed=sum(
                     [
